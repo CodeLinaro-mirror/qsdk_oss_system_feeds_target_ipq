@@ -5,7 +5,6 @@ define Device/qcom_al01-c1
 	DEVICE_MODEL := AP-AL01-C1
 	DEVICE_VARIANT := C1
 	BOARD_NAME := ap-al01.1-c1
-	DEVICE_DTS_DIR := $(DTS_DIR)/
 	SOC := ipq9574
 	KERNEL_INSTALL := 1
 	KERNEL_SIZE := 6096k
@@ -20,7 +19,6 @@ define Device/qcom_al02-c7
 	DEVICE_MODEL := AP-AL02-C7
 	DEVICE_VARIANT := C7
 	BOARD_NAME := ap-al02.1-c7
-	DEVICE_DTS_DIR := $(DTS_DIR)/
 	SOC := ipq9574
 	KERNEL_INSTALL := 1
 	KERNEL_SIZE := 6096k

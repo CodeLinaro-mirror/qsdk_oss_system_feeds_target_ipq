@@ -3,7 +3,7 @@ include $(INCLUDE_DIR)/image.mk
 
 define Device/Default
 	PROFILES := Default
-	DEVICE_DTS_DIR := $(DTS_DIR)/qcom
+	DTS_DIR := $(LINUX_DIR)/arch/$(LINUX_KARCH)/boot/dts/qcom
 	KERNEL_DEPENDS = $$(wildcard $(DTS_DIR)/$$(DEVICE_DTS).dts)
 	KERNEL_LOADADDR := 0x41208000
 	DEVICE_DTS = $$(SOC)-$(lastword $(subst _, ,$(1)))

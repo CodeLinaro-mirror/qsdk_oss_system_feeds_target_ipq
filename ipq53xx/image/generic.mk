@@ -10,7 +10,6 @@ define Device/qcom_mi01.2
 	DEVICE_MODEL := AP-MI01.2
 	DEVICE_VARIANT :=
 	BOARD_NAME := ap-mi01.2
-	DEVICE_DTS_DIR := $(DTS_DIR)/
 	SOC := ipq5332
 	KERNEL_INSTALL := 1
 	KERNEL_SIZE := 6096k
