@@ -1,4 +1,18 @@
 
+define Device/qcom_alxx
+        $(call Device/MultiDTBFitImage)
+	DEVICE_VENDOR := Qualcomm Technologies, Inc.
+	DEVICE_MODEL := AP-ALXX
+	DEVICE_VARIANT :=
+	BOARD_NAME := ap-alxx
+	SOC := ipq9574
+	KERNEL_INSTALL := 1
+	KERNEL_SIZE := 6096k
+	IMAGE_SIZE := 25344k
+	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
+endef
+TARGET_DEVICES += qcom_alxx
+
 define Device/qcom_al01-c1
 	$(call Device/FitImageLzma)
 	DEVICE_VENDOR := Qualcomm Technologies, Inc.

@@ -25,11 +25,31 @@ define Device/FitImageLzma
 	KERNEL_NAME := Image
 endef
 
+define Device/MultiDTBFitImage
+	KERNEL_SUFFIX := -fit-uImage.itb
+	KERNEL = kernel-bin | lzma | MultiDTBFIT
+	DEVICE_DTS =
+	KERNEL_INITRAMFS =
+endef
+
 include generic.mk
+
+FindDeviceTrees ?= $(notdir $(basename $(shell find $(DTS_DIR)/ -name $(1)*.dtb $(2) 2>/dev/null)))
 
 define Image/Build
 	$(call Image/Build/$(1),$(1))
 	dd if=$(KDIR)/root$(2).$(1) of=$(BIN_DIR)/$(IMG_PREFIX)-$(1)-root$(3).img bs=2k conv=sync
+endef
+
+define Build/MkFITMulti
+	$(TOPDIR)/scripts/mkits.sh \
+		-D $(1) -o $(KDIR)/fit-$(1).its -k $(2) $(foreach dtb,$(subst \",,$(3)), -d $(DTS_DIR)/$(dtb).dtb$(if $(7),.gz)) -C $(4) -a $(5) -e $(6) $(if $(7),-x $(7) -l $(8))\
+		-A $(LINUX_KARCH) -v $(LINUX_VERSION)
+	PATH=$(LINUX_DIR)/scripts/dtc:$(PATH) mkimage -f $(KDIR)/fit-$(1).its $(KDIR)/$(1)$(KERNEL_SUFFIX)
+endef
+
+define Build/MultiDTBFIT
+	$(call Build/MkFITMulti,qcom_mixx,$@,$(call FindDeviceTrees, ipq5332-), lzma, $(KERNEL_LOADADDR),$(KERNEL_LOADADDR))
 endef
 
 $(eval $(call BuildImage))
