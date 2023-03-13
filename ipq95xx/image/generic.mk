@@ -11,7 +11,7 @@ define Device/qcom_al01-c1
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
-TARGET_DEVICES += qcom_al01-c1
+#TARGET_DEVICES += qcom_al01-c1
 
 define Device/qcom_al02-c7
 	$(call Device/FitImageLzma)
@@ -25,7 +25,7 @@ define Device/qcom_al02-c7
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
-TARGET_DEVICES += qcom_al02-c7
+#TARGET_DEVICES += qcom_al02-c7
 
 define Device/qcom_rdp433
 	$(call Device/FitImageLzma)
