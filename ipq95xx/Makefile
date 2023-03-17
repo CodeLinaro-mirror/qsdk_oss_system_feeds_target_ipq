@@ -35,6 +35,6 @@ endif
 
 include $(INCLUDE_DIR)/target.mk
 DEFAULT_PACKAGES += \
-	uboot-envtools
+	e2fsprogs uboot-envtools
 
 $(eval $(call BuildTarget))
