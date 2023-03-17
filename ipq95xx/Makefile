@@ -19,6 +19,7 @@ CONFIG_EXTERNAL_KERNEL_TREE=$(shell \
         sed -n 's,CONFIG_EXTERNAL_KERNEL_TREE="\(.*\)",\1,p' $(TOPDIR)/.config || \
         echo '$(TOPDIR)/qca/src/linux-$(LINUX_SRC_VERSION)')
 
+$(shell cp -fpR -u $(TOPDIR)/target/linux/feeds/files-6.1/* '$(CONFIG_EXTERNAL_KERNEL_TREE)')
 #CONFIG_EXTERNAL_KERNEL_TREE=$(shell echo '$(TOPDIR)/qca/src/linux-$(LINUX_SRC_VERSION)')
 ifneq ($(CONFIG_EXTERNAL_KERNEL_TREE),"")
   $(eval _LINUX_DIR:=$(CONFIG_EXTERNAL_KERNEL_TREE))
