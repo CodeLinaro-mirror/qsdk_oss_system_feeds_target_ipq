@@ -27,11 +27,11 @@ define Device/qcom_al02-c7
 endef
 TARGET_DEVICES += qcom_al02-c7
 
-define Device/qcom_al02-c4
+define Device/qcom_rdp433
 	$(call Device/FitImageLzma)
 	DEVICE_VENDOR := Qualcomm Technologies, Inc.
-	DEVICE_MODEL := AP-AL02-C4
-	DEVICE_VARIANT := C4
+	DEVICE_MODEL := RDP433
+	DEVICE_VARIANT := AP-AL02-C4
 	BOARD_NAME := ap-al02.1-c4
 	SOC := ipq9574
 	KERNEL_INSTALL := 1
@@ -39,4 +39,4 @@ define Device/qcom_al02-c4
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
-TARGET_DEVICES += qcom_al02-c4
+TARGET_DEVICES += qcom_rdp433
