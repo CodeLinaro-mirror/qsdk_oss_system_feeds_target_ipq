@@ -6,7 +6,7 @@ BOARDNAME:=Qualcomm Technologies, Inc. IPQ95XX
 FEATURES:=squashfs fpu ramdisk nand pcie
 CPU_TYPE:=cortex-a73
 CPU_SUBTYPE:=neon-vfpv4
-SUBTARGETS:=generic
+SUBTARGETS:=generic ipq95xx_32
 
 
 KERNELNAME:=Image dtbs

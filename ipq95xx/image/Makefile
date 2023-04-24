@@ -3,7 +3,7 @@ include $(INCLUDE_DIR)/image.mk
 
 define Device/Default
 	PROFILES := Default
-	DTS_DIR := $(LINUX_DIR)/arch/$(LINUX_KARCH)/boot/dts/qcom
+	DTS_DIR := $(LINUX_DIR)/arch/$(LINUX_KARCH)/boot/dts/$(if $(CONFIG_TARGET_ipq95xx_generic),qcom)
 	KERNEL_DEPENDS = $$(wildcard $(DTS_DIR)/$$(DEVICE_DTS).dts)
 	KERNEL_LOADADDR := 0x41208000
 	DEVICE_DTS = $$(SOC)-$(lastword $(subst _, ,$(1)))
@@ -25,7 +25,7 @@ define Device/FitImageLzma
 	KERNEL_NAME := Image
 endef
 
-include $(SUBTARGET).mk
+include generic.mk
 
 define Image/Build
 	$(call Image/Build/$(1),$(1))
