@@ -8,7 +8,7 @@ NSS_MACSEC:= \
 
 QCA_ECM_STANDARD:= kmod-qca-nss-ecm-standard
 QCA_ECM_ENTERPRISE:= kmod-qca-nss-ecm-noload kmod-qca-nss-ecm-wifi-plugin
-QCA_ECM_PREMIUM:= kmod-qca-nss-ecm-premium kmod-qca-nss-ecm-wifi-plugin
+QCA_ECM_PREMIUM:= kmod-qca-nss-ecm-premium
 
 NSS_PPE:= kmod-qca-nss-ppe \
 	-kmod-qca-nss-ppe-vp \
@@ -96,7 +96,7 @@ COREBSP_UTILS:=pm-utils wififw_mount_script qca-thermald qca-qmi-framework qca-t
 	qca-wlanfw-upgrade qti-license-pfm dashboard qapp-store
 
 FAILSAFE:= kmod-bootconfig
-
+DEFAULT_PACKAGES += -dnsmasq
 NETWORKING:=mcproxy -dnsmasq dnsmasq-dhcpv6 bridge ip-bridge ip-full mwan3 \
 	rp-pppoe-relay iptables-mod-extra iputils-tracepath iputils-tracepath6 \
 	luci-app-upnp luci-app-ddns luci-proto-ipv6 \
@@ -193,7 +193,8 @@ EXTRA_NETWORKING:= $(CD_ROUTER) $(NSS_EIP197_FW) -rdk-v-wifi-ath10k kmod-qca-nss
 define Profile/QSDK_Premium
 	NAME:=Qualcomm Technologies, Inc SDK Premium Profile
 	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) \
-		$(VIDEO) $(TEST_TOOLS) $(FAILSAFE) $(USB_DIAG) $(COREBSP_UTILS)
+		$(VIDEO) $(TEST_TOOLS) $(FAILSAFE) $(USB_DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(QCA_ECM_PREMIUM) \
+		$(NETWORKING) $(CD_ROUTER) $(SWITCH_SSDK_NOHNAT_PKGS) $(KPI)
 #		$(AQ_PHY) $(FAILSAFE) -lacpd $(USB_DIAG) $(SWITCH_SSDK_PKGS) $(CNSS_DIAG) \
 #		$(FTM) $(CTRL_APP_DUT) $(QMSCT_CLIENT) $(KPI) $(NSS_COMMON) \
 #		$(NSS_STANDARD) $(UTILS) $(NETWORKING) $(CD_ROUTER) $(NSS_CLIENTS_STANDARD) \
