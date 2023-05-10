@@ -1,27 +1,5 @@
 NSS_COMMON:= \
-	kmod-qca-nss-dp \
-	kmod-qca-nss-drv \
-	-kmod-qca-nss-gmac
-
-NSS_EIP197_FW:= \
-	qca-nss-fw-eip-hk \
-	qca-nss-fw-eip-cp
-
-NSS_STANDARD:= \
-	qca-nss-fw-hk-retail \
-	qca-nss-fw-cp-retail \
-	qca-nss-fw-mp-retail
-
-NSS_ENTERPRISE:= \
-	qca-nss-fw-hk-enterprise \
-	qca-nss-fw-hk-enterprise_custA \
-	qca-nss-fw-hk-enterprise_custC \
-	qca-nss-fw-hk-enterprise_custR \
-	qca-nss-fw-cp-enterprise \
-	qca-nss-fw-mp-enterprise \
-	qca-nss-fw-cp-enterprise_custA \
-	qca-nss-fw-cp-enterprise_custC \
-	qca-nss-fw-cp-enterprise_custR
+	kmod-qca-nss-dp
 
 NSS_MACSEC:= \
 	kmod-qca-nss-macsec \
@@ -33,34 +11,18 @@ QCA_ECM_ENTERPRISE:= kmod-qca-nss-ecm-noload kmod-qca-nss-ecm-wifi-plugin
 QCA_ECM_PREMIUM:= kmod-qca-nss-ecm-premium kmod-qca-nss-ecm-wifi-plugin
 
 NSS_PPE:= kmod-qca-nss-ppe \
-	kmod-qca-nss-ppe-vp \
+	-kmod-qca-nss-ppe-vp \
 	kmod-qca-nss-ppe-bridge-mgr \
 	kmod-qca-nss-ppe-pppoe-mgr \
-	kmod-qca-nss-ppe-lag-mgr \
-	kmod-qca-nss-ppe-tunipip6 \
-	kmod-qca-nss-ppe-gretap \
-	kmod-qca-nss-ppe-vxlanmgr \
-	kmod-qca-nss-ppe-mapt \
-	kmod-qca-nss-ppe-rule
+	-kmod-qca-nss-ppe-lag-mgr \
+	-kmod-qca-nss-ppe-tunipip6 \
+	-kmod-qca-nss-ppe-gretap \
+	-kmod-qca-nss-ppe-vxlanmgr \
+	-kmod-qca-nss-ppe-mapt \
+	-kmod-qca-nss-ppe-rule
 
-NSS_CLIENTS_STANDARD:= kmod-qca-nss-drv-qdisc kmod-qca-nss-drv-igs kmod-qca-nss-drv-tun6rd \
-	kmod-qca-nss-drv-tunipip6 kmod-qca-nss-drv-l2tpv2 kmod-qca-nss-drv-pptp \
-	kmod-qca-nss-drv-map-t kmod-qca-nss-drv-lag-mgr \
-	kmod-qca-nss-drv-bridge-mgr kmod-qca-nss-drv-gre kmod-qca-nss-drv-pppoe \
-	kmod-qca-nss-drv-ovpn-mgr kmod-qca-nss-drv-ovpn-link kmod-qca-nss-drv-vxlanmgr \
-	kmod-qca-nss-drv-netlink kmod-qca-ovsmgr kmod-qca-nss-drv-match kmod-qca-nss-drv-mirror \
-	kmod-qca-nss-drv-mscs
-
-NSS_CLIENTS_256MB:= kmod-qca-nss-drv-bridge-mgr kmod-qca-nss-drv-pppoe
-
-NSS_CLIENTS_ENTERPRISE:= kmod-qca-nss-drv-qdisc kmod-qca-nss-drv-profile \
-	kmod- kmod-qca-nss-drv-bridge-mgr kmod-qca-nss-drv-netlink kmod-qca-nss-drv-tlsmgr \
-	kmod-qca-nss-drv-match kmod-qca-nss-drv-mirror kmod-qca-nss-drv-mscs
-
-NSS_CRYPTO:= kmod-qca-nss-crypto kmod-qca-nss-cfi-cryptoapi -kmod-qca-nss-cfi-ocf kmod-qca-nss-drv-ipsecmgr kmod-qca-nss-drv-ipsecmgr-xfrm -kmod-crypto-ocf -kmod-qca-nss-drv-ipsecmgr-klips \
+NSS_CRYPTO:= kmod-qca-nss-crypto kmod-qca-nss-cfi-cryptoapi -kmod-qca-nss-cfi-ocf -kmod-crypto-ocf \
 	kmod-qca-nss-eip kmod-qca-nss-eip-crypto kmod-qca-nss-eip-ipsec
-
-NSS_RMNET:= kmod-rmnet-nss
 
 HW_CRYPTO:= kmod-crypto-qcrypto
 
@@ -71,8 +33,6 @@ NSS_NSM:= qca-nsm-app
 NSS_MESH:= kmod-qca-nss-drv-wifi-meshmgr
 
 SAL_QOS:= qca-sal-qos-test qca-sal-rule-test
-
-QCA_RFS:= kmod-qca-rfs
 
 SWITCH_SSDK_PKGS:= kmod-qca-ssdk-hnat kmod-qca-ssdk-nohnat qca-ssdk-shell swconfig
 
