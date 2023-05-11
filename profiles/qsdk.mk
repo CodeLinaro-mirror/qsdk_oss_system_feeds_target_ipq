@@ -218,10 +218,10 @@ $(eval $(call Profile,QSDK_Premium))
 define Profile/QSDK_Open
 	NAME:=Qualcomm Technologies, Inc SDK Open Profile
 	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(TEST_TOOLS) $(AUDIO) $(VIDEO) \
-		$(COREBSP_UTILS)
-#		-qca-thermald $(FAILSAFE) $(USB_DIAG) \
-#		$(SWITCH_SSDK_NOHNAT_PKGS) $(SWITCH_SSDK_PKGS) \
-#		$(FTM) $(KPI) $(UTILS) $(NETWORKING) $(EXTRA_NETWORKING) \
+		$(FAILSAFE) $(USB_DIAG) $(COREBSP_UTILS) \
+		$(SWITCH_SSDK_NOHNAT_PKGS) $(KPI) -qca-thermald
+
+#		$(FTM) $(UTILS) $(NETWORKING) $(EXTRA_NETWORKING) \
 #		$(WIFI_OPEN_PKGS) $(USB_ETHERNET) $(NSS_COMMON) $(NSS_STANDARD) $(NSS_MESH) \
 #		$(QCA_ECM_PREMIUM) $(MAP_PKGS) $(IGMPSNOOPING_RSTP) $(IPSEC) -openswan $(QOS) -lacpd  \
 #		$(NSS_PPE) $(AQ_PHY) $(MACSEC_OPEN_PKGS) \
