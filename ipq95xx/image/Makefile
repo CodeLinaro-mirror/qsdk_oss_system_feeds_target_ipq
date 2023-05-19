@@ -50,6 +50,13 @@ endef
 
 define Build/MultiDTBFIT
 	$(call Build/MkFITMulti,qcom_alxx,$@,$(call FindDeviceTrees, ipq9574-), lzma, $(KERNEL_LOADADDR),$(KERNEL_LOADADDR))
+	rm -rf $(BIN_DIR)/debug
+	mkdir -p $(BIN_DIR)/debug/modules
+	mkdir -p $(BIN_DIR)/dtbs
+	$(CP) $(LINUX_DIR)/vmlinux $(BIN_DIR)/debug/
+	$(CP) $(STAGING_DIR_ROOT)/lib/modules/$(LINUX_VERSION)/* $(BIN_DIR)/debug/modules/
+	$(CP) $(LINUX_DIR)/vmlinux $(BIN_DIR)/$(IMG_PREFIX)-vmlinux.elf
+	$(CP) $(DTS_DIR)/ipq95*.dtb $(BIN_DIR)/dtbs/
 endef
 
 $(eval $(call BuildImage))
