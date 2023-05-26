@@ -88,7 +88,7 @@ STORAGE:=kmod-scsi-core kmod-usb-storage kmod-usb-uas kmod-nls-cp437 kmod-nls-is
 
 USB_ETHERNET:= kmod-usb-net-rtl8152 kmod-usb-net
 
-TEST_TOOLS:=ethtool i2c-tools tcpdump
+TEST_TOOLS:=ethtool -i2c-tools tcpdump
 
 UTILS:=file luci-app-samba4 rng-tools profilerd
 
