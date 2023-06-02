@@ -147,7 +147,8 @@ QCA_EZMESH:=qca-ezmesh qca-ezmesh-ctrl qca-ezmesh-agent qca-ezmesh-alg qca-ezmes
 AQ_PHY:=kmod-aq_phy kmod-qca_85xx_sw aq-fw-download
 
 #These packages depend on SWITCH_SSDK_PKGS
-IGMPSNOOPING_RSTP:=rstp qca-mcs-apps
+IGMPSNOOPING_RSTP:=rstp
+#qca-mcs-apps
 
 IPSEC:=openswan kmod-ipsec kmod-ipsec4 kmod-ipsec6
 
@@ -194,14 +195,14 @@ define Profile/QSDK_Premium
 	NAME:=Qualcomm Technologies, Inc SDK Premium Profile
 	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) \
 		$(VIDEO) $(TEST_TOOLS) $(FAILSAFE) $(USB_DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(QCA_ECM_PREMIUM) \
-		$(NETWORKING) $(CD_ROUTER) $(SWITCH_SSDK_NOHNAT_PKGS) $(KPI)
-#		$(AQ_PHY) $(FAILSAFE) -lacpd $(USB_DIAG) $(SWITCH_SSDK_PKGS) $(CNSS_DIAG) \
-#		$(FTM) $(CTRL_APP_DUT) $(QMSCT_CLIENT) $(KPI) $(NSS_COMMON) \
-#		$(NSS_STANDARD) $(UTILS) $(NETWORKING) $(CD_ROUTER) $(NSS_CLIENTS_STANDARD) \
-#		$(QCA_ECM_PREMIUM) $(NSS_CRYPTO) $(NSS_EIP197_FW) $(IGMPSNOOPING_RSTP) \
-#		$(WIFI_PKGS) $(WIFI_FW_PKGS) $(HW_CRYPTO) $(IPSEC) $(MAP_PKGS) $(MINIDUMP) \
+		$(NETWORKING) $(CD_ROUTER) $(SWITCH_SSDK_NOHNAT_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) -lacpd
+#		$(AQ_PHY) $(FAILSAFE) $(USB_DIAG) $(SWITCH_SSDK_PKGS) $(CNSS_DIAG) \
+#		$(FTM) $(CTRL_APP_DUT) $(QMSCT_CLIENT) \
+#		$(NSS_STANDARD) $(UTILS) $(NSS_CLIENTS_STANDARD) \
+#		$(NSS_CRYPTO) $(NSS_EIP197_FW) \
+#		$(WIFI_PKGS) $(WIFI_FW_PKGS) $(HW_CRYPTO) $(IPSEC) $(MINIDUMP) \
 #		$(QOS) $(HYFI) $(NSS_MACSEC) $(NSS_USERSPACE) $(NSS_RMNET) \
-#		$(NSS_UDP_ST) $(NSS_PPE) $(QCA_MAD) $(EMESH_SP) \
+#		$(NSS_UDP_ST) $(QCA_MAD) $(EMESH_SP) \
 #		$(QCA_EZMESH) $(OPENVPN) kmod-macvlan kmod-qca-hyfi-bridge \
 #		$(NSS_NSM) $(SAL_QOS) $(RSRC_MGR)
 endef
