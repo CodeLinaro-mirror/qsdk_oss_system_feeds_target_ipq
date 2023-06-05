@@ -11,7 +11,7 @@ SUBTARGETS:=generic ipq95xx_32
 
 KERNELNAME:=Image dtbs
 
-ifeq ($(CONFIG_LINUX_IS_FLATTENED_TREE),"")
+ifeq ($(CONFIG_LINUX_IS_FLATTENED_TREE),)
   KERNEL_PATCHVER=6.1
 else
   LINUX_SRC_VERSION:=$(shell basename $(TOPDIR)/qca/src/linux-*.* | sed 's/[^0-9.]*\([0-9.]*\).*/\1/')
