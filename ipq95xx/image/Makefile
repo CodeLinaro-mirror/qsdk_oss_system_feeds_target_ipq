@@ -7,7 +7,7 @@ define Device/Default
 	KERNEL_DEPENDS = $$(wildcard $(DTS_DIR)/$$(DEVICE_DTS).dts)
 	KERNEL_LOADADDR := $(if $(CONFIG_TARGET_ipq95xx_generic),0x40000000,0x40008000)
 	DEVICE_DTS = $$(SOC)-$(lastword $(subst _, ,$(1)))
-	DEVICE_DTS_CONFIG := config@1
+	DEVICE_DTS_CONFIG := config-1
 	IMAGES := sysupgrade.bin
 	IMAGE/sysupgrade.bin = sysupgrade-tar | append-metadata
 	IMAGE/sysupgrade.bin/squashfs :=
