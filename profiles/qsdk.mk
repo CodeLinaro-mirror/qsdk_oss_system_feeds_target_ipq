@@ -11,13 +11,13 @@ QCA_ECM_ENTERPRISE:= kmod-qca-nss-ecm-noload kmod-qca-nss-ecm-wifi-plugin
 QCA_ECM_PREMIUM:= kmod-qca-nss-ecm-premium
 
 NSS_PPE:= kmod-qca-nss-ppe \
-	-kmod-qca-nss-ppe-vp \
+	kmod-qca-nss-ppe-vp \
 	kmod-qca-nss-ppe-bridge-mgr \
 	kmod-qca-nss-ppe-pppoe-mgr \
 	kmod-qca-nss-ppe-lag-mgr \
 	-kmod-qca-nss-ppe-tunipip6 \
 	-kmod-qca-nss-ppe-gretap \
-	-kmod-qca-nss-ppe-vxlanmgr \
+	kmod-qca-nss-ppe-vxlanmgr \
 	-kmod-qca-nss-ppe-mapt \
 	-kmod-qca-nss-ppe-rule
 
