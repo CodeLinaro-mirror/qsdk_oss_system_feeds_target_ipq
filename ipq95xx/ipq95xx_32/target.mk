@@ -9,4 +9,6 @@ define Target/Description
 endef
 
 DEFAULT_PACKAGES += \
-	uboot-2016-ipq9574 uboot-ipq9574-mmc32 uboot-ipq9574-norplusmmc32
+	uboot-2016-ipq9574 uboot-ipq9574-mmc32 \
+	uboot-ipq9574-norplusmmc32 uboot-ipq9574-norplusnand32 \
+	uboot-ipq9574-nand32

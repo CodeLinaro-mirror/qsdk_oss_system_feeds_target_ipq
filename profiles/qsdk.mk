@@ -11,13 +11,13 @@ QCA_ECM_ENTERPRISE:= kmod-qca-nss-ecm-noload kmod-qca-nss-ecm-wifi-plugin
 QCA_ECM_PREMIUM:= kmod-qca-nss-ecm-premium
 
 NSS_PPE:= kmod-qca-nss-ppe \
-	-kmod-qca-nss-ppe-vp \
+	kmod-qca-nss-ppe-vp \
 	kmod-qca-nss-ppe-bridge-mgr \
 	kmod-qca-nss-ppe-pppoe-mgr \
 	kmod-qca-nss-ppe-lag-mgr \
 	-kmod-qca-nss-ppe-tunipip6 \
 	-kmod-qca-nss-ppe-gretap \
-	-kmod-qca-nss-ppe-vxlanmgr \
+	kmod-qca-nss-ppe-vxlanmgr \
 	-kmod-qca-nss-ppe-mapt \
 	-kmod-qca-nss-ppe-rule
 
@@ -39,8 +39,9 @@ SWITCH_SSDK_PKGS:= kmod-qca-ssdk-hnat kmod-qca-ssdk-nohnat qca-ssdk-shell swconf
 MACSEC_OPEN_PKGS:= kmod-qca-nss-macsec wpa-supplicant-macsec hostapd-macsec
 
 WIFI_OPEN_PKGS:= kmod-ath12k kmod-ath11k wpad-mesh hostapd-utils \
-	sigma-dut-open wpa-cli qcmbr-netlink iwinfo \
-	athtestcmd athtestcmd-lith-nl -qca-whc-lbd -qca-whc-init -libhyficommon qca-wifi-scripts
+	sigma-dut-open wpa-cli qca-wifi-scripts
+#	sigma-dut-open wpa-cli qcmbr-netlink iwinfo \
+#	athtestcmd athtestcmd-lith-nl -qca-whc-lbd -qca-whc-init -libhyficommon qca-wifi-scripts
 
 WIFI_OPEN_PKGS_8M:= kmod-ath11k wpad-mesh hostapd-utils \
 	wpa-cli qca-whc-lbd qca-whc-init libhyficommon \
@@ -220,7 +221,7 @@ define Profile/QSDK_Open
 	NAME:=Qualcomm Technologies, Inc SDK Open Profile
 	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(TEST_TOOLS) $(AUDIO) $(VIDEO) \
 		$(FAILSAFE) $(USB_DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(QCA_ECM_PREMIUM) \
-		$(NETWORKING) $(CD_ROUTER) $(SWITCH_SSDK_NOHNAT_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) -lacpd -qca-thermald
+		$(NETWORKING) $(CD_ROUTER) $(SWITCH_SSDK_NOHNAT_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) $(WIFI_OPEN_PKGS) -lacpd -qca-thermald
 
 #		$(FTM) $(UTILS) $(EXTRA_NETWORKING) \
 #		$(WIFI_OPEN_PKGS) $(USB_ETHERNET) $(NSS_STANDARD) $(NSS_MESH) \
