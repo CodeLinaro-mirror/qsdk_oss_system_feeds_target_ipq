@@ -11,13 +11,13 @@ QCA_ECM_ENTERPRISE:= kmod-qca-nss-ecm-noload kmod-qca-nss-ecm-wifi-plugin
 QCA_ECM_PREMIUM:= kmod-qca-nss-ecm-premium
 
 NSS_PPE:= kmod-qca-nss-ppe \
-	-kmod-qca-nss-ppe-vp \
+	kmod-qca-nss-ppe-vp \
 	kmod-qca-nss-ppe-bridge-mgr \
 	kmod-qca-nss-ppe-pppoe-mgr \
-	-kmod-qca-nss-ppe-lag-mgr \
+	kmod-qca-nss-ppe-lag-mgr \
 	-kmod-qca-nss-ppe-tunipip6 \
 	-kmod-qca-nss-ppe-gretap \
-	-kmod-qca-nss-ppe-vxlanmgr \
+	kmod-qca-nss-ppe-vxlanmgr \
 	-kmod-qca-nss-ppe-mapt \
 	-kmod-qca-nss-ppe-rule
 
@@ -39,8 +39,9 @@ SWITCH_SSDK_PKGS:= kmod-qca-ssdk-hnat kmod-qca-ssdk-nohnat qca-ssdk-shell swconf
 MACSEC_OPEN_PKGS:= kmod-qca-nss-macsec wpa-supplicant-macsec hostapd-macsec
 
 WIFI_OPEN_PKGS:= kmod-ath12k kmod-ath11k wpad-mesh hostapd-utils \
-	sigma-dut-open wpa-cli qcmbr-netlink iwinfo \
-	athtestcmd athtestcmd-lith-nl -qca-whc-lbd -qca-whc-init -libhyficommon qca-wifi-scripts
+	sigma-dut-open wpa-cli qca-wifi-scripts
+#	sigma-dut-open wpa-cli qcmbr-netlink iwinfo \
+#	athtestcmd athtestcmd-lith-nl -qca-whc-lbd -qca-whc-init -libhyficommon qca-wifi-scripts
 
 WIFI_OPEN_PKGS_8M:= kmod-ath11k wpad-mesh hostapd-utils \
 	wpa-cli qca-whc-lbd qca-whc-init libhyficommon \
@@ -88,11 +89,11 @@ STORAGE:=kmod-scsi-core kmod-usb-storage kmod-usb-uas kmod-nls-cp437 kmod-nls-is
 
 USB_ETHERNET:= kmod-usb-net-rtl8152 kmod-usb-net
 
-TEST_TOOLS:=ethtool -i2c-tools tcpdump
+TEST_TOOLS:=ethtool i2c-tools tcpdump
 
 UTILS:=file luci-app-samba4 rng-tools profilerd
 
-COREBSP_UTILS:=pm-utils wififw_mount_script qca-thermald qca-qmi-framework qca-time-services \
+COREBSP_UTILS:=pm-utils wififw_mount_script qca-thermald qca-qmi-framework -qca-time-services \
 	qca-wlanfw-upgrade qti-license-pfm dashboard
 
 FAILSAFE:= kmod-bootconfig
@@ -115,13 +116,13 @@ NETWORKING_8MB:=dnsmasq -dnsmasq-dhcpv6 kmod-nf-nathelper-extra kmod-ipt-nathelp
 NETWORKING_16MB:=-dnsmasq dnsmasq-dhcpv6 kmod-nf-nathelper-extra kmod-ipt-nathelper-rtsp ip \
 	rp-pppoe-relay
 
-CD_ROUTER:=kmod-ipt-ipopt kmod-bonding kmod-ipt-sctp lacpd \
+CD_ROUTER:=kmod-ipt-ipopt kmod-bonding kmod-ipt-sctp kmod-ipt-raw kmod-ipt-raw6 lacpd \
 	arptables ds-lite 6rd ddns-scripts xl2tpd \
 	quagga quagga-ripd quagga-zebra quagga-watchquagga quagga-vtysh \
 	kmod-ipv6 ip6tables iptables-mod-ipsec iptables-mod-filter \
 	isc-dhcp-relay-ipv6 rp-pppoe-server ppp-mod-pptp iptables-mod-physdev
 
-CD_ROUTER_256MB:=kmod-ipt-ipopt kmod-ipt-sctp lacpd \
+CD_ROUTER_256MB:=kmod-ipt-ipopt kmod-ipt-sctp kmod-ipt-raw kmod-ipt-raw6 lacpd \
 	arptables ddns-scripts \
 	quagga quagga-ripd quagga-zebra quagga-watchquagga quagga-vtysh \
 	kmod-ipv6 ip6tables iptables-mod-filter \
@@ -147,7 +148,8 @@ QCA_EZMESH:=qca-ezmesh qca-ezmesh-ctrl qca-ezmesh-agent qca-ezmesh-alg qca-ezmes
 AQ_PHY:=kmod-aq_phy kmod-qca_85xx_sw aq-fw-download
 
 #These packages depend on SWITCH_SSDK_PKGS
-IGMPSNOOPING_RSTP:=rstp qca-mcs-apps
+IGMPSNOOPING_RSTP:=rstp
+#qca-mcs-apps
 
 IPSEC:=openswan kmod-ipsec kmod-ipsec4 kmod-ipsec6
 
@@ -194,14 +196,14 @@ define Profile/QSDK_Premium
 	NAME:=Qualcomm Technologies, Inc SDK Premium Profile
 	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) \
 		$(VIDEO) $(TEST_TOOLS) $(FAILSAFE) $(USB_DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(QCA_ECM_PREMIUM) \
-		$(NETWORKING) $(CD_ROUTER) $(SWITCH_SSDK_NOHNAT_PKGS) $(KPI)
-#		$(AQ_PHY) $(FAILSAFE) -lacpd $(USB_DIAG) $(SWITCH_SSDK_PKGS) $(CNSS_DIAG) \
-#		$(FTM) $(CTRL_APP_DUT) $(QMSCT_CLIENT) $(KPI) $(NSS_COMMON) \
-#		$(NSS_STANDARD) $(UTILS) $(NETWORKING) $(CD_ROUTER) $(NSS_CLIENTS_STANDARD) \
-#		$(QCA_ECM_PREMIUM) $(NSS_CRYPTO) $(NSS_EIP197_FW) $(IGMPSNOOPING_RSTP) \
-#		$(WIFI_PKGS) $(WIFI_FW_PKGS) $(HW_CRYPTO) $(IPSEC) $(MAP_PKGS) $(MINIDUMP) \
+		$(NETWORKING) $(CD_ROUTER) $(SWITCH_SSDK_NOHNAT_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) -lacpd
+#		$(AQ_PHY) $(FAILSAFE) $(USB_DIAG) $(SWITCH_SSDK_PKGS) $(CNSS_DIAG) \
+#		$(FTM) $(CTRL_APP_DUT) $(QMSCT_CLIENT) \
+#		$(NSS_STANDARD) $(UTILS) $(NSS_CLIENTS_STANDARD) \
+#		$(NSS_CRYPTO) $(NSS_EIP197_FW) \
+#		$(WIFI_PKGS) $(WIFI_FW_PKGS) $(HW_CRYPTO) $(IPSEC) $(MINIDUMP) \
 #		$(QOS) $(HYFI) $(NSS_MACSEC) $(NSS_USERSPACE) $(NSS_RMNET) \
-#		$(NSS_UDP_ST) $(NSS_PPE) $(QCA_MAD) $(EMESH_SP) \
+#		$(NSS_UDP_ST) $(QCA_MAD) $(EMESH_SP) \
 #		$(QCA_EZMESH) $(OPENVPN) kmod-macvlan kmod-qca-hyfi-bridge \
 #		$(NSS_NSM) $(SAL_QOS) $(RSRC_MGR)
 endef
@@ -218,13 +220,13 @@ $(eval $(call Profile,QSDK_Premium))
 define Profile/QSDK_Open
 	NAME:=Qualcomm Technologies, Inc SDK Open Profile
 	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(TEST_TOOLS) $(AUDIO) $(VIDEO) \
-		$(FAILSAFE) $(USB_DIAG) $(COREBSP_UTILS) \
-		$(SWITCH_SSDK_NOHNAT_PKGS) $(KPI) -qca-thermald
+		$(FAILSAFE) $(USB_DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(QCA_ECM_PREMIUM) \
+		$(NETWORKING) $(CD_ROUTER) $(SWITCH_SSDK_NOHNAT_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) $(WIFI_OPEN_PKGS) -lacpd -qca-thermald
 
-#		$(FTM) $(UTILS) $(NETWORKING) $(EXTRA_NETWORKING) \
-#		$(WIFI_OPEN_PKGS) $(USB_ETHERNET) $(NSS_COMMON) $(NSS_STANDARD) $(NSS_MESH) \
-#		$(QCA_ECM_PREMIUM) $(MAP_PKGS) $(IGMPSNOOPING_RSTP) $(IPSEC) -openswan $(QOS) -lacpd  \
-#		$(NSS_PPE) $(AQ_PHY) $(MACSEC_OPEN_PKGS) \
+#		$(FTM) $(UTILS) $(EXTRA_NETWORKING) \
+#		$(WIFI_OPEN_PKGS) $(USB_ETHERNET) $(NSS_STANDARD) $(NSS_MESH) \
+#		$(IPSEC) -openswan $(QOS) -lacpd  \
+#		$(AQ_PHY) $(MACSEC_OPEN_PKGS) \
 #		qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic $(CNSS_DIAG) athdiag $(EMESH_SP) \
 #		qrtr $(QMI_SAMPLE_APP) ath11k-fwtest ath11k-qdss -qapp-store \
 #		libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps -kmod-qca-nss-ecm-wifi-plugin

@@ -11,7 +11,7 @@ SUBTARGETS:=generic ipq95xx_32
 
 KERNELNAME:=Image dtbs
 
-ifeq ($(CONFIG_LINUX_IS_FLATTENED_TREE),"")
+ifeq ($(CONFIG_LINUX_IS_FLATTENED_TREE),)
   KERNEL_PATCHVER=6.1
 else
   LINUX_SRC_VERSION:=$(shell basename $(TOPDIR)/qca/src/linux-*.* | sed 's/[^0-9.]*\([0-9.]*\).*/\1/')
@@ -38,7 +38,8 @@ endif
 include $(INCLUDE_DIR)/target.mk
 
 DEFAULT_PACKAGES += \
-	e2fsprogs uboot-envtools kmod-gpio-button-hotplug kmod-button-hotplug kmod-ata-core kmod-ata-ahci kmod-ata-ahci-platform kmod-usb3 \
+	e2fsprogs uboot-envtools kmod-gpio-button-hotplug kmod-button-hotplug \
+	kmod-ata-core kmod-ata-ahci kmod-ata-ahci-platform kmod-usb3 \
 	kmod-usb-phy-ipq807x kmod-usb-dwc3-qcom-internal
 
 $(eval $(call BuildTarget))
