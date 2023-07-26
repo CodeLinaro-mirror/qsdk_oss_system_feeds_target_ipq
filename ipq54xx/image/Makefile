@@ -47,7 +47,7 @@ define Build/CopyDebugInformation
 	$(CP) $(STAGING_DIR_ROOT)/lib/modules/$(LINUX_VERSION)/* $(BIN_DIR)/debug/modules/
 	$(CP) $(KDIR)/vmlinux.debug $(BIN_DIR)/$(IMG_PREFIX)-vmlinux.elf
 	$(CP) $(KDIR)/Image* $(BIN_DIR)/dtbs/
-	$(CP) $(DTS_DIR)/devsoc-emulation.dtb $(BIN_DIR)/dtbs/
+	$(CP) $(DTS_DIR)/devsoc-*.dtb $(BIN_DIR)/dtbs/
 endef
 
 $(eval $(call BuildImage))
