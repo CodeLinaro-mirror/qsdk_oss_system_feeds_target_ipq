@@ -22,7 +22,7 @@ NSS_PPE:= kmod-qca-nss-ppe \
 	-kmod-qca-nss-ppe-rule
 
 NSS_CRYPTO:= kmod-qca-nss-crypto kmod-qca-nss-cfi-cryptoapi -kmod-qca-nss-cfi-ocf -kmod-crypto-ocf \
-	kmod-qca-nss-eip kmod-qca-nss-eip-crypto kmod-qca-nss-eip-ipsec
+	-kmod-qca-nss-eip -kmod-qca-nss-eip-crypto -kmod-qca-nss-eip-ipsec
 
 HW_CRYPTO:= kmod-crypto-qcrypto
 
@@ -50,10 +50,10 @@ WIFI_OPEN_PKGS_8M:= kmod-ath11k wpad-mesh hostapd-utils \
 WIFI_PKGS:=kmod-qca-wifi-unified-profile \
 	qca-hostap qca-hostapd-cli qca-wpa-supplicant \
 	qca-wpa-cli qca-cfg80211tool qca-wifi-scripts \
-	qca-acfg qca-wrapd athtestcmd-lith myftm qca-iface-mgr \
+	qca-acfg qca-wrapd -athtestcmd-lith -myftm qca-iface-mgr \
 	qca-wapid qca-lowi athdiag whc-mesh whc-ui \
-	qca-spectral qca-icm qcmbr sigma-dut \
-	qca-wpc qca-cfg80211 qca-cnss-daemon
+	qca-spectral qca-icm -qcmbr -sigma-dut \
+	qca-wpc qca-cfg80211 -qca-cnss-daemon
 
 WIFI_PKGS_MINENT:=kmod-qca-wifi-custc-profile \
 	qca-hostap qca-hostapd-cli qca-wpa-supplicant \
@@ -173,7 +173,7 @@ FTM:=ftm
 
 QMSCT_CLIENT:=qmsct_client
 
-OPENVPN:= openvpn-easy-rsa openvpn-openssl luci-app-openvpn
+OPENVPN:= -openvpn-easy-rsa openvpn-openssl luci-app-openvpn
 
 MINIDUMP:= minidump
 
@@ -198,19 +198,19 @@ define Profile/QSDK_Premium
 	NAME:=Qualcomm Technologies, Inc SDK Premium Profile
 	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) \
 		$(VIDEO) $(TEST_TOOLS) $(FAILSAFE) $(USB_DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(QCA_ECM_PREMIUM) \
-		$(NETWORKING) $(CD_ROUTER) $(SWITCH_SSDK_NOHNAT_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) -lacpd
-#		$(AQ_PHY) $(FAILSAFE) $(USB_DIAG) $(SWITCH_SSDK_PKGS) $(CNSS_DIAG) \
-#		$(FTM) $(CTRL_APP_DUT) $(QMSCT_CLIENT) \
-#		$(NSS_STANDARD) $(UTILS) $(NSS_CLIENTS_STANDARD) \
-#		$(NSS_CRYPTO) $(NSS_EIP197_FW) \
-#		$(WIFI_PKGS) $(WIFI_FW_PKGS) $(HW_CRYPTO) $(IPSEC) $(MINIDUMP) \
-#		$(QOS) $(HYFI) $(NSS_MACSEC) $(NSS_USERSPACE) $(NSS_RMNET) \
-#		$(NSS_UDP_ST) $(QCA_MAD) $(EMESH_SP) \
-#		$(QCA_EZMESH) $(OPENVPN) kmod-macvlan kmod-qca-hyfi-bridge \
-#		$(NSS_NSM) $(SAL_QOS) $(RSRC_MGR)
+		$(NETWORKING) $(CD_ROUTER) $(SWITCH_SSDK_NOHNAT_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) -lacpd \
+		$(AQ_PHY) $(FAILSAFE) $(USB_DIAG) $(SWITCH_SSDK_PKGS) \
+		$(QMSCT_CLIENT) \
+		$(NSS_STANDARD) $(UTILS) $(NSS_CLIENTS_STANDARD) \
+		$(NSS_CRYPTO) $(NSS_EIP197_FW) \
+		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) \
+		$(HYFI) $(NSS_USERSPACE) $(NSS_RMNET) \
+		$(QCA_MAD) $(EMESH_SP) \
+		$(QCA_EZMESH) $(OPENVPN) kmod-macvlan kmod-qca-hyfi-bridge \
+		$(NSS_NSM) $(SAL_QOS) $(RSRC_MGR)
 endef
 
-#		$(QCA_RFS)
+#		$(NSS_UDP_ST) $(QCA_RFS) $(CNSS_DIAG) $(WIFI_FW_PKGS) $(WIFI_PKGS) $(NSS_MACSEC) $(FTM) $(CTRL_APP_DUT)
 
 define Profile/QSDK_Premium/Description
 	QSDK Premium package set configuration.
