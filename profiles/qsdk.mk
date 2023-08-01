@@ -47,6 +47,11 @@ WIFI_OPEN_PKGS_8M:= kmod-ath11k wpad-mesh hostapd-utils \
 	wpa-cli qca-whc-lbd qca-whc-init libhyficommon \
 	wififw_mount_script
 
+WIFI_PKGS_6_1:=kmod-qca-wifi-unified-profile \
+	qca-wifi-hk-fw-hw1-10.4-asic \
+	qca-cfg80211 qca-hostap qca-hostapd-cli qca-wpa-supplicant \
+	qca-wpa-cli qca-cfg80211tool
+
 WIFI_PKGS:=kmod-qca-wifi-unified-profile \
 	qca-hostap qca-hostapd-cli qca-wpa-supplicant \
 	qca-wpa-cli qca-cfg80211tool qca-wifi-scripts \
@@ -207,7 +212,7 @@ define Profile/QSDK_Premium
 		$(HYFI) $(NSS_USERSPACE) $(NSS_RMNET) \
 		$(QCA_MAD) $(EMESH_SP) \
 		$(QCA_EZMESH) $(OPENVPN) kmod-macvlan kmod-qca-hyfi-bridge \
-		$(NSS_NSM) $(SAL_QOS) $(RSRC_MGR)
+		$(NSS_NSM) $(SAL_QOS) $(RSRC_MGR) $(WIFI_PKGS_6_1)
 endef
 
 #		$(NSS_UDP_ST) $(QCA_RFS) $(CNSS_DIAG) $(WIFI_FW_PKGS) $(WIFI_PKGS) $(NSS_MACSEC) $(FTM) $(CTRL_APP_DUT)
