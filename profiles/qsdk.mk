@@ -36,9 +36,9 @@ SAL_QOS:= qca-sal-qos-test qca-sal-rule-test
 
 SWITCH_SSDK_PKGS:= kmod-qca-ssdk-hnat kmod-qca-ssdk-nohnat qca-ssdk-shell swconfig
 
-MACSEC_OPEN_PKGS:= kmod-qca-nss-macsec wpa-supplicant-macsec hostapd-macsec
+MACSEC_OPEN_PKGS:= kmod-qca-nss-macsec -wpa-supplicant-macsec -hostapd-macsec
 
-WIFI_OPEN_PKGS:= kmod-ath12k kmod-ath11k wpad-mesh hostapd-utils \
+WIFI_OPEN_PKGS:= kmod-ath12k kmod-ath11k wpad-mesh -hostapd-utils \
 	sigma-dut-open wpa-cli qca-wifi-scripts
 #	sigma-dut-open wpa-cli qcmbr-netlink iwinfo \
 #	athtestcmd athtestcmd-lith-nl -qca-whc-lbd -qca-whc-init -libhyficommon qca-wifi-scripts
@@ -223,18 +223,17 @@ define Profile/QSDK_Open
 	NAME:=Qualcomm Technologies, Inc SDK Open Profile
 	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(TEST_TOOLS) $(AUDIO) $(VIDEO) \
 		$(FAILSAFE) $(USB_DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(QCA_ECM_PREMIUM) $(STRONGSWAN) \
-		$(NETWORKING) $(CD_ROUTER) $(SWITCH_SSDK_NOHNAT_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) $(WIFI_OPEN_PKGS) -lacpd -qca-thermald
-
-#		$(FTM) $(UTILS) $(EXTRA_NETWORKING) \
-#		$(WIFI_OPEN_PKGS) $(USB_ETHERNET) $(NSS_STANDARD) $(NSS_MESH) \
-#		$(IPSEC) $(QOS) -lacpd  \
-#		$(AQ_PHY) $(MACSEC_OPEN_PKGS) \
-#		qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic $(CNSS_DIAG) athdiag $(EMESH_SP) \
-#		qrtr $(QMI_SAMPLE_APP) ath11k-fwtest ath11k-qdss -qapp-store \
-#		libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps -kmod-qca-nss-ecm-wifi-plugin
+		$(NETWORKING) $(CD_ROUTER) $(SWITCH_SSDK_NOHNAT_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) $(WIFI_OPEN_PKGS) -lacpd -qca-thermald \
+		$(UTILS) $(EXTRA_NETWORKING) \
+		$(WIFI_OPEN_PKGS) $(USB_ETHERNET) $(NSS_STANDARD) $(NSS_MESH) \
+		$(IPSEC) $(QOS) -lacpd  \
+		$(AQ_PHY) $(MACSEC_OPEN_PKGS) \
+		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag $(EMESH_SP) \
+		qrtr $(QMI_SAMPLE_APP) ath11k-fwtest ath11k-qdss -qapp-store \
+		libtirpc cfr_tools -kmod-qca-ovsmgr -qca-mcs-apps -kmod-qca-nss-ecm-wifi-plugin
 endef
 
-#	$(HW_CRYPTO) $(QCA_RFS)
+#	$(HW_CRYPTO) $(QCA_RFS) $(FTM) $(CNSS_DIAG)
 
 define Profile/QSDK_Open/Description
 	QSDK Open package set configuration.
