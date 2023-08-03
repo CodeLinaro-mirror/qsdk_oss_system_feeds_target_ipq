@@ -22,7 +22,7 @@ NSS_PPE:= kmod-qca-nss-ppe \
 	-kmod-qca-nss-ppe-rule
 
 NSS_CRYPTO:= kmod-qca-nss-crypto kmod-qca-nss-cfi-cryptoapi -kmod-qca-nss-cfi-ocf -kmod-crypto-ocf \
-	kmod-qca-nss-eip kmod-qca-nss-eip-crypto kmod-qca-nss-eip-ipsec
+	-kmod-qca-nss-eip -kmod-qca-nss-eip-crypto -kmod-qca-nss-eip-ipsec
 
 HW_CRYPTO:= kmod-crypto-qcrypto
 
@@ -36,9 +36,9 @@ SAL_QOS:= qca-sal-qos-test qca-sal-rule-test
 
 SWITCH_SSDK_PKGS:= kmod-qca-ssdk-hnat kmod-qca-ssdk-nohnat qca-ssdk-shell swconfig
 
-MACSEC_OPEN_PKGS:= kmod-qca-nss-macsec wpa-supplicant-macsec hostapd-macsec
+MACSEC_OPEN_PKGS:= kmod-qca-nss-macsec -wpa-supplicant-macsec -hostapd-macsec
 
-WIFI_OPEN_PKGS:= kmod-ath12k kmod-ath11k wpad-mesh hostapd-utils \
+WIFI_OPEN_PKGS:= kmod-ath12k kmod-ath11k wpad-mesh -hostapd-utils \
 	sigma-dut-open wpa-cli qca-wifi-scripts
 #	sigma-dut-open wpa-cli qcmbr-netlink iwinfo \
 #	athtestcmd athtestcmd-lith-nl -qca-whc-lbd -qca-whc-init -libhyficommon qca-wifi-scripts
@@ -50,10 +50,10 @@ WIFI_OPEN_PKGS_8M:= kmod-ath11k wpad-mesh hostapd-utils \
 WIFI_PKGS:=kmod-qca-wifi-unified-profile \
 	qca-hostap qca-hostapd-cli qca-wpa-supplicant \
 	qca-wpa-cli qca-cfg80211tool qca-wifi-scripts \
-	qca-acfg qca-wrapd athtestcmd-lith myftm qca-iface-mgr \
+	qca-acfg qca-wrapd -athtestcmd-lith -myftm qca-iface-mgr \
 	qca-wapid qca-lowi athdiag whc-mesh whc-ui \
-	qca-spectral qca-icm qcmbr sigma-dut \
-	qca-wpc qca-cfg80211 qca-cnss-daemon
+	qca-spectral qca-icm -qcmbr -sigma-dut \
+	qca-wpc qca-cfg80211 -qca-cnss-daemon
 
 WIFI_PKGS_MINENT:=kmod-qca-wifi-custc-profile \
 	qca-hostap qca-hostapd-cli qca-wpa-supplicant \
@@ -151,7 +151,7 @@ AQ_PHY:=kmod-aq_phy kmod-qca_85xx_sw aq-fw-download
 IGMPSNOOPING_RSTP:=rstp
 #qca-mcs-apps
 
-IPSEC:=openswan kmod-ipsec kmod-ipsec4 kmod-ipsec6
+IPSEC:=kmod-ipsec kmod-ipsec4 kmod-ipsec6
 
 AUDIO:=kmod-sound-soc-ipq alsa
 
@@ -173,7 +173,7 @@ FTM:=ftm
 
 QMSCT_CLIENT:=qmsct_client
 
-OPENVPN:= openvpn-easy-rsa openvpn-openssl luci-app-openvpn
+OPENVPN:= -openvpn-easy-rsa openvpn-openssl luci-app-openvpn
 
 MINIDUMP:= minidump
 
@@ -192,23 +192,25 @@ RSRC_MGR:=qca-rsrcmgr qca-rsrcmgr-secure-libs
 EXTRA_NETWORKING:= $(CD_ROUTER) $(NSS_EIP197_FW) -rdk-v-wifi-ath10k kmod-qca-nss-macsec \
 	$(MACSEC_OPEN_PKGS) $(NSS_CRYPTO) $(NSS_CLIENTS_STANDARD)
 
+STRONGSWAN:=strongswan strongswan-default strongswan-ipsec strongswan-mod-stroke strongswan-mod-uci
+
 define Profile/QSDK_Premium
 	NAME:=Qualcomm Technologies, Inc SDK Premium Profile
 	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) \
 		$(VIDEO) $(TEST_TOOLS) $(FAILSAFE) $(USB_DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(QCA_ECM_PREMIUM) \
-		$(NETWORKING) $(CD_ROUTER) $(SWITCH_SSDK_NOHNAT_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) -lacpd
-#		$(AQ_PHY) $(FAILSAFE) $(USB_DIAG) $(SWITCH_SSDK_PKGS) $(CNSS_DIAG) \
-#		$(FTM) $(CTRL_APP_DUT) $(QMSCT_CLIENT) \
-#		$(NSS_STANDARD) $(UTILS) $(NSS_CLIENTS_STANDARD) \
-#		$(NSS_CRYPTO) $(NSS_EIP197_FW) \
-#		$(WIFI_PKGS) $(WIFI_FW_PKGS) $(HW_CRYPTO) $(IPSEC) $(MINIDUMP) \
-#		$(QOS) $(HYFI) $(NSS_MACSEC) $(NSS_USERSPACE) $(NSS_RMNET) \
-#		$(NSS_UDP_ST) $(QCA_MAD) $(EMESH_SP) \
-#		$(QCA_EZMESH) $(OPENVPN) kmod-macvlan kmod-qca-hyfi-bridge \
-#		$(NSS_NSM) $(SAL_QOS) $(RSRC_MGR)
+		$(NETWORKING) $(CD_ROUTER) $(SWITCH_SSDK_NOHNAT_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) -lacpd \
+		$(AQ_PHY) $(FAILSAFE) $(USB_DIAG) $(SWITCH_SSDK_PKGS) \
+		$(QMSCT_CLIENT) \
+		$(NSS_STANDARD) $(UTILS) $(NSS_CLIENTS_STANDARD) \
+		$(NSS_CRYPTO) $(NSS_EIP197_FW) \
+		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) \
+		$(HYFI) $(NSS_USERSPACE) $(NSS_RMNET) \
+		$(QCA_MAD) $(EMESH_SP) \
+		$(QCA_EZMESH) $(OPENVPN) kmod-macvlan kmod-qca-hyfi-bridge \
+		$(NSS_NSM) $(SAL_QOS) $(RSRC_MGR)
 endef
 
-#		$(QCA_RFS)
+#		$(NSS_UDP_ST) $(QCA_RFS) $(CNSS_DIAG) $(WIFI_FW_PKGS) $(WIFI_PKGS) $(NSS_MACSEC) $(FTM) $(CTRL_APP_DUT)
 
 define Profile/QSDK_Premium/Description
 	QSDK Premium package set configuration.
@@ -220,19 +222,18 @@ $(eval $(call Profile,QSDK_Premium))
 define Profile/QSDK_Open
 	NAME:=Qualcomm Technologies, Inc SDK Open Profile
 	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(TEST_TOOLS) $(AUDIO) $(VIDEO) \
-		$(FAILSAFE) $(USB_DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(QCA_ECM_PREMIUM) \
-		$(NETWORKING) $(CD_ROUTER) $(SWITCH_SSDK_NOHNAT_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) $(WIFI_OPEN_PKGS) -lacpd -qca-thermald
-
-#		$(FTM) $(UTILS) $(EXTRA_NETWORKING) \
-#		$(WIFI_OPEN_PKGS) $(USB_ETHERNET) $(NSS_STANDARD) $(NSS_MESH) \
-#		$(IPSEC) -openswan $(QOS) -lacpd  \
-#		$(AQ_PHY) $(MACSEC_OPEN_PKGS) \
-#		qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic $(CNSS_DIAG) athdiag $(EMESH_SP) \
-#		qrtr $(QMI_SAMPLE_APP) ath11k-fwtest ath11k-qdss -qapp-store \
-#		libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps -kmod-qca-nss-ecm-wifi-plugin
+		$(FAILSAFE) $(USB_DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(QCA_ECM_PREMIUM) $(STRONGSWAN) \
+		$(NETWORKING) $(CD_ROUTER) $(SWITCH_SSDK_NOHNAT_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) $(WIFI_OPEN_PKGS) -lacpd -qca-thermald \
+		$(UTILS) $(EXTRA_NETWORKING) \
+		$(WIFI_OPEN_PKGS) $(USB_ETHERNET) $(NSS_STANDARD) $(NSS_MESH) \
+		$(IPSEC) $(QOS) -lacpd  \
+		$(AQ_PHY) $(MACSEC_OPEN_PKGS) \
+		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag $(EMESH_SP) \
+		qrtr $(QMI_SAMPLE_APP) ath11k-fwtest ath11k-qdss -qapp-store \
+		libtirpc cfr_tools -kmod-qca-ovsmgr -qca-mcs-apps -kmod-qca-nss-ecm-wifi-plugin
 endef
 
-#	$(HW_CRYPTO) $(QCA_RFS)
+#	$(HW_CRYPTO) $(QCA_RFS) $(FTM) $(CNSS_DIAG)
 
 define Profile/QSDK_Open/Description
 	QSDK Open package set configuration.
@@ -278,7 +279,7 @@ define Profile/QSDK_Enterprise
 		$(WIFI_PKGS) $(WIFI_FW_PKGS) $(STORAGE) $(HW_CRYPTO) $(QCA_RFS) \
 		$(IGMPSNOOPING_RSTP) $(NETWORKING) $(QOS) $(UTILS) $(TEST_TOOLS) $(COREBSP_UTILS) \
 		$(QCA_ECM_ENTERPRISE) $(NSS_CLIENTS_ENTERPRISE) $(NSS_MACSEC) $(NSS_CRYPTO) \
-		$(IPSEC) $(NSS_EIP197_FW) $(CD_ROUTER) $(AQ_PHY) \
+		$(IPSEC) $(STRONGSWAN) $(NSS_EIP197_FW) $(CD_ROUTER) $(AQ_PHY) \
 		$(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) -lacpd \
 		$(USB_DIAG) $(MHI_QRTR) $(KPI) $(FAILSAFE) $(NSS_USERSPACE) \
 		$(NSS_PPE) kmod-qca-nss-drv-mscs $(RSRC_MGR)
@@ -297,7 +298,7 @@ define Profile/QSDK_MinEnt
 		$(WIFI_PKGS_MINENT) $(WIFI_FW_PKGS) $(STORAGE) $(HW_CRYPTO) $(QCA_RFS) \
 		$(NETWORKING) $(QOS) $(UTILS) $(TEST_TOOLS) $(COREBSP_UTILS) \
 		$(QCA_ECM_ENTERPRISE) $(NSS_CLIENTS_ENTERPRISE) $(NSS_MACSEC) $(NSS_CRYPTO) \
-		$(IPSEC) $(NSS_EIP197_FW) $(CD_ROUTER) $(AQ_PHY) $(CNSS_DIAG) \
+		$(IPSEC) $(STRONGSWAN) $(NSS_EIP197_FW) $(CD_ROUTER) $(AQ_PHY) $(CNSS_DIAG) \
 		$(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) -lacpd -kmod-qca-nss-ecm-wifi-plugin \
 		$(USB_DIAG) $(MHI_QRTR) $(KPI) $(FAILSAFE) $(NSS_USERSPACE) $(NSS_PPE) \
 		$(RSRC_MGR)
