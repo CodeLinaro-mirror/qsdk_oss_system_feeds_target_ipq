@@ -21,8 +21,8 @@ NSS_PPE:= kmod-qca-nss-ppe \
 	-kmod-qca-nss-ppe-mapt \
 	-kmod-qca-nss-ppe-rule
 
-NSS_CRYPTO:= kmod-qca-nss-crypto kmod-qca-nss-cfi-cryptoapi -kmod-qca-nss-cfi-ocf -kmod-crypto-ocf \
-	-kmod-qca-nss-eip -kmod-qca-nss-eip-crypto -kmod-qca-nss-eip-ipsec
+NSS_CRYPTO:= -kmod-qca-nss-crypto -kmod-qca-nss-cfi-cryptoapi -kmod-qca-nss-cfi-ocf -kmod-crypto-ocf \
+	kmod-qca-nss-eip kmod-qca-nss-eip-crypto kmod-qca-nss-eip-ipsec
 
 HW_CRYPTO:= kmod-crypto-qcrypto
 
@@ -229,7 +229,7 @@ define Profile/QSDK_Open
 		$(SWITCH_SSDK_NOHNAT_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) \
 		$(WIFI_OPEN_PKGS) -lacpd -qca-thermald $(UTILS) $(EXTRA_NETWORKING) \
 		$(WIFI_OPEN_PKGS) $(USB_ETHERNET) $(NSS_STANDARD) $(NSS_MESH) \
-		$(IPSEC) $(QOS) -lacpd  $(AQ_PHY) $(MACSEC_OPEN_PKGS) -qca-cnss-daemon \
+		$(IPSEC) $(NSS_CRYPTO) $(QOS) -lacpd  $(AQ_PHY) $(MACSEC_OPEN_PKGS) -qca-cnss-daemon \
 		qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
 		-qapp-store libtirpc cfr_tools -kmod-qca-ovsmgr -qca-mcs-apps \
 		-kmod-qca-nss-ecm-wifi-plugin
