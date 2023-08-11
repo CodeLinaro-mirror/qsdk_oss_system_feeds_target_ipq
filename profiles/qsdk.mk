@@ -244,7 +244,7 @@ define Profile/QSDK_Open
 		$(WIFI_OPEN_PKGS) $(USB_ETHERNET) $(NSS_STANDARD) $(NSS_MESH) $(NPT66) \
 		$(IPSEC) $(NSS_CRYPTO) $(QOS) -lacpd  $(AQ_PHY) $(MACSEC_OPEN_PKGS) -qca-cnss-daemon \
 		qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
-		-qapp-store libtirpc cfr_tools -kmod-qca-ovsmgr -qca-mcs-apps \
+		-qapp-store libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps \
 		-kmod-qca-nss-ecm-wifi-plugin $(NSS_FLOWID) $(NSS_FLS) kmod-macvlan
 endef
 
