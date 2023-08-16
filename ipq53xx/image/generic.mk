@@ -11,7 +11,7 @@ define Device/qcom_mixx
 	BOARD_NAME := ap-mixx
 	SOC := ipq5332
 	KERNEL_INSTALL := 1
-	KERNEL_SIZE := 6096k
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),7680k,6096k)
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
