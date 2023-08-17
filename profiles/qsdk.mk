@@ -47,6 +47,11 @@ WIFI_OPEN_PKGS_8M:= kmod-ath11k wpad-mesh hostapd-utils \
 	wpa-cli qca-whc-lbd qca-whc-init libhyficommon \
 	wififw_mount_script
 
+WIFI_PKGS_6_1:=kmod-qca-wifi-unified-profile \
+	qca-wifi-hk-fw-hw1-10.4-asic \
+	qca-cfg80211 qca-hostap qca-hostapd-cli qca-wpa-supplicant \
+	qca-wpa-cli qca-cfg80211tool
+
 WIFI_PKGS:=kmod-qca-wifi-unified-profile \
 	qca-hostap qca-hostapd-cli qca-wpa-supplicant \
 	qca-wpa-cli qca-cfg80211tool qca-wifi-scripts \
@@ -192,25 +197,22 @@ RSRC_MGR:=qca-rsrcmgr qca-rsrcmgr-secure-libs
 EXTRA_NETWORKING:= $(CD_ROUTER) $(NSS_EIP197_FW) -rdk-v-wifi-ath10k kmod-qca-nss-macsec \
 	$(MACSEC_OPEN_PKGS) $(NSS_CRYPTO) $(NSS_CLIENTS_STANDARD)
 
-STRONGSWAN:=strongswan strongswan-default strongswan-ipsec strongswan-mod-stroke strongswan-mod-uci
+STRONGSWAN:=strongswan strongswan-default strongswan-ipsec strongswan-mod-ctr strongswan-mod-gcm strongswan-mod-openssl strongswan-mod-stroke strongswan-mod-uci
 
 define Profile/QSDK_Premium
 	NAME:=Qualcomm Technologies, Inc SDK Premium Profile
-	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) \
-		$(VIDEO) $(TEST_TOOLS) $(FAILSAFE) $(USB_DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(QCA_ECM_PREMIUM) \
-		$(NETWORKING) $(CD_ROUTER) $(SWITCH_SSDK_NOHNAT_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) -lacpd \
-		$(AQ_PHY) $(FAILSAFE) $(USB_DIAG) $(SWITCH_SSDK_PKGS) \
-		$(QMSCT_CLIENT) \
-		$(NSS_STANDARD) $(UTILS) $(NSS_CLIENTS_STANDARD) \
-		$(NSS_CRYPTO) $(NSS_EIP197_FW) \
-		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) \
-		$(HYFI) $(NSS_USERSPACE) $(NSS_RMNET) \
-		$(QCA_MAD) $(EMESH_SP) \
-		$(QCA_EZMESH) $(OPENVPN) kmod-macvlan kmod-qca-hyfi-bridge \
-		$(NSS_NSM) $(SAL_QOS) $(RSRC_MGR)
+	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) $(VIDEO) $(TEST_TOOLS) \
+		$(FAILSAFE) $(USB_DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) \
+		$(QCA_ECM_PREMIUM) $(NETWORKING) $(CD_ROUTER) $(KPI) $(MAP_PKGS) \
+		$(SWITCH_SSDK_NOHNAT_PKGS) $(IGMPSNOOPING_RSTP) -lacpd $(AQ_PHY) \
+		$(USB_DIAG) $(SWITCH_SSDK_PKGS) $(QMSCT_CLIENT) $(NSS_STANDARD) \
+		$(UTILS) $(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) $(NSS_EIP197_FW) \
+		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE) \
+		$(NSS_RMNET) $(QCA_MAD) $(QCA_EZMESH) $(OPENVPN) kmod-macvlan \
+		kmod-qca-hyfi-bridge $(NSS_NSM) $(SAL_QOS) $(RSRC_MGR)
 endef
 
-#		$(NSS_UDP_ST) $(QCA_RFS) $(CNSS_DIAG) $(WIFI_FW_PKGS) $(WIFI_PKGS) $(NSS_MACSEC) $(FTM) $(CTRL_APP_DUT)
+#		$(NSS_UDP_ST) $(QCA_RFS) $(CNSS_DIAG) $(WIFI_FW_PKGS) $(WIFI_PKGS) $(NSS_MACSEC) $(FTM) $(CTRL_APP_DUT) $(EMESH_SP)
 
 define Profile/QSDK_Premium/Description
 	QSDK Premium package set configuration.
@@ -222,18 +224,18 @@ $(eval $(call Profile,QSDK_Premium))
 define Profile/QSDK_Open
 	NAME:=Qualcomm Technologies, Inc SDK Open Profile
 	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(TEST_TOOLS) $(AUDIO) $(VIDEO) \
-		$(FAILSAFE) $(USB_DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(QCA_ECM_PREMIUM) $(STRONGSWAN) \
-		$(NETWORKING) $(CD_ROUTER) $(SWITCH_SSDK_NOHNAT_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) $(WIFI_OPEN_PKGS) -lacpd -qca-thermald \
-		$(UTILS) $(EXTRA_NETWORKING) \
+		$(FAILSAFE) $(USB_DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) \
+		$(QCA_ECM_PREMIUM) $(STRONGSWAN) $(NETWORKING) $(CD_ROUTER) \
+		$(SWITCH_SSDK_NOHNAT_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) \
+		$(WIFI_OPEN_PKGS) -lacpd -qca-thermald $(UTILS) $(EXTRA_NETWORKING) \
 		$(WIFI_OPEN_PKGS) $(USB_ETHERNET) $(NSS_STANDARD) $(NSS_MESH) \
-		$(IPSEC) $(QOS) -lacpd  \
-		$(AQ_PHY) $(MACSEC_OPEN_PKGS) \
-		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag $(EMESH_SP) \
-		qrtr $(QMI_SAMPLE_APP) ath11k-fwtest ath11k-qdss -qapp-store \
-		libtirpc cfr_tools -kmod-qca-ovsmgr -qca-mcs-apps -kmod-qca-nss-ecm-wifi-plugin
+		$(IPSEC) $(QOS) -lacpd  $(AQ_PHY) $(MACSEC_OPEN_PKGS) -qca-cnss-daemon \
+		qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
+		-qapp-store libtirpc cfr_tools -kmod-qca-ovsmgr -qca-mcs-apps \
+		-kmod-qca-nss-ecm-wifi-plugin
 endef
 
-#	$(HW_CRYPTO) $(QCA_RFS) $(FTM) $(CNSS_DIAG)
+#	$(HW_CRYPTO) $(QCA_RFS) $(FTM) $(CNSS_DIAG) $(EMESH_SP) $(QMI_SAMPLE_APP)
 
 define Profile/QSDK_Open/Description
 	QSDK Open package set configuration.
