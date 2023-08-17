@@ -197,7 +197,7 @@ RSRC_MGR:=qca-rsrcmgr qca-rsrcmgr-secure-libs
 EXTRA_NETWORKING:= $(CD_ROUTER) $(NSS_EIP197_FW) -rdk-v-wifi-ath10k kmod-qca-nss-macsec \
 	$(MACSEC_OPEN_PKGS) $(NSS_CRYPTO) $(NSS_CLIENTS_STANDARD)
 
-STRONGSWAN:=strongswan strongswan-default strongswan-ipsec strongswan-mod-ctr strongswan-mod-gcm strongswan-mod-openssl strongswan-mod-stroke strongswan-mod-uci
+STRONGSWAN:=strongswan strongswan-default strongswan-mod-ctr strongswan-mod-gcm strongswan-mod-kdf strongswan-mod-openssl strongswan-mod-uci
 
 define Profile/QSDK_Premium
 	NAME:=Qualcomm Technologies, Inc SDK Premium Profile
