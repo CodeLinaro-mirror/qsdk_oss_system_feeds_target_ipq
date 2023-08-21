@@ -79,14 +79,6 @@ image_is_FIT() {
 	return 0
 }
 
-switch_layout() {
-	# Layout switching was required only in ipq806x and is not used in other
-	# platforms. Currently making it to return 0 by default.
-	# This function and all its references need to be removed during clean
-	# up.
-	return 0
-}
-
 do_flash_mtd() {
 	local bin=$1
 	local mtdname=$2
@@ -222,7 +214,7 @@ do_flash_failsafe_partition() {
 			bootname="bootconfig0"
 		fi
 		# Try mode
-        	if [ -e /proc/upgrade_info/trybit ]; then
+		if [ -e /proc/upgrade_info/trybit ]; then
 			if [ $primaryboot -eq 0 ]; then
 				echo 1 > /proc/boot_info/$bootname/$default_mtd/primaryboot
 			else
@@ -413,7 +405,7 @@ get_fw_name() {
 flash_section() {
 	local sec=$1
 	local board=$(board_name)
-	local board_model=$(to_lower $(grep -o "IPQ.*" /proc/device-tree/model | awk -F/ '{print $2}'))
+	local board_model=$(to_lower $(grep -o "RDP.*" /proc/device-tree/model | awk -F/ '{print $2}'))
 	local version=$(hexdump -n 1 -e '"%1d"' /sys/firmware/devicetree/base/soc_version_major)
 
 	if [ $version == "" ]; then
@@ -427,41 +419,41 @@ flash_section() {
 	done
 
 	case "${sec}" in
-		hlos*) switch_layout linux; image_is_nand && return || do_flash_failsafe_partition ${sec} "0:HLOS";;
-		rootfs*) switch_layout linux; image_is_nand && return || do_flash_failsafe_partition ${sec} "rootfs";;
-		wifi_fw_$(get_fw_name)-*) switch_layout linux; do_flash_failsafe_partition ${sec} "0:WIFIFW"; do_flash_failsafe_ubi_volume ${sec} "rootfs" "wifi_fw" ;;
-		wififw-*) switch_layout linux; do_flash_failsafe_partition ${sec} "0:WIFIFW";;
-		wififw_ubi-*) switch_layout linux; do_flash_ubi ${sec} "0:WIFIFW";;
-		wififw_v${version}-*) switch_layout linux; do_flash_failsafe_partition ${sec} "0:WIFIFW";;
+		hlos*) image_is_nand && return || do_flash_failsafe_partition ${sec} "0:HLOS";;
+		rootfs*) image_is_nand && return || do_flash_failsafe_partition ${sec} "rootfs";;
+		wifi_fw_$(get_fw_name)-*) do_flash_failsafe_partition ${sec} "0:WIFIFW"; do_flash_failsafe_ubi_volume ${sec} "rootfs" "wifi_fw" ;;
+		wififw-*) do_flash_failsafe_partition ${sec} "0:WIFIFW";;
+		wififw_ubi-*) do_flash_ubi ${sec} "0:WIFIFW";;
+		wififw_v${version}-*) do_flash_failsafe_partition ${sec} "0:WIFIFW";;
 		wififw_ubi_v${version}-*)
 			if ! [ "${qcn9000}" = "true" ]; then
-				switch_layout linux; do_flash_ubi ${sec} "0:WIFIFW";
+				do_flash_ubi ${sec} "0:WIFIFW";
 			else
 				echo "Section ${sec} ignored"; return 1;
 			fi
 			;;
 		wififw_ubi_*_v${version}-*)
 			if [ "${qcn9000}" = "true" ]; then
-				switch_layout linux; do_flash_ubi ${sec} "0:WIFIFW";
+				do_flash_ubi ${sec} "0:WIFIFW";
 			else
 				echo "Section ${sec} ignored"; return 1;
 			fi
 			;;
-		fs*) switch_layout linux; do_flash_failsafe_partition ${sec} "rootfs";;
-		ubi*) switch_layout linux; image_is_nand || return && do_flash_ubi ${sec} "rootfs";;
-		sbl1*) switch_layout boot; do_flash_partition ${sec} "0:SBL1"; \
+		fs*) do_flash_failsafe_partition ${sec} "rootfs";;
+		ubi*) image_is_nand || return && do_flash_ubi ${sec} "rootfs";;
+		sbl1*) do_flash_partition ${sec} "0:SBL1"; \
 			do_flash_partition ${sec} "0:SBL1_1";;
-		sbl2*) switch_layout boot; do_flash_failsafe_partition ${sec} "0:SBL2";;
-		sbl3*) switch_layout boot; do_flash_failsafe_partition ${sec} "0:SBL3";;
-		dtb-$(to_upper $board)*) switch_layout boot; do_flash_partition ${sec} "0:DTB";;
-		u-boot*) switch_layout boot; do_flash_failsafe_partition ${sec} "0:APPSBL";;
-		lkboot*) switch_layout boot; do_flash_failsafe_partition ${sec} "0:APPSBL";;
-		ddr-$(to_upper $board_model)_*) switch_layout boot; do_flash_ddr ${sec};;
-		ddr-${board_model}-*) switch_layout boot; do_flash_failsafe_partition ${sec} "0:DDRCONFIG";;
-		tz*) switch_layout boot; do_flash_tz ${sec};;
-		tme*) switch_layout boot; do_flash_partition ${sec} "0:TME"; \
+		sbl2*) do_flash_failsafe_partition ${sec} "0:SBL2";;
+		sbl3*) do_flash_failsafe_partition ${sec} "0:SBL3";;
+		dtb-$(to_upper $board)*) do_flash_partition ${sec} "0:DTB";;
+		u-boot*) do_flash_failsafe_partition ${sec} "0:APPSBL";;
+		lkboot*) do_flash_failsafe_partition ${sec} "0:APPSBL";;
+		ddr-$(to_upper $board_model)_*) do_flash_ddr ${sec};;
+		ddr-${board_model}-*) do_flash_failsafe_partition ${sec} "0:DDRCONFIG";;
+		tz*) do_flash_tz ${sec};;
+		tme*) do_flash_partition ${sec} "0:TME"; \
 			do_flash_partition ${sec} "0:TME_1";;
-		devcfg*) switch_layout boot; do_flash_failsafe_partition ${sec} "0:DEVCFG";;
+		devcfg*) do_flash_failsafe_partition ${sec} "0:DEVCFG";;
 		*) echo "Section ${sec} ignored"; return 1;;
 	esac
 
@@ -478,7 +470,7 @@ erase_emmc_config() {
 
 platform_check_image() {
 	local board=$(board_name)
-	local board_model=$(to_lower $(grep -o "IPQ.*" /proc/device-tree/model | awk -F/ '{print $2}'))
+	local board_model=$(to_lower $(grep -o "RDP.*" /proc/device-tree/model | awk -F/ '{print $2}'))
 	local mandatory_nand="ubi"
 	local mandatory_nor_emmc="hlos fs"
 	local mandatory_nor="hlos"
@@ -589,7 +581,6 @@ platform_do_upgrade() {
 			flash_section ${sec}
 		done
 
-		switch_layout linux
 		# update bootconfig to register that fw upgrade has been done
 
 		#Try mode
