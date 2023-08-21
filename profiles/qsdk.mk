@@ -16,7 +16,7 @@ NSS_PPE:= kmod-qca-nss-ppe \
 	kmod-qca-nss-ppe-pppoe-mgr \
 	kmod-qca-nss-ppe-lag-mgr \
 	-kmod-qca-nss-ppe-tunipip6 \
-	-kmod-qca-nss-ppe-gretap \
+	kmod-qca-nss-ppe-gretap \
 	kmod-qca-nss-ppe-vxlanmgr \
 	-kmod-qca-nss-ppe-mapt \
 	-kmod-qca-nss-ppe-rule
@@ -38,7 +38,7 @@ SWITCH_SSDK_PKGS:= kmod-qca-ssdk-hnat kmod-qca-ssdk-nohnat qca-ssdk-shell swconf
 
 MACSEC_OPEN_PKGS:= kmod-qca-nss-macsec -wpa-supplicant-macsec -hostapd-macsec
 
-WIFI_OPEN_PKGS:= kmod-ath12k kmod-ath11k wpad-mesh -hostapd-utils \
+WIFI_OPEN_PKGS:= kmod-ath12k kmod-ath11k wpad-mesh hostapd-utils \
 	sigma-dut-open wpa-cli qca-wifi-scripts
 #	sigma-dut-open wpa-cli qcmbr-netlink iwinfo \
 #	athtestcmd athtestcmd-lith-nl -qca-whc-lbd -qca-whc-init -libhyficommon qca-wifi-scripts
@@ -197,7 +197,7 @@ RSRC_MGR:=qca-rsrcmgr qca-rsrcmgr-secure-libs
 EXTRA_NETWORKING:= $(CD_ROUTER) $(NSS_EIP197_FW) -rdk-v-wifi-ath10k kmod-qca-nss-macsec \
 	$(MACSEC_OPEN_PKGS) $(NSS_CRYPTO) $(NSS_CLIENTS_STANDARD)
 
-STRONGSWAN:=strongswan strongswan-default strongswan-ipsec strongswan-mod-ctr strongswan-mod-gcm strongswan-mod-openssl strongswan-mod-stroke strongswan-mod-uci
+STRONGSWAN:=strongswan strongswan-default strongswan-mod-ctr strongswan-mod-gcm strongswan-mod-kdf strongswan-mod-openssl strongswan-mod-uci
 
 define Profile/QSDK_Premium
 	NAME:=Qualcomm Technologies, Inc SDK Premium Profile
