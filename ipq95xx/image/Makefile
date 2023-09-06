@@ -54,6 +54,7 @@ define Build/MultiDTBFIT
 	mkdir -p $(BIN_DIR)/dtbs
 	$(CP) $(STAGING_DIR_ROOT)/lib/modules/$(LINUX_VERSION)/* $(BIN_DIR)/debug/modules/
 	$(CP) $(KDIR)/vmlinux.debug $(BIN_DIR)/$(IMG_PREFIX)-vmlinux.elf
+	$(CP) $(KDIR)/vmlinux-initramfs.debug $(BIN_DIR)/$(IMG_PREFIX)-vmlinux-initramfs.elf
 	$(CP) $(KDIR)/Image* $(BIN_DIR)/dtbs/
 	$(CP) $(DTS_DIR)/ipq95*.dtb $(BIN_DIR)/dtbs/
 endef
