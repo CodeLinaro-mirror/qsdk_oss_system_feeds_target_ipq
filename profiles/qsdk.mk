@@ -39,7 +39,7 @@ SWITCH_SSDK_PKGS:= kmod-qca-ssdk-hnat kmod-qca-ssdk-nohnat qca-ssdk-shell swconf
 MACSEC_OPEN_PKGS:= kmod-qca-nss-macsec -wpa-supplicant-macsec -hostapd-macsec
 
 WIFI_OPEN_PKGS:= kmod-ath12k kmod-ath11k wpad-mesh hostapd-utils \
-	sigma-dut-open wpa-cli qca-wifi-scripts
+	control-app-open sigma-dut-open wpa-cli qca-wifi-scripts
 #	sigma-dut-open wpa-cli qcmbr-netlink iwinfo \
 #	athtestcmd athtestcmd-lith-nl -qca-whc-lbd -qca-whc-init -libhyficommon qca-wifi-scripts
 
