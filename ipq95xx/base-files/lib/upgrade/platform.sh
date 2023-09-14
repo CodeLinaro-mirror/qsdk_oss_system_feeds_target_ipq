@@ -219,10 +219,8 @@ do_flash_failsafe_partition() {
 
 		if [ "$bootname" = "bootconfig0" ]; then
 			primaryboot=$(cat /proc/boot_info/bootconfig1/$default_mtd/primaryboot)
-			bootname="bootconfig1"
 		else
 			primaryboot=$(cat /proc/boot_info/bootconfig0/$default_mtd/primaryboot)
-			bootname="bootconfig0"
 		fi
 		# Try mode
 		if [ -e /proc/upgrade_info/trybit ]; then
@@ -269,10 +267,8 @@ do_flash_ubi() {
 	[ -f /proc/boot_info/$btname/$mtdname/upgradepartition ] && {
 		if [ "$btname" = "bootconfig0" ]; then
 			primaryboot=$(cat /proc/boot_info/bootconfig1/$mtdname/primaryboot)
-			btname="bootconfig1"
 		else
 			primaryboot=$(cat /proc/boot_info/bootconfig0/$mtdname/primaryboot)
-			btname="bootconfig0"
 		fi
 
 		#Try mode
@@ -323,13 +319,15 @@ do_flash_failsafe_ubi_volume() {
 
 	ubiattach -p /dev/${mtdpart}
 
-	volumes=$(ls /sys/class/ubi/ubi0/ | grep ubi._.*)
+	volumes=$(ls /sys/class/ubi/*/ | grep ubi._.*)
 
 	for vol in ${volumes}
 	do
 		[ -f /sys/class/ubi/${vol}/name ] && name=$(cat /sys/class/ubi/${vol}/name)
-		[ ${name} == ${vol_name} ] && ubiupdatevol /dev/${vol} /tmp/${tmpfile} && break
+			[ ${name} == ${vol_name} ] && m_vol=${vol}
 	done
+
+	ubiupdatevol /dev/${m_vol} /tmp/${tmpfile}
 }
 
 do_flash_tz() {
@@ -614,11 +612,9 @@ platform_do_upgrade() {
 		#Try mode
 		if [ -e /proc/upgrade_info/trybit ]; then
 			if age_check ; then
-				echo $(cat /proc/boot_info/bootconfig0/age) > /proc/boot_info/bootconfig1/age
-				do_flash_bootconfig bootconfig1 "0:BOOTCONFIG"
+				do_flash_bootconfig bootconfig0 "0:BOOTCONFIG"
 			else
-				echo $(cat /proc/boot_info/bootconfig1/age) > /proc/boot_info/bootconfig0/age
-				do_flash_bootconfig bootconfig0 "0:BOOTCONFIG1"
+				do_flash_bootconfig bootconfig1 "0:BOOTCONFIG1"
 			fi
 		else
 			do_flash_bootconfig bootconfig0 "0:BOOTCONFIG"
@@ -677,6 +673,7 @@ platform_get_offset() {
                 esac
                 offsetcount=$(( $offsetcount + 1 ))
         done
+	echo $(( $offsetcount * 65536 ))
 }
 
 platform_copy_config() {
@@ -705,13 +702,17 @@ platform_copy_config() {
 		sync
 		umount /tmp/overlay
 	elif [ -e "$emmcblock" ]; then
+		local mmcpart="rootfs"
+
+		bin=$(get_bootconfig_name)
 		losetup --detach-all
-		local data_blockoffset="$(platform_get_offset $emmcblock)"
-		[ -z "$data_blockoffset" ] && {
-			emmcblock="$(find_mmc_part "rootfs_1")"
-			data_blockoffset="$(platform_get_offset $emmcblock)"
-		}
+		local data_blockoffset="$(platform_get_offset $(ls /tmp/rootfs-*))"
 		local loopdev="$(losetup -f)"
+		[ -f /proc/boot_info/$bin/rootfs/upgradepartition ] && {
+			mmcpart=$(cat /proc/boot_info/$bin/rootfs/upgradepartition)
+			[ "$mmcpart" == "rootfs" ] && mmcpart="rootfs_1" || mmcpart="rootfs"
+		}
+		emmcblock="$(find_mmc_part ${mmcpart})"
 		losetup -o $data_blockoffset $loopdev $emmcblock || {
 			echo "Failed to mount looped rootfs_data."
 			reboot
