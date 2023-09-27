@@ -18,7 +18,7 @@ NSS_PPE:= kmod-qca-nss-ppe \
 	-kmod-qca-nss-ppe-tunipip6 \
 	kmod-qca-nss-ppe-gretap \
 	kmod-qca-nss-ppe-vxlanmgr \
-	-kmod-qca-nss-ppe-mapt \
+	kmod-qca-nss-ppe-mapt \
 	kmod-qca-nss-ppe-rule \
 	kmod-qca-nss-ppe-mirror-test
 
