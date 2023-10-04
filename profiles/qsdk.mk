@@ -225,7 +225,7 @@ $(eval $(call Profile,QSDK_Premium))
 define Profile/QSDK_Open
 	NAME:=Qualcomm Technologies, Inc SDK Open Profile
 	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(TEST_TOOLS) $(AUDIO) $(VIDEO) \
-		$(FAILSAFE) $(DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(NSS_USERSPACE_OSS)\
+		$(FAILSAFE) $(DIAG) $(FTM) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(NSS_USERSPACE_OSS)\
 		$(QCA_ECM_PREMIUM) $(STRONGSWAN) $(NETWORKING) $(CD_ROUTER) \
 		$(SWITCH_SSDK_NOHNAT_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) \
 		$(WIFI_OPEN_PKGS) -lacpd -qca-thermald $(UTILS) $(EXTRA_NETWORKING) \
@@ -236,7 +236,7 @@ define Profile/QSDK_Open
 		-kmod-qca-nss-ecm-wifi-plugin
 endef
 
-#	$(HW_CRYPTO) $(QCA_RFS) $(FTM) $(CNSS_DIAG) $(EMESH_SP) $(QMI_SAMPLE_APP)
+#	$(HW_CRYPTO) $(QCA_RFS) $(CNSS_DIAG) $(EMESH_SP) $(QMI_SAMPLE_APP)
 
 define Profile/QSDK_Open/Description
 	QSDK Open package set configuration.
