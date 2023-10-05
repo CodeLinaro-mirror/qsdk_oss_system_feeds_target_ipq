@@ -21,6 +21,7 @@ NSS_PPE:= kmod-qca-nss-ppe \
 	-kmod-qca-nss-ppe-mapt \
 	kmod-qca-nss-ppe-rule \
 	kmod-qca-nss-ppe-qdisc \
+	kmod-qca-nss-ppe-ds \
 	kmod-qca-nss-ppe-mirror-test
 
 NSS_CRYPTO:= -kmod-qca-nss-crypto -kmod-qca-nss-cfi-cryptoapi -kmod-qca-nss-cfi-ocf -kmod-crypto-ocf \
