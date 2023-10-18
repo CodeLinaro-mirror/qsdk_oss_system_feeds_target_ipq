@@ -176,6 +176,8 @@ NSS_USERSPACE_OSS:=ppecfg
 
 NSS_FLOWID:=ifli
 
+NSS_FLS:=kmod-qca-nss-fls
+
 KPI:=iperf sysstat
 
 CNSS_DIAG:=cnssdiag
@@ -219,7 +221,8 @@ define Profile/QSDK_Premium
 		$(UTILS) $(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) $(NSS_EIP197_FW) \
 		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE) $(NSS_USERSPACE_OSS)\
 		$(NSS_RMNET) $(QCA_MAD) $(QCA_EZMESH) $(OPENVPN) kmod-macvlan \
-		$(NSS_NSM) $(SAL_QOS) $(RSRC_MGR) $(WIFI_PKGS_6_1) $(NPT66) $(NSS_FLOWID)
+		$(NSS_NSM) $(SAL_QOS) $(RSRC_MGR) $(WIFI_PKGS_6_1) $(NPT66) $(NSS_FLOWID) \
+		$(NSS_FLS)
 endef
 
 #		$(NSS_UDP_ST) $(QCA_RFS) $(CNSS_DIAG) $(WIFI_FW_PKGS) $(WIFI_PKGS) $(NSS_MACSEC) $(FTM) $(CTRL_APP_DUT) $(EMESH_SP)
@@ -242,7 +245,7 @@ define Profile/QSDK_Open
 		$(IPSEC) $(NSS_CRYPTO) $(QOS) -lacpd  $(AQ_PHY) $(MACSEC_OPEN_PKGS) -qca-cnss-daemon \
 		qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
 		-qapp-store libtirpc cfr_tools -kmod-qca-ovsmgr -qca-mcs-apps \
-		-kmod-qca-nss-ecm-wifi-plugin $(NSS_FLOWID) kmod-macvlan
+		-kmod-qca-nss-ecm-wifi-plugin $(NSS_FLOWID) $(NSS_FLS) kmod-macvlan
 endef
 
 #	$(HW_CRYPTO) $(QCA_RFS) $(FTM) $(CNSS_DIAG) $(EMESH_SP) $(QMI_SAMPLE_APP)
