@@ -55,7 +55,8 @@ WIFI_OPEN_PKGS_8M:= kmod-ath11k wpad-mesh hostapd-utils \
 WIFI_PKGS_6_1:=kmod-qca-wifi-unified-profile \
 	qca-wifi-hk-fw-hw1-10.4-asic \
 	qca-cfg80211 qca-hostap qca-hostapd-cli qca-wpa-supplicant \
-	qca-wpa-cli qca-cfg80211tool
+	qca-wpa-cli qca-cfg80211tool athdiag \
+	qca-wifi-scripts sigma-dut
 
 WIFI_PKGS:=kmod-qca-wifi-unified-profile \
 	qca-hostap qca-hostapd-cli qca-wpa-supplicant \
