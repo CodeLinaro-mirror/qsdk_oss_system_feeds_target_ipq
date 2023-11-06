@@ -380,7 +380,10 @@ get_fw_name() {
 		"8060102"|\
 		"1060001"|\
 		"1060003"|\
-		"1060002")
+		"1060002"|\
+		"8060202"|\
+		"8060302"|\
+		"8060201")
 			wifi_ipq="$img"_"$image_suffix1"
 			;;
 		"8060002"|\
@@ -390,6 +393,10 @@ get_fw_name() {
 		"1060003"|\
 		"8060007")
 			wifi_ipq="$img"_"$image_suffix3"
+			;;
+		"8060202"|\
+		"8060302")
+			wifi_ipq="$img"_"$image_suffix4"
 			;;
 		*)
 			wifi_ipq=$img"_qcn9224_v2_single_dualmac_qcn9160"
@@ -564,6 +571,7 @@ platform_do_upgrade() {
 	case "$board" in
 	qcom,devsoc-ap-emulation |\
 	qcom,ipq5332-ap-mi01.2 |\
+	qcom,ipq5332-ap-mi01.2-c2 |\
 	qcom,ipq5332-ap-mi01.2-qcn9160-c1 |\
 	qcom,ipq5332-ap-mi01.3 |\
 	qcom,ipq5332-ap-mi01.3-c2 |\
@@ -571,6 +579,8 @@ platform_do_upgrade() {
 	qcom,ipq5332-ap-mi01.6 |\
 	qcom,ipq5332-ap-mi01.7 |\
 	qcom,ipq5332-ap-mi01.9 |\
+	qcom,ipq5332-ap-mi01.12 |\
+	qcom,ipq5332-ap-mi01.14 |\
 	qcom,ipq5332-ap-mi04.1 |\
 	qcom,ipq5332-ap-mi04.1-c2 |\
 	qcom,ipq5332-db-mi01.1 |\
