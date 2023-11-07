@@ -396,6 +396,7 @@ get_fw_name() {
 		"8050d01"|\
 		"8051001"|\
 		"8051101"|\
+		"8051301"|\
 		"8050c01"|\
 		"8050a01")
 			wifi_ipq="$img"_"$image_suffix"
@@ -595,6 +596,7 @@ platform_do_upgrade() {
 	qcom,ipq9574-ap-al02-c17 |\
 	qcom,ipq9574-ap-al02-c18 |\
 	qcom,ipq9574-ap-al02-c19 |\
+	qcom,ipq9574-ap-al02-c20 |\
 	qcom,ipq9574-ap-al05 |\
 	qcom,ipq9574-ap-al06 |\
 	qcom,ipq9574-db-al01-c1 |\
