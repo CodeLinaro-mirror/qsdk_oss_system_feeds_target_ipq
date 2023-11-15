@@ -63,10 +63,19 @@ image_demux() {
 		local fullname=$(get_full_section_name ${img} ${sec})
 
 		local position=$(dumpimage -l ${img} | grep "(${fullname})" | awk '{print $2}')
-		dumpimage -o /tmp/${fullname}.bin -T "flat_dt" -p "${position}" ${img} > /dev/null || { \
-			echo "Error while extracting \"${sec}\" from ${img}"
-			return 1
-		}
+		version=$(dumpimage -V 2>&1 | awk '{split($3, a, "."); print a[1]}')
+
+		if [ "$version" == "2016" ]; then
+			dumpimage -i ${img} -o /tmp/${fullname}.bin -T "flat_dt" -p "${position}" ${fullname} > /dev/null || { \
+				echo "Error while extracting \"${sec}\" from ${img}"
+				return 1
+			}
+		else
+			dumpimage -o /tmp/${fullname}.bin -T "flat_dt" -p "${position}" ${img} > /dev/null || { \
+				echo "Error while extracting \"${sec}\" from ${img}"
+				return 1
+			}
+		fi
 	done
 	return 0
 }
