@@ -313,6 +313,8 @@ image_is_nand()
 
 get_fw_name() {
 	wifi_ipq="ignored"
+	image_suffix1="qcn9224_v2_dualmac"
+	image_suffix2="qcn9000_qcn9224_v2"
 	machineid=$(fw_printenv -l /tmp/. machid | cut -d '=' -f 2)
 
 	case "${machineid}" in
@@ -330,9 +332,11 @@ get_fw_name() {
 		"8051001"|\
 		"8051101"|\
 		"8051301"|\
-		"8050c01"|\
 		"8050a01")
-			wifi_ipq="ipq9574_qcn9000_qcn9224_v2_dualmac"
+			wifi_ipq="ipq9574_"$image_suffix1
+			;;
+		"8050c01")
+			wifi_ipq="ipq9574_"$image_suffix2
 			;;
 		*)
 			wifi_ipq="ipq9574_qcn9000"
