@@ -5,7 +5,7 @@ define Device/Default
 	PROFILES := Default
 	DTS_DIR := $(LINUX_DIR)/arch/$(LINUX_KARCH)/boot/dts/$(if $(CONFIG_TARGET_ipq95xx_generic),qcom)
 	KERNEL_DEPENDS = $$(wildcard $(DTS_DIR)/$$(DEVICE_DTS).dts)
-	KERNEL_LOADADDR := $(if $(CONFIG_LINUX_6_1), $(if $(CONFIG_TARGET_ipq95xx_generic),0x40000000,0x40008000),$(if $(CONFIG_TARGET_ipq95xx_generic),0x42080000,0x42008000))
+	KERNEL_LOADADDR := $(if $(CONFIG_LINUX_6_1)$(CONFIG_LINUX_6_6), $(if $(CONFIG_TARGET_ipq95xx_generic),0x40000000,0x40008000),$(if $(CONFIG_TARGET_ipq95xx_generic),0x42080000,0x42008000))
 	DEVICE_DTS = $$(SOC)-$(lastword $(subst _, ,$(1)))
 	DEVICE_DTS_CONFIG := config-1
 	IMAGES := sysupgrade.bin
@@ -52,7 +52,7 @@ define Build/MultiDTBFIT
 	$(call Build/MkFITMulti,qcom_alxx,$@,$(call FindDeviceTrees, ipq9574-), lzma, $(KERNEL_LOADADDR),$(KERNEL_LOADADDR))
 	mkdir -p $(BIN_DIR)/debug/modules
 	mkdir -p $(BIN_DIR)/dtbs
-	$(CP) $(STAGING_DIR_ROOT)/lib/modules/$(LINUX_VERSION)/* $(BIN_DIR)/debug/modules/
+	$(CP) $(STAGING_DIR_ROOT)/lib/modules/$(LINUX_VERSION)*/* $(BIN_DIR)/debug/modules/
 	$(CP) $(KDIR)/vmlinux.debug $(BIN_DIR)/$(IMG_PREFIX)-vmlinux.elf
 	$(CP) $(KDIR)/vmlinux-initramfs.debug $(BIN_DIR)/$(IMG_PREFIX)-vmlinux-initramfs.elf
 	$(CP) $(KDIR)/Image* $(BIN_DIR)/dtbs/
