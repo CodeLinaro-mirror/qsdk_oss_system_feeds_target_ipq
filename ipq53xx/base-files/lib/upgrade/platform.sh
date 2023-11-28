@@ -305,6 +305,8 @@ get_fw_name() {
 	image_suffix1="qcn9224_v2_single_dualmac"
 	image_suffix2="qcn6432cs"
 	image_suffix3="qcn6432"
+	image_suffix4="qcn9224_v2_qcn6432"
+	image_suffix5="qcn9224_v2_qcn9160"
 	machineid=$(fw_printenv -l /tmp/. machid | cut -d '=' -f 2)
 
 	case "${machineid}" in
@@ -318,7 +320,6 @@ get_fw_name() {
 		"1060001"|\
 		"1060003"|\
 		"1060002"|\
-		"8060202"|\
 		"8060302"|\
 		"8060201")
 			wifi_ipq="ipq5332_"$image_suffix1
@@ -333,7 +334,10 @@ get_fw_name() {
 			;;
 		"8060202"|\
 		"8060302")
-			wifi_ipq="$img"_"$image_suffix4"
+			wifi_ipq="ipq5332_"$image_suffix4
+			;;
+		"8060101")
+			wifi_ipq="ipq5332_"$image_suffix5
 			;;
 		*)
 			wifi_ipq="ipq5332_qcn9224_v2_single_dualmac_qcn9160"
