@@ -56,7 +56,8 @@ WIFI_PKGS_6_1:=kmod-qca-wifi-unified-profile \
 	qca-wifi-hk-fw-hw1-10.4-asic \
 	qca-cfg80211 qca-hostap qca-hapd-supp qca-hostapd-cli qca-wpa-supplicant \
 	qca-wpa-cli qca-cfg80211tool athdiag \
-	qca-wifi-scripts sigma-dut
+	qca-wifi-scripts sigma-dut qca-wrapd \
+	qca-spectral qca-icm qca-wapid
 
 WIFI_PKGS:=kmod-qca-wifi-unified-profile \
 	qca-hostap qca-hostapd-cli qca-wpa-supplicant \
