@@ -104,7 +104,7 @@ MACSEC_OPEN_PKGS:= kmod-qca-nss-macsec -wpa-supplicant-macsec -hostapd-macsec
 NSS_L2TP:= kmod-l2tp kmod-l2tp-ip kmod-l2tp-eth
 
 WIFI_OPEN_PKGS:= kmod-ath12k kmod-ath11k wpad-mesh hostapd-utils \
-	control-app-open sigma-dut-open wpa-cli qca-wifi-scripts cnssdiag myftm
+	control-app-open sigma-dut-open wpa-cli qca-wifi-scripts cnssdiag myftm kmod-telemetry-agent
 #	sigma-dut-open wpa-cli qcmbr-netlink iwinfo \
 #	athtestcmd athtestcmd-lith-nl -qca-whc-lbd -qca-whc-init -libhyficommon qca-wifi-scripts -kmod-telemetry-agent
 
