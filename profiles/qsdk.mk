@@ -238,11 +238,15 @@ NSS_FLS:=kmod-qca-nss-fls
 
 KPI:=iperf sysstat
 
+CHAR_DIAG:=kmod-diag-char qca-diag
+
+USB_DIAG:=kmod-diag-char kmod-usb-f-diag qca-diag kmod-usb-gdiag
+
 CNSS_DIAG:=cnssdiag
 
 CTRL_APP_DUT:=ctrl_app_dut
 
-FTM:=ftm
+FTM:=ftm qca-diag
 
 QMSCT_CLIENT:=qmsct_client
 
@@ -275,7 +279,7 @@ define Profile/QSDK_Premium
 		$(FAILSAFE) $(DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) \
 		$(QCA_ECM_PREMIUM) $(NETWORKING) $(CD_ROUTER) $(KPI) $(MAP_PKGS) \
 		$(SWITCH_SSDK_NOHNAT_PKGS) $(IGMPSNOOPING_RSTP) -lacpd $(AQ_PHY) \
-		$(SWITCH_SSDK_PKGS) $(QMSCT_CLIENT) $(NSS_STANDARD) \
+		$(SWITCH_SSDK_PKGS) $(QMSCT_CLIENT) $(NSS_STANDARD) $(USB_DIAG) $(CHAR_DIAG) $(FTM) \
 		$(UTILS) $(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) $(NSS_EIP197_FW) \
 		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE) $(NSS_USERSPACE_OSS)\
 		$(NSS_RMNET) $(QCA_MAD) $(QCA_EZMESH) $(OPENVPN) kmod-macvlan \
@@ -283,7 +287,7 @@ define Profile/QSDK_Premium
 		$(NSS_FLS) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS)
 endef
 
-#		$(NSS_UDP_ST) $(QCA_RFS) $(CNSS_DIAG) $(NSS_MACSEC) $(FTM) $(CTRL_APP_DUT)
+#		$(NSS_UDP_ST) $(QCA_RFS) $(CNSS_DIAG) $(NSS_MACSEC) $(CTRL_APP_DUT)
 
 define Profile/QSDK_Premium/Description
 	QSDK Premium package set configuration.
