@@ -11,5 +11,5 @@ endef
 DEFAULT_PACKAGES += \
 	uboot-2016-ipq5332 uboot-ipq5332-mmc32 \
 	uboot-ipq5332-norplusmmc32 uboot-ipq5332-norplusnand32 \
-	uboot-ipq5332-nand32 \
+	uboot-ipq5332-nand32 fwupgrade-tools \
 	sysupgrade-helper
