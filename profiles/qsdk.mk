@@ -227,10 +227,10 @@ define Profile/QSDK_Premium
 		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE) $(NSS_USERSPACE_OSS)\
 		$(NSS_RMNET) $(QCA_MAD) $(QCA_EZMESH) $(OPENVPN) kmod-macvlan \
 		$(NSS_NSM) $(SAL_QOS) $(RSRC_MGR) $(WIFI_PKGS_6_1) $(NPT66) $(NSS_FLOWID) \
-		$(NSS_FLS) $(NSS_L2TP) $(EMESH_SP)
+		$(NSS_FLS) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS)
 endef
 
-#		$(NSS_UDP_ST) $(QCA_RFS) $(CNSS_DIAG) $(WIFI_FW_PKGS) $(WIFI_PKGS) $(NSS_MACSEC) $(FTM) $(CTRL_APP_DUT)
+#		$(NSS_UDP_ST) $(QCA_RFS) $(CNSS_DIAG) $(WIFI_PKGS) $(NSS_MACSEC) $(FTM) $(CTRL_APP_DUT)
 
 define Profile/QSDK_Premium/Description
 	QSDK Premium package set configuration.
