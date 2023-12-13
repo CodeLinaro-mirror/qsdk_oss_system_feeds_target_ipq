@@ -6,7 +6,7 @@ define Device/qcom_mpxx
 	BOARD_NAME := ap-mpxx
 	SOC := ipq5018
 	KERNEL_INSTALL := 1
-	KERNEL_SIZE := $(if $(CONFIG_DEBUG),7680k,6500k)
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
