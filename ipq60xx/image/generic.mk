@@ -11,7 +11,7 @@ define Device/qcom_cpxx
 	BOARD_NAME := ap-cpxx
 	SOC := ipq6018
 	KERNEL_INSTALL := 1
-	KERNEL_SIZE := $(if $(CONFIG_DEBUG),7680k,6500k)
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
@@ -25,7 +25,7 @@ define Device/qcom_cp01-c1
 	BOARD_NAME := ap-cp01-c1
 	SOC := ipq6018
 	KERNEL_INSTALL := 1
-	KERNEL_SIZE := $(if $(CONFIG_DEBUG),7680k,6500k)
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
@@ -39,7 +39,7 @@ define Device/qcom_cp01-c3
 	BOARD_NAME := ap-cp01-c3
 	SOC := ipq6018
 	KERNEL_INSTALL := 1
-	KERNEL_SIZE := $(if $(CONFIG_DEBUG),7680k,6500k)
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
@@ -53,7 +53,7 @@ define Device/qcom_cp01-c4
 	BOARD_NAME := ap-cp01-c4
 	SOC := ipq6018
 	KERNEL_INSTALL := 1
-	KERNEL_SIZE := $(if $(CONFIG_DEBUG),7680k,6500k)
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
@@ -67,7 +67,7 @@ define Device/qcom_cp01-c5
 	BOARD_NAME := ap-cp01-c5
 	SOC := ipq6018
 	KERNEL_INSTALL := 1
-	KERNEL_SIZE := $(if $(CONFIG_DEBUG),7680k,6500k)
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
@@ -81,7 +81,7 @@ define Device/qcom_db-cp01
 	BOARD_NAME := dp-cp01
 	SOC := ipq6018
 	KERNEL_INSTALL := 1
-	KERNEL_SIZE := $(if $(CONFIG_DEBUG),7680k,6500k)
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
@@ -95,7 +95,7 @@ define Device/qcom_cp02-c1
 	BOARD_NAME := ap-cp02-c1
 	SOC := ipq6018
 	KERNEL_INSTALL := 1
-	KERNEL_SIZE := $(if $(CONFIG_DEBUG),7680k,6500k)
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
@@ -109,7 +109,7 @@ define Device/qcom_cp03-c1
 	BOARD_NAME := ap-cp03-c1
 	SOC := ipq6018
 	KERNEL_INSTALL := 1
-	KERNEL_SIZE := $(if $(CONFIG_DEBUG),7680k,6500k)
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
