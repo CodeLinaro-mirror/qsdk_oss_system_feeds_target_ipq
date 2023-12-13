@@ -36,6 +36,10 @@ include generic.mk
 
 FindDeviceTrees ?= $(notdir $(basename $(shell find $(DTS_DIR)/ -name $(1)*.dtb $(2) 2>/dev/null)))
 
+define Image/Build/squashfs
+        $(call prepare_generic_squashfs,$(KDIR)/root.squashfs)
+endef
+
 define Image/Build
 	$(call Image/Build/$(1),$(1))
 	dd if=$(KDIR)/root$(2).$(1) of=$(BIN_DIR)/$(IMG_PREFIX)-$(1)-root$(3).img bs=2k conv=sync
