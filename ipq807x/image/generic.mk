@@ -1,8 +1,4 @@
 
-DEVICE_VARS += NETGEAR_BOARD_ID NETGEAR_HW_ID
-DEVICE_VARS += RAS_BOARD RAS_ROOTFS_SIZE RAS_VERSION
-DEVICE_VARS += WRGG_DEVNAME WRGG_SIGNATURE
-
 define Device/qcom_hkxx
         $(call Device/MultiDTBFitImage)
 	DEVICE_VENDOR := Qualcomm Technologies, Inc.

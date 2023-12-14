@@ -1,8 +1,4 @@
 
-DEVICE_VARS += NETGEAR_BOARD_ID NETGEAR_HW_ID
-DEVICE_VARS += RAS_BOARD RAS_ROOTFS_SIZE RAS_VERSION
-DEVICE_VARS += WRGG_DEVNAME WRGG_SIGNATURE
-
 define Device/qcom_cpxx
 	$(call Device/MultiDTBFitImage)
 	DEVICE_VENDOR := Qualcomm Technologies, Inc.
@@ -23,6 +19,7 @@ define Device/qcom_cp01-c1
 	DEVICE_MODEL := AP-CP01-C1
 	DEVICE_VARIANT :=
 	BOARD_NAME := ap-cp01-c1
+	BUILD_DTS_ipq6018-cp01-c1 := 1
 	SOC := ipq6018
 	KERNEL_INSTALL := 1
 	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
@@ -37,6 +34,7 @@ define Device/qcom_cp01-c3
 	DEVICE_MODEL := AP-CP01-C3
 	DEVICE_VARIANT :=
 	BOARD_NAME := ap-cp01-c3
+	BUILD_DTS_ipq6018-cp01-c3 := 1
 	SOC := ipq6018
 	KERNEL_INSTALL := 1
 	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
@@ -51,6 +49,7 @@ define Device/qcom_cp01-c4
 	DEVICE_MODEL := AP-CP01-C4
 	DEVICE_VARIANT :=
 	BOARD_NAME := ap-cp01-c4
+	BUILD_DTS_ipq6018-cp01-c4 := 1
 	SOC := ipq6018
 	KERNEL_INSTALL := 1
 	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
@@ -65,6 +64,7 @@ define Device/qcom_cp01-c5
 	DEVICE_MODEL := AP-CP01-C5
 	DEVICE_VARIANT :=
 	BOARD_NAME := ap-cp01-c5
+	BUILD_DTS_ipq6018-cp01-c5 := 1
 	SOC := ipq6018
 	KERNEL_INSTALL := 1
 	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
@@ -76,9 +76,10 @@ TARGET_DEVICES += qcom_cp01-c5
 define Device/qcom_db-cp01
 	$(call Device/FitImageLzma)
 	DEVICE_VENDOR := Qualcomm Technologies, Inc.
-	DEVICE_MODEL := DP-CP01
+	DEVICE_MODEL := DB-CP01
 	DEVICE_VARIANT :=
-	BOARD_NAME := dp-cp01
+	BOARD_NAME := db-cp01
+	BUILD_DTS_ipq6018-db-cp01 := 1
 	SOC := ipq6018
 	KERNEL_INSTALL := 1
 	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
@@ -93,6 +94,7 @@ define Device/qcom_cp02-c1
 	DEVICE_MODEL := AP-CP02-C1
 	DEVICE_VARIANT :=
 	BOARD_NAME := ap-cp02-c1
+	BUILD_DTS_ipq6018-cp02-c1 := 1
 	SOC := ipq6018
 	KERNEL_INSTALL := 1
 	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
@@ -107,6 +109,7 @@ define Device/qcom_cp03-c1
 	DEVICE_MODEL := DP-CP03-C1
 	DEVICE_VARIANT :=
 	BOARD_NAME := ap-cp03-c1
+	BUILD_DTS_ipq6018-cp03-c1 := 1
 	SOC := ipq6018
 	KERNEL_INSTALL := 1
 	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
