@@ -5,9 +5,11 @@ define Device/Default
 	PROFILES := Default
 	DTS_DIR := $(LINUX_DIR)/arch/$(LINUX_KARCH)/boot/dts/$(if $(CONFIG_TARGET_ipq807x_generic),qcom)
 	KERNEL_DEPENDS = $$(wildcard $(DTS_DIR)/$$(DEVICE_DTS).dts)
-	KERNEL_LOADADDR := $(if $(CONFIG_TARGET_ipq807x_generic),0x40080000,0x40008000)
+	KERNEL_LOADADDR := $(if $(CONFIG_TARGET_ipq807x_generic),0x41080000,0x41208000)
 	DEVICE_DTS = $$(SOC)-$(lastword $(subst _, ,$(1)))
 	DEVICE_DTS_CONFIG := config-1
+	BLOCKSIZE := 128k
+	PAGESIZE := 2048
 	IMAGES := sysupgrade.bin
 	IMAGE/sysupgrade.bin = sysupgrade-tar | append-metadata
 	IMAGE/sysupgrade.bin/squashfs :=
@@ -23,6 +25,13 @@ define Device/FitImageLzma
 	KERNEL_SUFFIX := -fit-uImage.itb
 	KERNEL = kernel-bin | lzma | fit lzma $$(DTS_DIR)/$$(DEVICE_DTS).dtb
 	KERNEL_NAME := Image
+endef
+
+define Device/UbiFit
+	KERNEL_IN_UBI := 1
+	IMAGES := factory.ubi sysupgrade.bin
+	IMAGE/factory.ubi := append-ubi --rootfs_volname "ubi_rootfs"
+	IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
 endef
 
 define Device/MultiDTBFitImage
