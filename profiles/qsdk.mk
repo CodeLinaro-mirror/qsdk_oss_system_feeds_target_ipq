@@ -1,5 +1,16 @@
 NSS_COMMON:= \
-	kmod-qca-nss-dp
+        kmod-qca-nss-dp \
+        kmod-qca-nss-drv \
+       -kmod-qca-nss-gmac
+
+NSS_STANDARD:= \
+       qca-nss-fw-hk-retail \
+       qca-nss-fw-cp-retail \
+       qca-nss-fw-mp-retail
+
+NSS_EIP197_FW:= \
+       qca-nss-fw-eip-hk \
+       qca-nss-fw-eip-cp
 
 NSS_MACSEC:= \
 	kmod-qca-nss-macsec \
