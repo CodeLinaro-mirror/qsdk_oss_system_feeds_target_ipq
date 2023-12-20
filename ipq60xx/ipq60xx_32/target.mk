@@ -9,4 +9,5 @@ define Target/Description
 endef
 
 DEFAULT_PACKAGES += \
+	fwupgrade-tools \
 	sysupgrade-helper
