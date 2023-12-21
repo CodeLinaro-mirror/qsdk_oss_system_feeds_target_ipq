@@ -582,10 +582,8 @@ platform_copy_config() {
 		}
 		echo y | mkfs.ext4 -F -L rootfs_data $loopdev
 		mount -t ext4 "$loopdev" /tmp/overlay
-		cp /tmp/sysupgrade.tgz /tmp/overlay/
-		sync
-		umount /tmp/overlay
 	fi
+
 	cp /tmp/sysupgrade.tgz /tmp/overlay/
 	sync
 	umount /tmp/overlay
