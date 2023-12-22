@@ -12,14 +12,39 @@ NSS_EIP197_FW:= \
        qca-nss-fw-eip-hk \
        qca-nss-fw-eip-cp
 
+NSS_ENTERPRISE:= \
+	qca-nss-fw-hk-enterprise \
+	qca-nss-fw-hk-enterprise_custA \
+	qca-nss-fw-hk-enterprise_custC \
+	qca-nss-fw-hk-enterprise_custR \
+	qca-nss-fw-cp-enterprise \
+	qca-nss-fw-mp-enterprise \
+	qca-nss-fw-cp-enterprise_custA \
+	qca-nss-fw-cp-enterprise_custC \
+	qca-nss-fw-cp-enterprise_custR
+
 NSS_MACSEC:= \
 	kmod-qca-nss-macsec \
 	qca-wpa-supplicant-macsec \
+	-qca-hapd-supp-macsec \
 	qca-hostap-macsec
 
 QCA_ECM_STANDARD:= kmod-qca-nss-ecm-standard
 QCA_ECM_ENTERPRISE:= kmod-qca-nss-ecm-noload kmod-qca-nss-ecm-wifi-plugin
 QCA_ECM_PREMIUM:= kmod-qca-nss-ecm-premium kmod-qca-nss-ecm-wifi-plugin
+
+NSS_PPE_256:= kmod-qca-nss-ppe \
+	kmod-qca-nss-ppe-vp \
+	kmod-qca-nss-ppe-bridge-mgr \
+	kmod-qca-nss-ppe-pppoe-mgr \
+	kmod-qca-nss-ppe-lag-mgr \
+	kmod-qca-nss-ppe-ds
+
+NSS_PPE_16M:= kmod-qca-nss-ppe \
+	kmod-qca-nss-ppe-vp \
+	kmod-qca-nss-ppe-bridge-mgr \
+	kmod-qca-nss-ppe-pppoe-mgr \
+	kmod-qca-nss-ppe-lag-mgr
 
 NSS_PPE:= kmod-qca-nss-ppe \
 	kmod-qca-nss-ppe-vp \
@@ -36,8 +61,27 @@ NSS_PPE:= kmod-qca-nss-ppe \
 	kmod-qca-nss-ppe-mirror-test \
 	kmod-qca-nss-ppe-l2tp \
 
+NSS_CLIENTS_STANDARD:= kmod-qca-nss-drv-qdisc kmod-qca-nss-drv-igs kmod-qca-nss-drv-tun6rd \
+	kmod-qca-nss-drv-tunipip6 kmod-qca-nss-drv-l2tpv2 kmod-qca-nss-drv-pptp \
+	kmod-qca-nss-drv-map-t kmod-qca-nss-drv-lag-mgr \
+	kmod-qca-nss-drv-bridge-mgr kmod-qca-nss-drv-gre kmod-qca-nss-drv-pppoe \
+	kmod-qca-nss-drv-ovpn-mgr kmod-qca-nss-drv-ovpn-link kmod-qca-nss-drv-vxlanmgr \
+	kmod-qca-nss-drv-netlink kmod-qca-ovsmgr kmod-qca-nss-drv-match kmod-qca-nss-drv-mirror \
+	kmod-qca-nss-drv-mscs
+
+NSS_CLIENTS_256MB:= kmod-qca-nss-drv-bridge-mgr kmod-qca-nss-drv-pppoe
+
+NSS_CLIENTS_ENTERPRISE:= kmod-qca-nss-drv-qdisc kmod-qca-nss-drv-profile \
+	kmod- kmod-qca-nss-drv-bridge-mgr kmod-qca-nss-drv-netlink kmod-qca-nss-drv-tlsmgr \
+	kmod-qca-nss-drv-match kmod-qca-nss-drv-mirror kmod-qca-nss-drv-mscs
+
 NSS_CRYPTO:= -kmod-qca-nss-crypto -kmod-qca-nss-cfi-cryptoapi -kmod-qca-nss-cfi-ocf -kmod-crypto-ocf \
-	kmod-qca-nss-eip kmod-qca-nss-eip-crypto kmod-qca-nss-eip-ipsec
+	kmod-qca-nss-eip kmod-qca-nss-eip-crypto kmod-qca-nss-eip-ipsec -kmod-qca-nss-drv-ipsecmgr -kmod-qca-nss-drv-ipsecmgr-xfrm \
+	-kmod-qca-nss-drv-ipsecmgr-klips
+
+NSS_CRYPTO_MINENT:= kmod-qca-nss-crypto kmod-qca-nss-cfi-cryptoapi -kmod-qca-nss-cfi-ocf kmod-qca-nss-drv-ipsecmgr kmod-qca-nss-drv-ipsecmgr-xfrm -kmod-crypto-ocf -kmod-qca-nss-drv-ipsecmgr-klips
+
+NSS_RMNET:= kmod-rmnet-nss
 
 HW_CRYPTO:= kmod-crypto-qcrypto
 
@@ -45,11 +89,15 @@ NSS_UDP_ST:= kmod-nss-udp-st-drv nss-udp-st
 
 NSS_NSM:= qca-nsm-app
 
+NSS_FLS:= kmod-qca-nss-fls
+
 NSS_MESH:= kmod-qca-nss-drv-wifi-meshmgr
 
 SAL_QOS:= qca-sal-qos-test qca-sal-rule-test
 
-SWITCH_SSDK_PKGS:= kmod-qca-ssdk-hnat kmod-qca-ssdk-nohnat qca-ssdk-shell swconfig
+QCA_RFS:= kmod-qca-rfs
+
+SWITCH_SSDK_PKGS:= kmod-qca-ssdk-hnat kmod-qca-ssdk-nohnat qca-ssdk-shell swconfig -kmod-qca8k
 
 MACSEC_OPEN_PKGS:= kmod-qca-nss-macsec -wpa-supplicant-macsec -hostapd-macsec
 
@@ -58,10 +106,10 @@ NSS_L2TP:= kmod-l2tp kmod-l2tp-ip kmod-l2tp-eth
 WIFI_OPEN_PKGS:= kmod-ath12k kmod-ath11k wpad-mesh hostapd-utils \
 	control-app-open sigma-dut-open wpa-cli qca-wifi-scripts cnssdiag myftm
 #	sigma-dut-open wpa-cli qcmbr-netlink iwinfo \
-#	athtestcmd athtestcmd-lith-nl -qca-whc-lbd -qca-whc-init -libhyficommon qca-wifi-scripts
+#	athtestcmd athtestcmd-lith-nl -qca-whc-lbd -qca-whc-init -libhyficommon qca-wifi-scripts -kmod-telemetry-agent
 
 WIFI_OPEN_PKGS_8M:= kmod-ath11k wpad-mesh hostapd-utils \
-	wpa-cli \
+	wpa-cli -qca-whc-lbd -qca-whc-init -libhyficommon \
 	wififw_mount_script
 
 WIFI_PKGS_6_1:=kmod-qca-wifi-unified-profile \
@@ -72,7 +120,7 @@ WIFI_PKGS_6_1:=kmod-qca-wifi-unified-profile \
 	qca-spectral qca-icm qca-wapid
 
 WIFI_PKGS:=kmod-qca-wifi-unified-profile \
-	qca-hostap qca-hostapd-cli qca-wpa-supplicant \
+	qca-hostap qca-hostapd-cli -qca-hapd-supp qca-wpa-supplicant \
 	qca-wpa-cli qca-cfg80211tool qca-wifi-scripts \
 	qca-acfg qca-wrapd -athtestcmd-lith -myftm qca-iface-mgr \
 	qca-wapid qca-lowi athdiag whc-mesh whc-ui \
@@ -80,21 +128,21 @@ WIFI_PKGS:=kmod-qca-wifi-unified-profile \
 	qca-wpc qca-cfg80211 -qca-cnss-daemon
 
 WIFI_PKGS_MINENT:=kmod-qca-wifi-custc-profile \
-	qca-hostap qca-hostapd-cli qca-wpa-supplicant \
+	qca-hostap qca-hostapd-cli -qca-hapd-supp qca-wpa-supplicant \
 	qca-wpa-cli qca-spectral qca-wpc sigma-dut \
 	qcmbr qca-wrapd qca-wapid qca-acfg \
 	qca-lowi qca-icm qca-cfg80211 athdiag qca-cnss-daemon \
-	athtestcmd-lith qca-cfg80211tool
+	athtestcmd-lith qca-cfg80211tool -myftm
 
 WIFI_PKGS_256MB:=kmod-qca-wifi-lowmem-profile \
-	qca-hostap qca-hostapd-cli qca-wpa-supplicant \
+	qca-hostap qca-hostapd-cli -qca-hapd-supp qca-wpa-supplicant \
 	qca-wpa-cli qca-cfg80211tool qca-wifi-scripts \
 	qca-wpc sigma-dut qca-wrapd qca-wapid qca-acfg \
 	qca-iface-mgr qca-icm qca-cfg80211 athdiag qca-cnss-daemon \
-	athtestcmd-lith whc-mesh whc-ui
+	athtestcmd-lith whc-mesh whc-ui -myftm
 
 WIFI_PKGS_16M:=kmod-qca-wifi-flash_16mb-profile \
-	qca-hostap qca-hostapd-cli qca-wpa-supplicant \
+	qca-hostap qca-hostapd-cli -qca-hapd-supp qca-wpa-supplicant \
 	qca-wpa-cli qca-cfg80211 qca-cfg80211tool qca-wifi-scripts
 
 WIFI_FW_PKGS:=qca-wifi-hk-fw-hw1-10.4-asic qca-wifi-cyp-fw-hw1-11.0-asic qca-wifi-wkk-fw-hw1-asic \
@@ -118,7 +166,7 @@ TEST_TOOLS:=ethtool i2c-tools tcpdump
 UTILS:=file luci-app-samba4 rng-tools profilerd
 
 COREBSP_UTILS:=pm-utils wififw_mount_script qca-thermald qca-qmi-framework -qca-time-services \
-	qca-wlanfw-upgrade qti-license-pfm dashboard qti-softsku-license-loader-libs
+	qca-wlanfw-upgrade qti-license-pfm dashboard qti-softsku-license-loader-libs -qapp-store -kmod-noc-dp-drv
 
 FAILSAFE:= kmod-bootconfig
 DEFAULT_PACKAGES += -dnsmasq
@@ -177,7 +225,7 @@ QCA_EZMESH:=
 AQ_PHY:=kmod-aq_phy kmod-qca_85xx_sw aq-fw-download
 
 #These packages depend on SWITCH_SSDK_PKGS
-IGMPSNOOPING_RSTP:=rstp
+IGMPSNOOPING_RSTP:=rstp -qca-mcs-apps
 #qca-mcs-apps
 
 IPSEC:=kmod-ipsec kmod-ipsec4 kmod-ipsec6
