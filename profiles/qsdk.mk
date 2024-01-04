@@ -112,20 +112,14 @@ WIFI_OPEN_PKGS_8M:= kmod-ath11k wpad-mesh hostapd-utils \
 	wpa-cli -qca-whc-lbd -qca-whc-init -libhyficommon \
 	wififw_mount_script
 
-WIFI_PKGS_6_1:=kmod-qca-wifi-unified-profile \
-	qca-wifi-hk-fw-hw1-10.4-asic \
-	qca-cfg80211 qca-hostap qca-hapd-supp qca-hostapd-cli qca-wpa-supplicant \
-	qca-wpa-cli qca-cfg80211tool athdiag \
-	qca-wifi-scripts sigma-dut qca-wrapd \
-	qca-spectral qca-icm qca-wapid
-
 WIFI_PKGS:=kmod-qca-wifi-unified-profile \
-	qca-hostap qca-hostapd-cli -qca-hapd-supp qca-wpa-supplicant \
+	qca-wifi-hk-fw-hw1-10.4-asic \
+	qca-hostap qca-hostapd-cli qca-hapd-supp qca-wpa-supplicant \
 	qca-wpa-cli qca-cfg80211tool qca-wifi-scripts \
-	qca-acfg qca-wrapd -athtestcmd-lith -myftm qca-iface-mgr \
-	qca-wapid qca-lowi athdiag whc-mesh whc-ui \
-	qca-spectral qca-icm -qcmbr -sigma-dut \
-	qca-wpc qca-cfg80211 -qca-cnss-daemon
+	-qca-acfg qca-wrapd -athtestcmd-lith -myftm -qca-iface-mgr \
+	qca-wapid -qca-lowi athdiag -whc-mesh -whc-ui \
+	qca-spectral qca-icm -qcmbr sigma-dut \
+	-qca-wpc qca-cfg80211 -qca-cnss-daemon
 
 WIFI_PKGS_MINENT:=kmod-qca-wifi-custc-profile \
 	qca-hostap qca-hostapd-cli -qca-hapd-supp qca-wpa-supplicant \
@@ -285,11 +279,11 @@ define Profile/QSDK_Premium
 		$(UTILS) $(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) $(NSS_EIP197_FW) \
 		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE) $(NSS_USERSPACE_OSS)\
 		$(NSS_RMNET) $(QCA_MAD) $(QCA_EZMESH) $(OPENVPN) kmod-macvlan \
-		$(NSS_NSM) $(SAL_QOS) $(RSRC_MGR) $(WIFI_PKGS_6_1) $(NPT66) \
+		$(NSS_NSM) $(SAL_QOS) $(RSRC_MGR) $(WIFI_PKGS) $(NPT66) \
 		$(NSS_FLS) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS)
 endef
 
-#		$(NSS_UDP_ST) $(QCA_RFS) $(CNSS_DIAG) $(WIFI_PKGS) $(NSS_MACSEC) $(FTM) $(CTRL_APP_DUT)
+#		$(NSS_UDP_ST) $(QCA_RFS) $(CNSS_DIAG) $(NSS_MACSEC) $(FTM) $(CTRL_APP_DUT)
 
 define Profile/QSDK_Premium/Description
 	QSDK Premium package set configuration.
