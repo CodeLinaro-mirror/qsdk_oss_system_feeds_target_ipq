@@ -5,7 +5,7 @@ define Device/Default
 	PROFILES := Default
 	DTS_DIR := $(LINUX_DIR)/arch/$(LINUX_KARCH)/boot/dts/$(if $(CONFIG_TARGET_ipq50xx_generic),qcom)
 	KERNEL_DEPENDS = $$(wildcard $(DTS_DIR)/$$(DEVICE_DTS).dts)
-	KERNEL_LOADADDR := $(if $(CONFIG_LINUX_6_1), $(if $(CONFIG_TARGET_ipq50xx_generic),0x40000000,0x40008000),$(if $(CONFIG_TARGET_ipq50xx_generic),0x42080000,0x42008000))
+	KERNEL_LOADADDR := $(if $(CONFIG_TARGET_ipq50xx_generic),0x41080000,0x41208000)
 	DEVICE_DTS = $$(SOC)-$(lastword $(subst _, ,$(1)))
 	DEVICE_DTS_CONFIG := config-1
 	IMAGES := sysupgrade.bin
