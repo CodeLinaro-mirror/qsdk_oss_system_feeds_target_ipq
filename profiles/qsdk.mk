@@ -387,14 +387,14 @@ $(eval $(call Profile,QSDK_MinEnt))
 define Profile/QSDK_256
 	NAME:=Qualcomm Technologies, Inc SDK 256MB Profile
 	PACKAGES:=$(OPENWRT_256MB) $(NSS_COMMON) $(NSS_STANDARD) $(SWITCH_SSDK_PKGS) \
-		$(WIFI_PKGS_256MB) $(WIFI_FW_PKGS) $(CD_ROUTER_256MB) \
+		$(WIFI_FW_PKGS) $(CD_ROUTER_256MB) \
 		$(NETWORKING_256MB) iperf rng-tools $(QCA_RFS) $(DIAG) \
-		$(QCA_ECM_STANDARD) $(NSS_MACSEC) $(NSS_CLIENTS_256MB) $(FAILSAFE) \
+		$(NSS_MACSEC) $(NSS_CLIENTS_256MB) $(FAILSAFE) \
 		-lacpd $(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(HYFI) $(QCA_EZMESH) kmod-macvlan \
 		$(IGMPSNOOPING_RSTP) $(EMESH_SP) e2fsprogs losetup
 endef
 
-#       $(MHI_QRTR)
+#       $(MHI_QRTR) $(QCA_ECM_STANDARD) $(WIFI_PKGS_256MB)
 
 define Profile/QSDK_256/Description
 	QSDK Premium package set configuration.
