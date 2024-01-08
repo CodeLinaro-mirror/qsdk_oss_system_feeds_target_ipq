@@ -116,7 +116,7 @@ WIFI_PKGS:=kmod-qca-wifi-unified-profile \
 	qca-wifi-hk-fw-hw1-10.4-asic \
 	qca-hostap qca-hostapd-cli qca-hapd-supp qca-wpa-supplicant \
 	qca-wpa-cli qca-cfg80211tool qca-wifi-scripts \
-	-qca-acfg qca-wrapd -athtestcmd-lith -myftm -qca-iface-mgr \
+	-qca-acfg qca-wrapd -athtestcmd-lith myftm -qca-iface-mgr \
 	qca-wapid -qca-lowi athdiag -whc-mesh -whc-ui \
 	qca-spectral qca-icm -qcmbr sigma-dut \
 	-qca-wpc qca-cfg80211 -qca-cnss-daemon
@@ -126,14 +126,14 @@ WIFI_PKGS_MINENT:=kmod-qca-wifi-custc-profile \
 	qca-wpa-cli qca-spectral qca-wpc sigma-dut \
 	qcmbr qca-wrapd qca-wapid qca-acfg \
 	qca-lowi qca-icm qca-cfg80211 athdiag qca-cnss-daemon \
-	athtestcmd-lith qca-cfg80211tool -myftm
+	athtestcmd-lith qca-cfg80211tool myftm
 
 WIFI_PKGS_256MB:=kmod-qca-wifi-lowmem-profile \
 	qca-hostap qca-hostapd-cli -qca-hapd-supp qca-wpa-supplicant \
 	qca-wpa-cli qca-cfg80211tool qca-wifi-scripts \
 	qca-wpc sigma-dut qca-wrapd qca-wapid qca-acfg \
 	qca-iface-mgr qca-icm qca-cfg80211 athdiag qca-cnss-daemon \
-	athtestcmd-lith whc-mesh whc-ui -myftm
+	athtestcmd-lith whc-mesh whc-ui myftm
 
 WIFI_PKGS_16M:=kmod-qca-wifi-flash_16mb-profile \
 	qca-hostap qca-hostapd-cli -qca-hapd-supp qca-wpa-supplicant \
