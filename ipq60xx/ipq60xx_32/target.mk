@@ -9,5 +9,5 @@ define Target/Description
 endef
 
 DEFAULT_PACKAGES += \
-	fwupgrade-tools \
+	uboot-2016-ipq6018 uboot-2016-ipq6018_tiny fwupgrade-tools \
 	sysupgrade-helper
