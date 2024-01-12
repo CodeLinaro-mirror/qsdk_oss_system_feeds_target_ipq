@@ -10,11 +10,11 @@ SUBTARGETS:=generic ipq54xx_32
 
 
 KERNELNAME:=Image dtbs
+LINUX_SRC_VERSION:=$(shell basename $(TOPDIR)/qca/src/linux-*.* | sed 's/[^0-9.]*\([0-9.]*\).*/\1/')
 
 ifeq ($(CONFIG_LINUX_IS_FLATTENED_TREE),)
-  KERNEL_PATCHVER=6.1
+  KERNEL_PATCHVER=$(LINUX_SRC_VERSION)
 else
-  LINUX_SRC_VERSION:=$(shell basename $(TOPDIR)/qca/src/linux-*.* | sed 's/[^0-9.]*\([0-9.]*\).*/\1/')
   KERNEL_PATCHVER:=$(LINUX_SRC_VERSION)
   # check .config for an overridden Linux dir, otherwise use qca/src/linux
   CONFIG_EXTERNAL_KERNEL_TREE=$(shell \
@@ -22,7 +22,7 @@ else
           sed -n 's,CONFIG_EXTERNAL_KERNEL_TREE="\(.*\)",\1,p' $(TOPDIR)/.config || \
           echo '$(TOPDIR)/qca/src/linux-$(LINUX_SRC_VERSION)')
 
-  $(shell cp -fpR -u $(TOPDIR)/target/linux/feeds/files-6.1/* '$(CONFIG_EXTERNAL_KERNEL_TREE)')
+  $(shell cp -fpR -u $(TOPDIR)/target/linux/feeds/files-$(LINUX_SRC_VERSION)/* '$(CONFIG_EXTERNAL_KERNEL_TREE)')
   #CONFIG_EXTERNAL_KERNEL_TREE=$(shell echo '$(TOPDIR)/qca/src/linux-$(LINUX_SRC_VERSION)')
   ifneq ($(CONFIG_EXTERNAL_KERNEL_TREE),"")
     $(eval _LINUX_DIR:=$(CONFIG_EXTERNAL_KERNEL_TREE))
@@ -38,8 +38,8 @@ endif
 include $(INCLUDE_DIR)/target.mk
 
 DEFAULT_PACKAGES += \
-	e2fsprogs uboot-envtools kmod-gpio-button-hotplug kmod-button-hotplug \
-	kmod-ata-core kmod-ata-ahci kmod-ata-ahci-platform kmod-usb3 swconfig \
+	e2fsprogs uboot-envtools \
+	kmod-ata-core kmod-ata-ahci kmod-ata-ahci-platform kmod-usb3 \
 	kmod-usb-dwc3-qcom-internal
 
 $(eval $(call BuildTarget))

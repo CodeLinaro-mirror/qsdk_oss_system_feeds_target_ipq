@@ -1,6 +1,7 @@
 
 define Device/qcom_hkxx
         $(call Device/MultiDTBFitImage)
+	$(call Device/UbiFit)
 	DEVICE_VENDOR := Qualcomm Technologies, Inc.
 	DEVICE_MODEL := AP-HKXX
 	DEVICE_VARIANT :=
