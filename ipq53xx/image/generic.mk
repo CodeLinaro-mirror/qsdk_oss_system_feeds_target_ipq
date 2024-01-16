@@ -22,7 +22,7 @@ define Device/qcom_rdp441
 	BUILD_DTS_ipq5332-rdp441 := 1
 	SOC := ipq5332
 	KERNEL_INSTALL := 1
-	KERNEL_SIZE := 6096k
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
@@ -37,7 +37,7 @@ define Device/qcom_rdp468
 	BUILD_DTS_ipq5332-rdp468 := 1
 	SOC := ipq5332
 	KERNEL_INSTALL := 1
-	KERNEL_SIZE := 6096k
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
@@ -52,7 +52,7 @@ define Device/qcom_rdp442
 	BUILD_DTS_ipq5332-rdp442 := 1
 	SOC := ipq5332
 	KERNEL_INSTALL := 1
-	KERNEL_SIZE := 6096k
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
