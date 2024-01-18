@@ -266,6 +266,8 @@ EMESH_SP:=kmod-emesh-sp
 
 RSRC_MGR:=qca-rsrcmgr qca-rsrcmgr-secure-libs
 
+DPDK:=dpdk-tools kmod-qca-nss-dpdk-cfgmgr kmod-nss-ppe-uio
+
 EXTRA_NETWORKING:= $(CD_ROUTER) $(NSS_EIP197_FW) -rdk-v-wifi-ath10k kmod-qca-nss-macsec \
 	$(MACSEC_OPEN_PKGS) $(NSS_CRYPTO) $(NSS_CLIENTS_STANDARD)
 
@@ -295,6 +297,29 @@ define Profile/QSDK_Premium/Description
 endef
 
 $(eval $(call Profile,QSDK_Premium))
+
+define Profile/QSDK_Dpdk
+	NAME:=Qualcomm Technologies, Inc SDK Dpdk Profile
+	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) $(VIDEO) $(TEST_TOOLS) \
+		$(FAILSAFE) $(DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) \
+		$(QCA_ECM_PREMIUM) $(NETWORKING) $(CD_ROUTER) $(KPI) $(MAP_PKGS) \
+		$(SWITCH_SSDK_NOHNAT_PKGS) $(IGMPSNOOPING_RSTP) -lacpd $(AQ_PHY) \
+		$(SWITCH_SSDK_PKGS) $(QMSCT_CLIENT) $(NSS_STANDARD) $(USB_DIAG) $(CHAR_DIAG) $(FTM) \
+		$(UTILS) $(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) $(NSS_EIP197_FW) \
+		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE) $(NSS_USERSPACE_OSS)\
+		$(NSS_RMNET) $(QCA_MAD) $(QCA_EZMESH) $(OPENVPN) kmod-macvlan \
+		$(NSS_NSM) $(SAL_QOS) $(RSRC_MGR) $(WIFI_PKGS) $(NPT66) \
+		$(NSS_FLS) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS) $(DPDK)
+endef
+
+#		$(NSS_UDP_ST) $(QCA_RFS) $(CNSS_DIAG) $(NSS_MACSEC) $(CTRL_APP_DUT)
+
+define Profile/QSDK_Dpdk/Description
+	QSDK Dpdk package set configuration.
+	Enables dpdk packages
+endef
+
+$(eval $(call Profile,QSDK_Dpdk))
 
 define Profile/QSDK_Open
 	NAME:=Qualcomm Technologies, Inc SDK Open Profile
