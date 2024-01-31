@@ -303,7 +303,8 @@ define Profile/QSDK_Open
 		$(NSS_NSM) $(SAL_QOS) $(IPSEC) $(NSS_CRYPTO) $(QOS) -lacpd  $(AQ_PHY) $(MACSEC_OPEN_PKGS) \
 		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
 		-qapp-store libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps \
-		kmod-qca-nss-ecm-wifi-plugin $(NSS_FLOWID) $(NSS_FLS) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl
+		kmod-qca-nss-ecm-wifi-plugin $(NSS_FLOWID) $(NSS_FLS) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl \
+		$(NSS_UDP_ST)
 endef
 
 #	$(HW_CRYPTO) $(QCA_RFS) $(FTM) $(CNSS_DIAG) $(QMI_SAMPLE_APP)
