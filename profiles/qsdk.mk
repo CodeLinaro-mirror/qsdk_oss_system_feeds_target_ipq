@@ -26,8 +26,8 @@ NSS_ENTERPRISE:= \
 NSS_MACSEC:= \
 	kmod-qca-nss-macsec \
 	qca-wpa-supplicant-macsec \
-	-qca-hapd-supp-macsec \
-	qca-hostap-macsec
+	qca-hostap-macsec \
+	qca-hapd-supp-macsec
 
 QCA_ECM_STANDARD:= kmod-qca-nss-ecm-standard
 QCA_ECM_ENTERPRISE:= kmod-qca-nss-ecm-noload kmod-qca-nss-ecm-wifi-plugin
@@ -284,10 +284,10 @@ define Profile/QSDK_Premium
 		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE) $(NSS_USERSPACE_OSS)\
 		$(NSS_RMNET) $(QCA_MAD) $(QCA_EZMESH) $(OPENVPN) kmod-macvlan \
 		$(NSS_NSM) $(SAL_QOS) $(RSRC_MGR) $(WIFI_PKGS) $(NPT66) \
-		$(NSS_FLS) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS)
+		$(NSS_FLS) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS) $(NSS_MACSEC)
 endef
 
-#		$(NSS_UDP_ST) $(QCA_RFS) $(CNSS_DIAG) $(NSS_MACSEC) $(CTRL_APP_DUT)
+#		$(NSS_UDP_ST) $(QCA_RFS) $(CNSS_DIAG) $(CTRL_APP_DUT)
 
 define Profile/QSDK_Premium/Description
 	QSDK Premium package set configuration.
