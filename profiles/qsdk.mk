@@ -202,8 +202,10 @@ BLUETOPIA:=bluetopia
 
 ZIGBEE:=zigbee_efr32
 
-QOS:=tc-full kmod-sched kmod-sched-core kmod-sched-connmark kmod-ifb iptables \
-	iptables-mod-filter iptables-mod-ipopt iptables-mod-conntrack-extra
+QOS:=tc-full kmod-sched kmod-sched-core kmod-sched-prio kmod-sched-red \
+	kmod-sched-cake kmod-sched-pie kmod-sched-act-police kmod-sched-act-ipt \
+	kmod-sched-connmark kmod-ifb iptables iptables-mod-filter \
+	iptables-mod-ipopt iptables-mod-conntrack-extra
 
 MAP_PKGS:=map 464xlat tayga
 
