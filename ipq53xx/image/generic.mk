@@ -26,7 +26,7 @@ define Device/qcom_rdp441
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
-TARGET_DEVICES += $(if $(CONFIG_LINUX_6_1), qcom_rdp441)
+TARGET_DEVICES += $(if $(CONFIG_LINUX_6_1)$(CONFIG_LINUX_6_6), qcom_rdp441)
 
 define Device/qcom_rdp468
 	$(call Device/FitImageLzma)
@@ -41,7 +41,7 @@ define Device/qcom_rdp468
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
-TARGET_DEVICES += $(if $(CONFIG_LINUX_6_1), qcom_rdp468)
+TARGET_DEVICES += $(if $(CONFIG_LINUX_6_1)$(CONFIG_LINUX_6_6), qcom_rdp468)
 
 define Device/qcom_rdp442
 	$(call Device/FitImageLzma)
@@ -56,4 +56,4 @@ define Device/qcom_rdp442
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
-TARGET_DEVICES += $(if $(CONFIG_LINUX_6_1), qcom_rdp442)
+TARGET_DEVICES += $(if $(CONFIG_LINUX_6_1)$(CONFIG_LINUX_6_6), qcom_rdp442)
