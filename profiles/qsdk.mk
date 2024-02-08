@@ -266,7 +266,7 @@ QRTR:=qca-qrtr
 
 EMESH_SP:=kmod-emesh-sp
 
-RSRC_MGR:=qca-rsrcmgr qca-rsrcmgr-secure-libs
+RSRC_MGR:=qca-cfg80211 kmod-rsrcmgr-netstandby-drv qca-rsrcmgr qca-rsrcmgr-secure-libs
 
 DPDK:=dpdk-tools kmod-qca-nss-dpdk-cfgmgr kmod-nss-ppe-uio
 
@@ -334,7 +334,8 @@ define Profile/QSDK_Open
 		$(NSS_NSM) $(SAL_QOS) $(IPSEC) $(NSS_CRYPTO) $(QOS) -lacpd  $(AQ_PHY) $(MACSEC_OPEN_PKGS) \
 		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
 		-qapp-store libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps \
-		kmod-qca-nss-ecm-wifi-plugin $(NSS_FLOWID) $(NSS_FLS) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl
+		kmod-qca-nss-ecm-wifi-plugin $(NSS_FLOWID) $(NSS_FLS) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl \
+		$(RSRC_MGR)
 endef
 
 #	$(HW_CRYPTO) $(QCA_RFS) $(FTM) $(CNSS_DIAG) $(QMI_SAMPLE_APP)
