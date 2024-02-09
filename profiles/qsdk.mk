@@ -131,9 +131,9 @@ WIFI_PKGS_MINENT:=kmod-qca-wifi-custc-profile \
 WIFI_PKGS_256MB:=kmod-qca-wifi-lowmem-profile \
 	qca-hostap qca-hostapd-cli -qca-hapd-supp qca-wpa-supplicant \
 	qca-wpa-cli qca-cfg80211tool qca-wifi-scripts \
-	qca-wpc sigma-dut qca-wrapd qca-wapid qca-acfg \
-	qca-iface-mgr qca-icm qca-cfg80211 athdiag qca-cnss-daemon \
-	athtestcmd-lith whc-mesh whc-ui myftm
+	-qca-wpc sigma-dut qca-wrapd qca-wapid -qca-acfg \
+	-qca-iface-mgr qca-icm qca-cfg80211 athdiag -qca-cnss-daemon \
+	-athtestcmd-lith -whc-mesh -whc-ui myftm
 
 WIFI_PKGS_16M:=kmod-qca-wifi-flash_16mb-profile \
 	qca-hostap qca-hostapd-cli -qca-hapd-supp qca-wpa-supplicant \
@@ -202,8 +202,10 @@ BLUETOPIA:=bluetopia
 
 ZIGBEE:=zigbee_efr32
 
-QOS:=tc-full kmod-sched kmod-sched-core kmod-sched-connmark kmod-ifb iptables \
-	iptables-mod-filter iptables-mod-ipopt iptables-mod-conntrack-extra
+QOS:=tc-full kmod-sched kmod-sched-core kmod-sched-prio kmod-sched-red \
+	kmod-sched-cake kmod-sched-pie kmod-sched-act-police kmod-sched-act-ipt \
+	kmod-sched-connmark kmod-ifb iptables iptables-mod-filter \
+	iptables-mod-ipopt iptables-mod-conntrack-extra
 
 MAP_PKGS:=map 464xlat tayga
 
@@ -264,7 +266,9 @@ QRTR:=qca-qrtr
 
 EMESH_SP:=kmod-emesh-sp
 
-RSRC_MGR:=qca-rsrcmgr qca-rsrcmgr-secure-libs
+RSRC_MGR:=qca-cfg80211 kmod-rsrcmgr-netstandby-drv qca-rsrcmgr qca-rsrcmgr-secure-libs
+
+DPDK:=dpdk-tools kmod-qca-nss-dpdk-cfgmgr kmod-nss-ppe-uio
 
 EXTRA_NETWORKING:= $(CD_ROUTER) $(NSS_EIP197_FW) -rdk-v-wifi-ath10k kmod-qca-nss-macsec \
 	$(MACSEC_OPEN_PKGS) $(NSS_CRYPTO) $(NSS_CLIENTS_STANDARD)
@@ -296,6 +300,29 @@ endef
 
 $(eval $(call Profile,QSDK_Premium))
 
+define Profile/QSDK_Dpdk
+	NAME:=Qualcomm Technologies, Inc SDK Dpdk Profile
+	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) $(VIDEO) $(TEST_TOOLS) \
+		$(FAILSAFE) $(DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) \
+		$(QCA_ECM_PREMIUM) $(NETWORKING) $(CD_ROUTER) $(KPI) $(MAP_PKGS) \
+		$(SWITCH_SSDK_NOHNAT_PKGS) $(IGMPSNOOPING_RSTP) -lacpd $(AQ_PHY) \
+		$(SWITCH_SSDK_PKGS) $(QMSCT_CLIENT) $(NSS_STANDARD) $(USB_DIAG) $(CHAR_DIAG) $(FTM) \
+		$(UTILS) $(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) $(NSS_EIP197_FW) \
+		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE) $(NSS_USERSPACE_OSS)\
+		$(NSS_RMNET) $(QCA_MAD) $(QCA_EZMESH) $(OPENVPN) kmod-macvlan \
+		$(NSS_NSM) $(SAL_QOS) $(RSRC_MGR) $(WIFI_PKGS) $(NPT66) \
+		$(NSS_FLS) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS) $(DPDK)
+endef
+
+#		$(NSS_UDP_ST) $(QCA_RFS) $(CNSS_DIAG) $(NSS_MACSEC) $(CTRL_APP_DUT)
+
+define Profile/QSDK_Dpdk/Description
+	QSDK Dpdk package set configuration.
+	Enables dpdk packages
+endef
+
+$(eval $(call Profile,QSDK_Dpdk))
+
 define Profile/QSDK_Open
 	NAME:=Qualcomm Technologies, Inc SDK Open Profile
 	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(TEST_TOOLS) $(AUDIO) $(VIDEO) \
@@ -307,7 +334,8 @@ define Profile/QSDK_Open
 		$(NSS_NSM) $(SAL_QOS) $(IPSEC) $(NSS_CRYPTO) $(QOS) -lacpd  $(AQ_PHY) $(MACSEC_OPEN_PKGS) \
 		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
 		-qapp-store libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps \
-		kmod-qca-nss-ecm-wifi-plugin $(NSS_FLOWID) $(NSS_FLS) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl
+		kmod-qca-nss-ecm-wifi-plugin $(NSS_FLOWID) $(NSS_FLS) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl \
+		$(RSRC_MGR)
 endef
 
 #	$(HW_CRYPTO) $(QCA_RFS) $(FTM) $(CNSS_DIAG) $(QMI_SAMPLE_APP)
@@ -391,14 +419,14 @@ $(eval $(call Profile,QSDK_MinEnt))
 define Profile/QSDK_256
 	NAME:=Qualcomm Technologies, Inc SDK 256MB Profile
 	PACKAGES:=$(OPENWRT_256MB) $(NSS_COMMON) $(NSS_STANDARD) $(SWITCH_SSDK_PKGS) \
-		$(WIFI_FW_PKGS) $(CD_ROUTER_256MB) \
+		$(WIFI_PKGS_256MB) $(WIFI_FW_PKGS) $(CD_ROUTER_256MB) \
 		$(NETWORKING_256MB) iperf rng-tools $(QCA_RFS) $(DIAG) \
 		$(QCA_ECM_STANDARD) $(NSS_MACSEC) $(NSS_CLIENTS_256MB) $(FAILSAFE) \
 		-lacpd $(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(HYFI) $(QCA_EZMESH) kmod-macvlan \
 		$(IGMPSNOOPING_RSTP) $(EMESH_SP) e2fsprogs losetup
 endef
 
-#       $(MHI_QRTR) $(WIFI_PKGS_256MB)
+#       $(MHI_QRTR)
 
 define Profile/QSDK_256/Description
 	QSDK Premium package set configuration.
