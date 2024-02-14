@@ -116,7 +116,7 @@ WIFI_PKGS:=kmod-qca-wifi-unified-profile \
 	qca-wifi-hk-fw-hw1-10.4-asic \
 	qca-hostap qca-hostapd-cli qca-hapd-supp qca-wpa-supplicant \
 	qca-wpa-cli qca-cfg80211tool qca-wifi-scripts \
-	qca-acfg qca-wrapd -athtestcmd-lith myftm qca-iface-mgr \
+	qca-acfg qca-wrapd athtestcmd-lith myftm qca-iface-mgr \
 	qca-wapid -qca-lowi athdiag -whc-mesh -whc-ui \
 	qca-spectral qca-icm -qcmbr sigma-dut \
 	-qca-wpc qca-cfg80211 -qca-cnss-daemon
@@ -282,7 +282,7 @@ define Profile/QSDK_Premium
 	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) $(VIDEO) $(TEST_TOOLS) \
 		$(FAILSAFE) $(DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) \
 		$(QCA_ECM_PREMIUM) $(NETWORKING) $(CD_ROUTER) $(KPI) $(MAP_PKGS) \
-		$(SWITCH_SSDK_NOHNAT_PKGS) $(IGMPSNOOPING_RSTP) -lacpd $(AQ_PHY) \
+		$(SWITCH_SSDK_NOHNAT_PKGS) $(IGMPSNOOPING_RSTP) -lacpd $(AQ_PHY) $(CNSS_DIAG)\
 		$(SWITCH_SSDK_PKGS) $(QMSCT_CLIENT) $(NSS_STANDARD) $(USB_DIAG) $(CHAR_DIAG) $(FTM) \
 		$(UTILS) $(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) $(NSS_EIP197_FW) \
 		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE) $(NSS_USERSPACE_OSS)\
@@ -291,7 +291,7 @@ define Profile/QSDK_Premium
 		$(NSS_FLS) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS)
 endef
 
-#		$(NSS_UDP_ST) $(QCA_RFS) $(CNSS_DIAG) $(NSS_MACSEC) $(CTRL_APP_DUT)
+#		$(NSS_UDP_ST) $(QCA_RFS) $(NSS_MACSEC) $(CTRL_APP_DUT)
 
 define Profile/QSDK_Premium/Description
 	QSDK Premium package set configuration.
@@ -442,7 +442,7 @@ define Profile/QSDK_512
 		$(NETWORKING) $(OPENVPN) $(UTILS) $(HW_CRYPTO) $(QCA_RFS) \
 		$(VIDEO) $(IGMPSNOOPING_RSTP) $(IPSEC) $(QOS) $(QCA_ECM_PREMIUM) $(NSS_PPE) $(NSS_USERSPACE_OSS)\
 		$(NSS_MACSEC) $(TEST_TOOLS) $(NSS_CRYPTO) $(NSS_CLIENTS_STANDARD) \
-		$(COREBSP_UTILS) $(MAP_PKGS) $(AQ_PHY) $(FAILSAFE) -lacpd $(DIAG) \
+		$(COREBSP_UTILS) $(MAP_PKGS) $(AQ_PHY) $(FAILSAFE) -lacpd $(DIAG) $(USB_DIAG) \
 		$(NSS_EIP197_FW) $(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(KPI) \
 		$(NSS_USERSPACE) $(NSS_RMNET) $(HYFI) $(EMESH_SP) \
 		$(QCA_EZMESH) kmod-macvlan $(MINIDUMP) $(RSRC_MGR) $(NSS_L2TP)
