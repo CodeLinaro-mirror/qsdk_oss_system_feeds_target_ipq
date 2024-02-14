@@ -8,3 +8,6 @@ define Target/Description
 	Build firmware image for IPQ54xx SoC devices.
 endef
 
+DEFAULT_PACKAGES += \
+	uboot-devsoc-mmc32 uboot-devsoc-norplusmmc32 \
+	uboot-devsoc-norplusnand32 uboot-devsoc-nand32
