@@ -109,7 +109,7 @@ WIFI_OPEN_PKGS:= kmod-ath12k kmod-ath11k wpad-mesh hostapd-utils \
 #	athtestcmd athtestcmd-lith-nl -qca-whc-lbd -qca-whc-init -libhyficommon qca-wifi-scripts -kmod-telemetry-agent
 
 WIFI_OPEN_PKGS_8M:= kmod-ath11k wpad-mesh hostapd-utils \
-	wpa-cli -qca-whc-lbd -qca-whc-init -libhyficommon \
+	wpa-cli qca-whc-lbd qca-whc-init libhyficommon \
 	wififw_mount_script
 
 WIFI_PKGS:=kmod-qca-wifi-unified-profile \
@@ -117,7 +117,7 @@ WIFI_PKGS:=kmod-qca-wifi-unified-profile \
 	qca-hostap qca-hostapd-cli qca-hapd-supp qca-wpa-supplicant \
 	qca-wpa-cli qca-cfg80211tool qca-wifi-scripts \
 	qca-acfg qca-wrapd athtestcmd-lith myftm qca-iface-mgr \
-	qca-wapid -qca-lowi athdiag -whc-mesh -whc-ui \
+	qca-wapid qca-lowi athdiag whc-mesh whc-ui \
 	qca-spectral qca-icm -qcmbr sigma-dut \
 	-qca-wpc qca-cfg80211 -qca-cnss-daemon
 
@@ -209,14 +209,11 @@ QOS:=tc-full kmod-sched kmod-sched-core kmod-sched-prio kmod-sched-red \
 
 MAP_PKGS:=map 464xlat tayga
 
-#HYFI:=hyfi-mesh hyfi-ui
-HYFI:=
+HYFI:=hyfi-mesh hyfi-ui
 
-#QCA_MAD:=qca-mad
-QCA_MAD:=
+QCA_MAD:=qca-mad
 
-#QCA_EZMESH:=qca-ezmesh qca-ezmesh-ctrl qca-ezmesh-agent qca-ezmesh-alg qca-ezmesh-agentalg
-QCA_EZMESH:=
+QCA_EZMESH:=qca-ezmesh qca-ezmesh-ctrl qca-ezmesh-agent qca-ezmesh-alg qca-ezmesh-agentalg
 
 AQ_PHY:=kmod-aq_phy kmod-qca_85xx_sw aq-fw-download
 
@@ -287,7 +284,7 @@ define Profile/QSDK_Premium
 		$(UTILS) $(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) $(NSS_EIP197_FW) \
 		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE) $(NSS_USERSPACE_OSS)\
 		$(NSS_RMNET) $(QCA_MAD) $(QCA_EZMESH) $(OPENVPN) kmod-macvlan \
-		$(NSS_NSM) $(SAL_QOS) $(RSRC_MGR) $(WIFI_PKGS) $(NPT66) \
+		kmod-qca-hyfi-bridge $(NSS_NSM) $(SAL_QOS) $(RSRC_MGR) $(WIFI_PKGS) $(NPT66) \
 		$(NSS_FLS) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS)
 endef
 
@@ -444,7 +441,7 @@ define Profile/QSDK_512
 		$(NSS_MACSEC) $(TEST_TOOLS) $(NSS_CRYPTO) $(NSS_CLIENTS_STANDARD) \
 		$(COREBSP_UTILS) $(MAP_PKGS) $(AQ_PHY) $(FAILSAFE) -lacpd $(DIAG) $(USB_DIAG) \
 		$(NSS_EIP197_FW) $(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(KPI) \
-		$(NSS_USERSPACE) $(NSS_RMNET) $(HYFI) $(EMESH_SP) \
+		$(NSS_USERSPACE) $(NSS_RMNET) $(HYFI) kmod-qca-hyfi-bridge $(EMESH_SP) \
 		$(QCA_EZMESH) kmod-macvlan $(MINIDUMP) $(RSRC_MGR) $(NSS_L2TP)
 endef
 
