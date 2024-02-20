@@ -218,7 +218,7 @@ QCA_EZMESH:=qca-ezmesh qca-ezmesh-ctrl qca-ezmesh-agent qca-ezmesh-alg qca-ezmes
 AQ_PHY:=kmod-aq_phy kmod-qca_85xx_sw aq-fw-download
 
 #These packages depend on SWITCH_SSDK_PKGS
-IGMPSNOOPING_RSTP:=rstp -qca-mcs-apps
+IGMPSNOOPING_RSTP:=rstp qca-mcs-apps
 #qca-mcs-apps
 
 IPSEC:=kmod-ipsec kmod-ipsec4 kmod-ipsec6
