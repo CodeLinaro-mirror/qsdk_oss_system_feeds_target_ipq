@@ -119,7 +119,7 @@ WIFI_PKGS:=kmod-qca-wifi-unified-profile \
 	qca-acfg qca-wrapd athtestcmd-lith myftm qca-iface-mgr \
 	qca-wapid qca-lowi athdiag whc-mesh whc-ui \
 	qca-spectral qca-icm -qcmbr sigma-dut \
-	-qca-wpc qca-cfg80211 -qca-cnss-daemon
+	-qca-wpc qca-cfg80211 qca-cnss-daemon
 
 WIFI_PKGS_MINENT:=kmod-qca-wifi-custc-profile \
 	qca-hostap qca-hostapd-cli -qca-hapd-supp qca-wpa-supplicant \
