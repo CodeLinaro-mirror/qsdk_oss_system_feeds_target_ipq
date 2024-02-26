@@ -113,6 +113,8 @@ WIFI_OPEN_PKGS_8M:= kmod-ath11k wpad-mesh hostapd-utils \
 	wpa-cli qca-whc-lbd qca-whc-init libhyficommon \
 	wififw_mount_script
 
+NSS_L2TP:= kmod-l2tp kmod-l2tp-ip kmod-l2tp-eth
+
 WIFI_PKGS:=kmod-qca-wifi-unified-profile \
 	qca-wifi-hk-fw-hw1-10.4-asic \
 	qca-hostap qca-hostapd-cli qca-hapd-supp qca-wpa-supplicant \
@@ -145,7 +147,7 @@ WIFI_FW_PKGS:=qca-wifi-hk-fw-hw1-10.4-asic qca-wifi-cyp-fw-hw1-11.0-asic qca-wif
 
 OPENWRT_STANDARD:= luci openssl-util
 
-OPENWRT_256MB:=luci pm-utils wififw_mount_script qca-thermald qca-wlanfw-upgrade qti-license-pfm -file \
+OPENWRT_256MB:=luci wififw_mount_script qca-thermald qti-license-pfm -file \
 	-kmod-ata-core -kmod-ata-ahci -kmod-ata-ahci-platform \
 	-kmod-usb2 -kmod-usb3 -kmod-usb-dwc3-qcom \
 	-kmod-usb-phy-qcom-dwc3 -kmod-usb-dwc3-of-simple \
@@ -473,14 +475,15 @@ $(eval $(call Profile,QSDK_8M))
 
 define Profile/QSDK_16M
 	NAME:=Qualcomm Technologies, Inc SDK 16MB Flash Profile
-	PACKAGES:=wififw_mount_script $(NSS_COMMON) $(NSS_STANDARD) $(SWITCH_SSDK_PKGS) \
+	PACKAGES:=wififw_mount_script $(NSS_COMMON) $(NSS_PPE_16M) $(SWITCH_SSDK_PKGS) \
 		$(WIFI_PKGS_16M) qca-wifi-hk-fw-hw1-10.4-asic $(NETWORKING_16MB) \
 		$(IGMPSNOOPING_RSTP) $(QCA_ECM_STANDARD) $(NSS_CLIENTS_256MB) \
-		$(MHI_QRTR) xz xz-utils -kmod-usb-f-qdss $(NSS_PPE_16M) \
+		xz xz-utils -kmod-usb-f-qdss \
 		-kmod-testssr -kmod-ata-core -kmod-ata-ahci -kmod-ata-ahci-platform \
 		-kmod-usb2 -kmod-usb3 -kmod-usb-phy-ipq5018 -kmod-usb-dwc3-qcom \
 		-kmod-bt_tty -kmod-clk-test -sysupgrade-helper -fwupgrade-tools \
-		-urandom-seed -urngd -kmod-usb-core -kmod-usb-dwc3-internal
+		-urandom-seed -urngd -kmod-usb-core -kmod-usb-dwc3-internal \
+		-kmod-usb-dwc3-qcom-internal -kmod-usb-gadget -kmod-usb-phy-ipq807x -kmod-usb-phy-ipq5018
 endef
 
 define Profile/QSDK_16M/Description
