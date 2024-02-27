@@ -97,7 +97,7 @@ SAL_QOS:= qca-sal-qos-test qca-sal-rule-test
 
 QCA_RFS:= kmod-qca-rfs
 
-SWITCH_SSDK_PKGS:= kmod-qca-ssdk-hnat kmod-qca-ssdk-nohnat qca-ssdk-shell swconfig -kmod-qca8k
+SWITCH_SSDK_PKGS:= kmod-qca-ssdk-hnat kmod-qca-ssdk-nohnat qca-ssdk-shell swconfig kmod-qca8k
 
 MACSEC_OPEN_PKGS:= kmod-qca-nss-macsec wpa-supplicant-macsec hostapd-macsec
 
@@ -253,7 +253,7 @@ OPENVPN:= -openvpn-easy-rsa openvpn-openssl luci-app-openvpn
 
 MINIDUMP:= minidump
 
-SWITCH_SSDK_NOHNAT_PKGS:= kmod-qca-ssdk-nohnat qca-ssdk-shell swconfig
+SWITCH_SSDK_NOHNAT_PKGS:= kmod-qca-ssdk-nohnat qca-ssdk-shell swconfig kmod-qca8k
 
 QMI_SAMPLE_APP:=kmod-qmi_sample_client
 
