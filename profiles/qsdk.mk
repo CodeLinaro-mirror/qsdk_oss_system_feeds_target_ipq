@@ -285,7 +285,7 @@ define Profile/QSDK_Premium
 		$(UTILS) $(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) $(NSS_EIP197_FW) \
 		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE) $(NSS_USERSPACE_OSS)\
 		$(NSS_RMNET) $(QCA_MAD) $(QCA_EZMESH) $(OPENVPN) kmod-macvlan \
-		kmod-qca-hyfi-bridge $(NSS_NSM) $(SAL_QOS) $(WIFI_PKGS) $(NPT66) \
+		kmod-qca-hyfi-bridge $(NSS_NSM) $(SAL_QOS) $(RSRC_MGR) $(WIFI_PKGS) $(NPT66) \
 		$(NSS_FLS) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS)
 endef
 
@@ -308,7 +308,7 @@ define Profile/QSDK_Dpdk
 		$(UTILS) $(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) $(NSS_EIP197_FW) \
 		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE) $(NSS_USERSPACE_OSS)\
 		$(NSS_RMNET) $(QCA_MAD) $(QCA_EZMESH) $(OPENVPN) kmod-macvlan kmod-qca-hyfi-bridge \
-		$(NSS_NSM) $(SAL_QOS) $(WIFI_PKGS) $(NPT66) $(CTRL_APP_DUT) \
+		$(NSS_NSM) $(SAL_QOS) $(RSRC_MGR) $(WIFI_PKGS) $(NPT66) $(CTRL_APP_DUT) \
 		$(NSS_FLS) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS) $(DPDK)
 endef
 
@@ -385,7 +385,7 @@ define Profile/QSDK_Enterprise
 		$(IPSEC) $(STRONGSWAN) $(NSS_EIP197_FW) $(CD_ROUTER) $(AQ_PHY) \
 		$(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) -lacpd \
 		$(DIAG) $(MHI_QRTR) $(KPI) $(FAILSAFE) $(NSS_USERSPACE) $(USB_DIAG) \
-		$(NSS_PPE) $(NSS_USERSPACE_OSS) kmod-qca-nss-drv-mscs
+		$(NSS_PPE) $(NSS_USERSPACE_OSS) kmod-qca-nss-drv-mscs $(RSRC_MGR)
 endef
 
 define Profile/QSDK_Enterprise/Description
@@ -404,7 +404,7 @@ define Profile/QSDK_MinEnt
 		$(IPSEC) $(STRONGSWAN) $(NSS_EIP197_FW) $(CD_ROUTER) $(AQ_PHY) $(CNSS_DIAG) \
 		$(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) -lacpd -kmod-qca-nss-ecm-wifi-plugin \
 		$(DIAG) $(MHI_QRTR) $(KPI) $(FAILSAFE) $(NSS_USERSPACE) $(NSS_PPE) $(NSS_USERSPACE_OSS)\
-		$(USB_DIAG)
+		$(RSRC_MGR) $(USB_DIAG)
 endef
 
 define Profile/QSDK_MinEnt/Description
@@ -444,7 +444,7 @@ define Profile/QSDK_512
 		$(COREBSP_UTILS) $(MAP_PKGS) $(AQ_PHY) $(FAILSAFE) -lacpd $(DIAG) $(USB_DIAG) \
 		$(NSS_EIP197_FW) $(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(KPI) \
 		$(NSS_USERSPACE) $(NSS_RMNET) $(HYFI) kmod-qca-hyfi-bridge $(EMESH_SP) \
-		$(QCA_EZMESH) kmod-macvlan $(MINIDUMP) $(NSS_L2TP)
+		$(QCA_EZMESH) kmod-macvlan $(MINIDUMP) $(RSRC_MGR) $(NSS_L2TP)
 endef
 
 #       $(MHI_QRTR)
