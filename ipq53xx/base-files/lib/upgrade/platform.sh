@@ -330,7 +330,9 @@ get_fw_name() {
 			wifi_ipq="ipq5332_"$image_suffix3
 			;;
 		"8060202"|\
-		"8060302")
+		"8060302"|\
+		"8060402"|\
+		"8060502")
 			wifi_ipq="ipq5332_"$image_suffix4
 			;;
 		"8060101")
@@ -469,11 +471,13 @@ platform_do_upgrade() {
 	qcom,ipq5332-ap-mi01.2-qcn9160-c1 |\
 	qcom,ipq5332-ap-mi01.3 |\
 	qcom,ipq5332-ap-mi01.3-c2 |\
+	qcom,ipq5332-ap-mi01.3-c3 |\
 	qcom,ipq5332-ap-mi01.4 |\
 	qcom,ipq5332-ap-mi01.6 |\
 	qcom,ipq5332-ap-mi01.7 |\
 	qcom,ipq5332-ap-mi01.9 |\
 	qcom,ipq5332-ap-mi01.12 |\
+	qcom,ipq5332-ap-mi01.13 |\
 	qcom,ipq5332-ap-mi01.14 |\
 	qcom,ipq5332-ap-mi04.1 |\
 	qcom,ipq5332-ap-mi04.1-c2 |\
