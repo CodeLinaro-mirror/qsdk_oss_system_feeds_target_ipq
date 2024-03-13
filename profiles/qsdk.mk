@@ -362,7 +362,7 @@ define Profile/QSDK_QBuilder
 		luci-app-ddns luci-proto-ipv6 luci-app-multiwan tc kmod-sched \
 		kmod-sched-core kmod-sched-connmark kmod-ifb iptables kmod-pptp \
 		iptables-mod-filter iptables-mod-ipopt iptables-mod-conntrack-extra \
-		qca-nss-fw-eip-hk qca-nss-fw-eip-cp kmod-qca-ovsmgr \
+		qca-nss-fw-eip-hk qca-nss-fw-eip-cp kmod-qca-ovsmgr kmod-netstandby-eawtp-drv\
 		file luci-app-samba rng-tools profilerd ethtool i2c-tools tcpdump \
 		pm-utils wififw_mount_script qca-thermald qca-qmi-framework qca-time-services \
 		qca-wlanfw-upgrade dashboard iperf sysstat nlcfg kmod-bootconfig qca-cfg80211tool
@@ -443,7 +443,7 @@ define Profile/QSDK_512
 		$(COREBSP_UTILS) $(MAP_PKGS) $(AQ_PHY) $(FAILSAFE) -lacpd $(DIAG) $(USB_DIAG) \
 		$(NSS_EIP197_FW) $(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(KPI) \
 		$(NSS_USERSPACE) $(NSS_RMNET) $(HYFI) kmod-qca-hyfi-bridge $(EMESH_SP) \
-		$(QCA_EZMESH) kmod-macvlan $(MINIDUMP) $(NSS_L2TP)
+		$(QCA_EZMESH) kmod-macvlan $(MINIDUMP) $(NSS_L2TP) kmod-netstandby-eawtp-drv
 endef
 
 #       $(MHI_QRTR)
