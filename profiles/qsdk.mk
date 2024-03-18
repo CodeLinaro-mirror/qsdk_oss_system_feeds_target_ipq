@@ -323,6 +323,29 @@ endef
 
 $(eval $(call Profile,QSDK_Dpdk))
 
+define Profile/QSDK_Cov
+	NAME:=Qualcomm Technologies, Inc SDK Cov Profile
+	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) $(VIDEO) $(TEST_TOOLS) \
+		$(FAILSAFE) $(DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) \
+		$(QCA_ECM_PREMIUM) $(NETWORKING) $(CD_ROUTER) sysstat $(MAP_PKGS) $(CTRL_APP_DUT) \
+		$(SWITCH_SSDK_NOHNAT_PKGS) $(IGMPSNOOPING_RSTP) -lacpd $(AQ_PHY) $(CNSS_DIAG)\
+		$(SWITCH_SSDK_PKGS) $(QMSCT_CLIENT) $(NSS_STANDARD) $(USB_DIAG) $(CHAR_DIAG) $(FTM) \
+		$(UTILS) $(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) $(NSS_EIP197_FW) \
+		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE) $(NSS_USERSPACE_OSS)\
+		$(NSS_RMNET) $(QCA_MAD) $(QCA_EZMESH) $(OPENVPN) kmod-macvlan \
+		kmod-qca-hyfi-bridge $(NSS_NSM) $(SAL_QOS) $(WIFI_PKGS) $(NPT66) \
+		$(NSS_FLS) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS)
+endef
+
+#		$(NSS_UDP_ST) $(QCA_RFS) $(NSS_MACSEC)
+
+define Profile/QSDK_Cov/Description
+	QSDK Cov package set configuration.
+	Enables qca-wifi 11.0 packages
+endef
+
+$(eval $(call Profile,QSDK_Cov))
+
 define Profile/QSDK_Open
 	NAME:=Qualcomm Technologies, Inc SDK Open Profile
 	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(TEST_TOOLS) $(AUDIO) $(VIDEO) $(CNSS_DIAG) \
