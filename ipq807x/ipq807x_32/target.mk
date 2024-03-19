@@ -9,5 +9,5 @@ define Target/Description
 endef
 
 DEFAULT_PACKAGES += \
-	uboot-2016-ipq807x uboot-2016-ipq807x_tiny sysupgrade-helper \
+	uboot-2016-ipq807x uboot-2016-ipq807x-debug uboot-2016-ipq807x_tiny sysupgrade-helper \
 	fwupgrade-tools
