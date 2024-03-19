@@ -18,11 +18,31 @@
 
 . /lib/functions.sh
 . /lib/upgrade/common.sh
+. /usr/share/libubox/jshn.sh
 
-RAMFS_COPY_DATA="/etc/fw_env.config /var/lock/fw_printenv.lock"
+RAMFS_COPY_DATA="/etc/fw_env.config /var/lock/fw_printenv.lock /etc/board.json /usr/share/libubox/jshn.sh"
 RAMFS_COPY_BIN="/usr/bin/dumpimage /usr/sbin/ubiattach /usr/sbin/ubidetach
 	/usr/sbin/ubiformat /usr/sbin/ubiupdatevol /bin/rm /usr/bin/find
-	/usr/sbin/mkfs.ext4 /usr/sbin/fw_printenv /sbin/lsmod"
+	/usr/sbin/mkfs.ext4 /usr/sbin/fw_printenv /sbin/lsmod /usr/bin/jshn"
+
+get_board_details() {
+	local JSON_FILE="/etc/board.json"
+	local info_value
+
+	json_load_file "$JSON_FILE"
+
+	case $1 in
+		"model_name")
+			json_select model
+			json_get_var info_value name
+			info_value=${info_value##*/}
+			;;
+		*)
+			json_get_var info_value $1
+			;;
+	esac
+	echo $info_value
+}
 
 get_full_section_name() {
 	local img=$1
@@ -301,57 +321,16 @@ image_is_nand()
 }
 
 get_fw_name() {
-	wifi_ipq="ignored"
-	image_suffix1="qcn9224_v2_single_dualmac"
-	image_suffix2="qcn6432cs"
-	image_suffix3="qcn6432"
-	image_suffix4="qcn9224_v2_qcn6432"
-	image_suffix5="qcn9224_v2_qcn9160"
-	machineid=$(fw_printenv -l /tmp/. machid | cut -d '=' -f 2)
-
-	case "${machineid}" in
-		"F060000"|\
-		"8060000"|\
-		"8060001"|\
-		"8060003"|\
-		"8060006"|\
-		"1060001"|\
-		"1060002"|\
-		"8060201")
-			wifi_ipq="ipq5332_"$image_suffix1
-			;;
-		"8060002"|\
-		"8060004")
-			wifi_ipq="ipq5332_"$image_suffix2
-			;;
-		"1060003"|\
-		"8060102"|\
-		"8060007"|\
-		"8060107")
-			wifi_ipq="ipq5332_"$image_suffix3
-			;;
-		"8060202"|\
-		"8060302"|\
-		"8060402"|\
-		"8060502")
-			wifi_ipq="ipq5332_"$image_suffix4
-			;;
-		"8060101")
-			wifi_ipq="ipq5332_"$image_suffix5
-			;;
-		*)
-			wifi_ipq="ipq5332_qcn9224_v2_single_dualmac_qcn9160"
-			;;
-
-	esac
+	local wifi_ipq=$(get_board_details "wififw_name")
+	wifi_ipq=${wifi_ipq%_squashfs*}
 
 	echo $wifi_ipq
 }
 
 flash_section() {
 	local sec=$1
-	local board=$(board_name)
-	local board_model=$(to_lower $(grep -o "RDP.*" /proc/device-tree/model | awk -F/ '{print $2}'))
+	local board=$(get_board_details "board_name")
+	local board_model=$(to_lower $(get_board_details "model_name"))
 
 	case "${sec}" in
 		hlos*) image_is_nand && return || do_flash_failsafe_partition ${sec} "0:HLOS";;
@@ -382,8 +361,8 @@ erase_emmc_config() {
 }
 
 platform_check_image() {
-	local board=$(board_name)
-	local board_model=$(to_lower $(grep -o "RDP.*" /proc/device-tree/model | awk -F/ '{print $2}'))
+	local board=$(get_board_details "board_name")
+	local board_model=$(to_lower $(get_board_details "model_name"))
 	local mandatory_nand="ubi"
 	local mandatory_nor_emmc="hlos fs"
 	local mandatory_nor="hlos"
@@ -450,7 +429,7 @@ platform_check_image() {
 }
 
 platform_do_upgrade() {
-	local board=$(board_name)
+	local board=$(get_board_details "board_name")
 
 	# verify some things exist before erasing
 	if [ ! -e $1 ]; then
