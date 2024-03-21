@@ -223,13 +223,17 @@ do_flash_failsafe_partition() {
 do_flash_ubi() {
 	local bin=$1
 	local mtdname=$2
+	local alive=$(cat /tmp/.alive_upgrade)
 	local mtdpart
 	local primaryboot
 	local default_mtd
 	local primary_bcname
 
 	mtdpart=$(grep "\"${mtdname}\"" /proc/mtd | awk -F: '{print $1}')
-	ubidetach -f -p /dev/${mtdpart}
+
+	if [ $alive -eq 0 ]; then
+		ubidetach -f -p /dev/${mtdpart}
+	fi
 
 	# Fail safe upgrade
 	default_mtd=$mtdname
@@ -428,6 +432,26 @@ platform_check_image() {
 	fi
 }
 
+do_upgrade() {
+	v "Performing system upgrade..."
+	if [ ! -e /proc/boot_info/bootconfig0/ ] && [ ! -e /proc/boot_info/bootconfig1/ ]; then
+		echo " Bootconfig is not available. Aborting upgrade..... "
+		exit 1
+	fi
+
+	if type 'platform_do_upgrade' >/dev/null 2>/dev/null; then
+		platform_do_upgrade "$ARGV"
+	else
+		default_do_upgrade "$ARGV"
+	fi
+
+	if [ "$SAVE_CONFIG" -eq 1 ] && type 'platform_copy_config' >/dev/null 2>/dev/null; then
+		platform_copy_config
+	fi
+
+	v "Upgrade completed"
+}
+
 platform_do_upgrade() {
 	local board=$(get_board_details "board_name")
 
@@ -509,6 +533,44 @@ age_do_upgrade(){
 	fi
 }
 
+# activate_bootconfig() - activates bootconfig0 or bootconfig1 for OMCI upgrade
+# It sets trybit only if the upgraded bootconfig is having lower age
+activate_bootconfig() {
+	age0=$(cat /proc/boot_info/bootconfig0/age)
+	age1=$(cat /proc/boot_info/bootconfig1/age)
+
+	if [ "$1" -eq "0" ]; then
+		if [ $age0 -le $age1 ]; then
+			echo 1 > /proc/upgrade_info/trybit
+		fi
+	else
+		if [ $age1 -le $age0 ]; then
+			echo 1 > /proc/upgrade_info/trybit
+		fi
+	fi
+}
+
+# commit_bootconfig() - commits bootconfig0 or bootconfig1 for OMCI upgrade
+# It increaments age of the currently booted bootconfig and updates into
+# flash after age increament.
+commit_bootconfig() {
+	age0=$(cat /proc/boot_info/bootconfig0/age)
+	age1=$(cat /proc/boot_info/bootconfig1/age)
+
+	if [ "$1" -eq "0" ]; then
+		if [ $age0 -le $age1 ]; then
+			age1=$((age1+1))
+			echo $age1 > /proc/boot_info/bootconfig0/age
+			do_flash_bootconfig bootconfig0 "0:BOOTCONFIG"
+		fi
+	else
+		if [ $age1 -le $age0 ]; then
+			age0=$((age0+1))
+			echo $age0 > /proc/boot_info/bootconfig1/age
+			do_flash_bootconfig bootconfig1 "0:BOOTCONFIG1"
+		fi
+	fi
+}
 
 get_magic_long_at() {
         dd if="$1" skip=$(( 65536 / 4 * $2 )) bs=4 count=1 2>/dev/null | hexdump -v -n 4 -e '1/1 "%02x"'
@@ -535,12 +597,15 @@ platform_get_offset() {
 platform_copy_config() {
 	local nand_part="$(find_mtd_part "ubi_rootfs")"
 	local emmcblock="$(find_mmc_part "rootfs")"
+	local alive=$(cat /tmp/.alive_upgrade)
 	local upgradepart
 	mkdir -p /tmp/overlay
 
 	#setting Try bit
-	if [ -e /proc/upgrade_info/trybit ]; then
-		echo 1 > /proc/upgrade_info/trybit
+	if [ $alive -eq 0 ]; then
+		if [ -e /proc/upgrade_info/trybit ]; then
+			echo 1 > /proc/upgrade_info/trybit
+		fi
 	fi
 
 	for bcname in $(get_alternate_bootconfig)
