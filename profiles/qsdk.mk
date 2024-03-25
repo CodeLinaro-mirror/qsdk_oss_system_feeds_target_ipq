@@ -81,6 +81,12 @@ NSS_CRYPTO:= -kmod-qca-nss-crypto -kmod-qca-nss-cfi-cryptoapi -kmod-qca-nss-cfi-
 
 NSS_CRYPTO_MINENT:= kmod-qca-nss-crypto kmod-qca-nss-cfi-cryptoapi -kmod-qca-nss-cfi-ocf kmod-qca-nss-drv-ipsecmgr kmod-qca-nss-drv-ipsecmgr-xfrm -kmod-crypto-ocf -kmod-qca-nss-drv-ipsecmgr-klips
 
+NSS_NETFN:= kmod-qca-nss-netfn-pkt-steer \
+	kmod-qca-nss-netfn-capwap \
+	kmod-qca-nss-netfn-dtls \
+	kmod-qca-nss-netfn-capwapmgr \
+	kmod-qca-nss-flowmgr
+
 NSS_RMNET:= kmod-rmnet-nss
 
 HW_CRYPTO:= kmod-crypto-qcrypto
@@ -429,7 +435,7 @@ define Profile/QSDK_MinEnt
 		$(IPSEC) $(STRONGSWAN) $(NSS_EIP197_FW) $(CD_ROUTER) $(AQ_PHY) $(CNSS_DIAG) \
 		$(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) -lacpd -kmod-qca-nss-ecm-wifi-plugin \
 		$(DIAG) $(MHI_QRTR) $(KPI) $(FAILSAFE) $(NSS_USERSPACE) $(NSS_PPE) $(NSS_USERSPACE_OSS)\
-		$(RSRC_MGR) $(USB_DIAG)
+		$(RSRC_MGR) $(USB_DIAG) $(NSS_NETFN)
 endef
 
 define Profile/QSDK_MinEnt/Description
