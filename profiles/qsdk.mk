@@ -330,7 +330,7 @@ define Profile/QSDK_Open
 		$(USB_ETHERNET) $(NSS_COMMON) $(NSS_STANDARD) $(NSS_MESH) $(EMESH_SP) $(NPT66)\
 		$(NSS_NSM) $(SAL_QOS) $(IPSEC) $(NSS_CRYPTO) $(QOS) -lacpd  $(AQ_PHY) $(MACSEC_OPEN_PKGS) \
 		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
-		-qapp-store libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps \
+		-qapp-store libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps kmod-netstandby-eawtp-drv \
 		 $(NSS_FLOWID) $(NSS_FLS) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl \
 		$(RSRC_MGR) $(NSS_UDP_ST)
 endef
@@ -362,7 +362,7 @@ define Profile/QSDK_QBuilder
 		luci-app-ddns luci-proto-ipv6 luci-app-multiwan tc kmod-sched \
 		kmod-sched-core kmod-sched-connmark kmod-ifb iptables kmod-pptp \
 		iptables-mod-filter iptables-mod-ipopt iptables-mod-conntrack-extra \
-		qca-nss-fw-eip-hk qca-nss-fw-eip-cp kmod-qca-ovsmgr kmod-netstandby-eawtp-drv\
+		qca-nss-fw-eip-hk qca-nss-fw-eip-cp kmod-qca-ovsmgr \
 		file luci-app-samba rng-tools profilerd ethtool i2c-tools tcpdump \
 		pm-utils wififw_mount_script qca-thermald qca-qmi-framework qca-time-services \
 		qca-wlanfw-upgrade dashboard iperf sysstat nlcfg kmod-bootconfig qca-cfg80211tool
