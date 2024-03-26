@@ -131,9 +131,9 @@ WIFI_PKGS:=kmod-qca-wifi-unified-profile \
 	-qca-wpc qca-cfg80211 qca-cnss-daemon
 
 WIFI_PKGS_MINENT:=kmod-qca-wifi-custc-profile \
-	qca-hostap qca-hostapd-cli -qca-hapd-supp qca-wpa-supplicant \
-	qca-wpa-cli qca-spectral qca-wpc sigma-dut \
-	qcmbr qca-wrapd qca-wapid qca-acfg \
+	qca-hostap qca-hostapd-cli qca-hapd-supp qca-wpa-supplicant \
+	qca-wpa-cli qca-spectral -qca-wpc sigma-dut \
+	-qcmbr qca-wrapd qca-wapid qca-acfg \
 	qca-lowi qca-icm qca-cfg80211 athdiag qca-cnss-daemon \
 	athtestcmd-lith qca-cfg80211tool myftm
 
