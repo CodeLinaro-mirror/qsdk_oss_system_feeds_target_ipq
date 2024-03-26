@@ -18,11 +18,32 @@
 
 . /lib/functions.sh
 . /lib/upgrade/common.sh
+. /usr/share/libubox/jshn.sh
 
-RAMFS_COPY_DATA="/etc/fw_env.config /var/lock/fw_printenv.lock"
+RAMFS_COPY_DATA="/etc/fw_env.config /var/lock/fw_printenv.lock /etc/board.json /usr/share/libubox/jshn.sh"
 RAMFS_COPY_BIN="/usr/bin/dumpimage /usr/sbin/ubiattach /usr/sbin/ubidetach
 	/usr/sbin/ubiformat /usr/sbin/ubiupdatevol /bin/rm /usr/bin/find
-	/usr/sbin/mkfs.ext4 /usr/sbin/fw_printenv /sbin/lsmod"
+	/usr/sbin/mkfs.ext4 /usr/sbin/fw_printenv /sbin/lsmod /usr/bin/jshn"
+
+get_board_details() {
+	local JSON_FILE="/etc/board.json"
+	local info_value
+
+	json_load_file "$JSON_FILE"
+
+	case $1 in
+		"model_name")
+			json_select model
+			json_get_var info_value name
+			info_value=${info_value##*/}
+			;;
+		*)
+			json_get_var info_value $1
+			;;
+	esac
+
+	echo $info_value
+}
 
 get_full_section_name() {
 	local img=$1
@@ -312,45 +333,16 @@ image_is_nand()
 }
 
 get_fw_name() {
-	wifi_ipq="ignored"
-	image_suffix1="qcn9224_v2_dualmac"
-	image_suffix2="qcn9000_qcn9224_v2"
-	machineid=$(fw_printenv -l /tmp/. machid | cut -d '=' -f 2)
-
-	case "${machineid}" in
-		"8050301"|\
-		"8050601"|\
-		"8050701"|\
-		"8050501"|\
-		"8050b01"|\
-		"8050102"|\
-		"8050002"|\
-		"8050003"|\
-		"8050004"|\
-		"8050801"|\
-		"8050d01"|\
-		"8051001"|\
-		"8051101"|\
-		"8051301"|\
-		"8050a01")
-			wifi_ipq="ipq9574_"$image_suffix1
-			;;
-		"8050c01")
-			wifi_ipq="ipq9574_"$image_suffix2
-			;;
-		*)
-			wifi_ipq="ipq9574_qcn9000"
-			;;
-
-	esac
+	local wifi_ipq=$(get_board_details "wififw_name")
+	wifi_ipq=${wifi_ipq%_squashfs*}
 
 	echo $wifi_ipq
 }
 
 flash_section() {
 	local sec=$1
-	local board=$(board_name)
-	local board_model=$(to_lower $(grep -o "RDP.*" /proc/device-tree/model | awk -F/ '{print $2}'))
+	local board=$(get_board_details "board_name")
+	local board_model=$(to_lower $(get_board_details "model_name"))
 
 	case "${sec}" in
 		hlos*) image_is_nand && return || do_flash_failsafe_partition ${sec} "0:HLOS";;
@@ -383,8 +375,8 @@ erase_emmc_config() {
 }
 
 platform_check_image() {
-	local board=$(board_name)
-	local board_model=$(to_lower $(grep -o "RDP.*" /proc/device-tree/model | awk -F/ '{print $2}'))
+	local board=$(get_board_details "board_name")
+	local board_model=$(to_lower $(get_board_details "model_name"))
 	local mandatory_nand="ubi"
 	local mandatory_nor_emmc="hlos fs"
 	local mandatory_nor="hlos"
@@ -451,7 +443,7 @@ platform_check_image() {
 }
 
 platform_do_upgrade() {
-	local board=$(board_name)
+	local board=$(get_board_details "board_name")
 
 	# verify some things exist before erasing
 	if [ ! -e $1 ]; then
