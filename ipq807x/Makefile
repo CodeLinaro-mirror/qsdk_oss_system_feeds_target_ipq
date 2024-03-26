@@ -40,6 +40,6 @@ include $(INCLUDE_DIR)/target.mk
 DEFAULT_PACKAGES += \
 	e2fsprogs uboot-envtools kmod-gpio-button-hotplug kmod-button-hotplug \
 	kmod-ata-core kmod-ata-ahci kmod-ata-ahci-platform kmod-usb3 swconfig \
-	kmod-usb-phy-ipq5018 kmod-usb-dwc3-qcom-internal
+	kmod-usb-phy-ipq807x kmod-usb-dwc3-qcom-internal
 
 $(eval $(call BuildTarget))
