@@ -196,7 +196,7 @@ CD_ROUTER:=kmod-ipt-ipopt kmod-bonding kmod-ipt-sctp kmod-ipt-raw kmod-ipt-raw6 
 	arptables ds-lite 6rd ddns-scripts xl2tpd \
 	quagga quagga-ripd quagga-zebra quagga-watchquagga quagga-vtysh \
 	kmod-ipv6 ip6tables iptables-mod-ipsec iptables-mod-filter \
-	isc-dhcp-relay-ipv6 rp-pppoe-server ppp-mod-pptp iptables-mod-physdev
+	isc-dhcp-relay-ipv6 rp-pppoe-server ppp-mod-pptp -iptables-mod-physdev
 
 CD_ROUTER_256MB:=kmod-ipt-ipopt kmod-ipt-sctp kmod-ipt-raw kmod-ipt-raw6 lacpd \
 	arptables ddns-scripts \
@@ -282,16 +282,21 @@ DIAG:= common-headers diag
 
 define Profile/QSDK_Premium
 	NAME:=Qualcomm Technologies, Inc SDK Premium Profile
-	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) $(VIDEO) $(TEST_TOOLS) \
-		$(FAILSAFE) $(DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) \
-		$(QCA_ECM_PREMIUM) $(NETWORKING) $(CD_ROUTER) $(KPI) $(MAP_PKGS) $(CTRL_APP_DUT) \
-		$(SWITCH_SSDK_NOHNAT_PKGS) $(IGMPSNOOPING_RSTP) -lacpd $(CNSS_DIAG)\
-		$(SWITCH_SSDK_PKGS) $(QMSCT_CLIENT) $(NSS_STANDARD) $(USB_DIAG) $(CHAR_DIAG) $(FTM) \
-		$(UTILS) $(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) $(NSS_EIP197_FW) \
-		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE) $(NSS_USERSPACE_OSS)\
-		$(NSS_RMNET) $(QCA_MAD) $(QCA_EZMESH) $(OPENVPN) kmod-macvlan \
-		kmod-qca-hyfi-bridge $(NSS_NSM) $(SAL_QOS) $(RSRC_MGR) $(WIFI_PKGS) $(NPT66) \
-		$(NSS_FLS) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS) $(NSS_MACSEC) $(NSS_UDP_ST)
+	PACKAGES:=$(OPENWRT_STANDARD) $(KPI) $(TEST_TOOLS) $(UTILS) $(COREBSP_UTILS) $(MINIDUMP) \
+		$(STORAGE) $(AUDIO) $(VIDEO) $(FAILSAFE) $(DIAG) \
+		$(NETWORKING) $(CTRL_APP_DUT) $(FTM) $(USB_DIAG) $(CHAR_DIAG) \
+		$(OPENVPN) $(CNSS_DIAG) $(CD_ROUTER) $(MAP_PKGS) \
+		$(HW_CRYPTO) $(IPSEC) $(QOS) $(SAL_QOS)
+#		$(SWITCH_SSDK_PKGS) $(IGMPSNOOPING_RSTP) -lacpd $(AQ_PHY)
+#		$(SWITCH_SSDK_NOHNAT_PKGS)
+#		$(NSS_PPE) $(NSS_COMMON) \
+#		$(QCA_ECM_PREMIUM) \
+#		$(QMSCT_CLIENT) $(NSS_STANDARD) \
+#		$(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) $(NSS_EIP197_FW) \
+#		$(HYFI) $(NSS_USERSPACE) $(NSS_USERSPACE_OSS)\
+#		$(NSS_RMNET) $(QCA_MAD) $(QCA_EZMESH) kmod-macvlan \
+#		kmod-qca-hyfi-bridge $(NSS_NSM) $(RSRC_MGR) $(WIFI_PKGS) $(NPT66) \
+#		$(NSS_FLS) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS) $(NSS_MACSEC) $(NSS_UDP_ST)
 endef
 
 #		$(QCA_RFS)
@@ -351,17 +356,18 @@ $(eval $(call Profile,QSDK_Cov))
 
 define Profile/QSDK_Open
 	NAME:=Qualcomm Technologies, Inc SDK Open Profile
-	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(TEST_TOOLS) $(AUDIO) $(VIDEO) $(CNSS_DIAG) \
-		$(FAILSAFE) $(DIAG) $(FTM) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(NSS_USERSPACE_OSS)\
-		$(QCA_ECM_PREMIUM) $(STRONGSWAN) $(NETWORKING) $(CD_ROUTER) $(USB_DIAG) \
-		$(SWITCH_SSDK_NOHNAT_PKGS) $(SWITCH_SSDK_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) \
-		$(WIFI_OPEN_PKGS) -lacpd -qca-thermald $(UTILS) $(EXTRA_NETWORKING) \
-		$(USB_ETHERNET) $(NSS_COMMON) $(NSS_STANDARD) $(NSS_MESH) $(EMESH_SP) $(NPT66)\
-		$(NSS_NSM) $(SAL_QOS) $(IPSEC) $(NSS_CRYPTO) $(QOS) -lacpd $(MACSEC_OPEN_PKGS) \
-		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
-		-qapp-store libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps \
-		 $(NSS_FLOWID) $(NSS_FLS) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl \
-		$(RSRC_MGR) $(NSS_UDP_ST)
+	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(TEST_TOOLS) $(AUDIO) $(VIDEO)
+		#$(CNSS_DIAG) \
+		#$(FAILSAFE) $(DIAG) $(FTM) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(NSS_USERSPACE_OSS)\
+		#$(QCA_ECM_PREMIUM) $(STRONGSWAN) $(NETWORKING) $(CD_ROUTER) $(USB_DIAG) \
+		#$(SWITCH_SSDK_NOHNAT_PKGS) $(SWITCH_SSDK_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) \
+		#$(WIFI_OPEN_PKGS) -lacpd -qca-thermald $(UTILS) $(EXTRA_NETWORKING) \
+		#$(USB_ETHERNET) $(NSS_COMMON) $(NSS_STANDARD) $(NSS_MESH) $(EMESH_SP) $(NPT66)\
+		#$(NSS_NSM) $(SAL_QOS) $(IPSEC) $(NSS_CRYPTO) $(QOS) -lacpd  $(AQ_PHY) $(MACSEC_OPEN_PKGS) \
+		#-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
+		#-qapp-store libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps \
+		# $(NSS_FLOWID) $(NSS_FLS) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl \
+		#$(RSRC_MGR) $(NSS_UDP_ST)
 endef
 
 #	$(HW_CRYPTO) $(QCA_RFS) $(QMI_SAMPLE_APP)
