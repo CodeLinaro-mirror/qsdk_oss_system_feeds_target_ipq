@@ -43,6 +43,51 @@ define Device/qcom_rdp468
 endef
 TARGET_DEVICES += $(if $(CONFIG_LINUX_6_1)$(CONFIG_LINUX_6_6), qcom_rdp468)
 
+define Device/qcom_mi01.2
+	$(call Device/FitImageLzma)
+	DEVICE_VENDOR := Qualcomm Technologies, Inc.
+	DEVICE_MODEL := RDP441
+	DEVICE_VARIANT := AP-MI01.2
+	BOARD_NAME := ap-mi01.2
+	BUILD_DTS_ipq5332-mi01.2 := 1
+	SOC := ipq5332
+	KERNEL_INSTALL := 1
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
+	IMAGE_SIZE := 25344k
+	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
+endef
+TARGET_DEVICES += $(if $(CONFIG_LINUX_5_4), qcom_mi01.2)
+
+define Device/qcom_mi01.2-c2
+	$(call Device/FitImageLzma)
+	DEVICE_VENDOR := Qualcomm Technologies, Inc.
+	DEVICE_MODEL := RDP441
+	DEVICE_VARIANT := AP-MI01.2
+	BOARD_NAME := ap-mi01.2-c2
+	BUILD_DTS_ipq5332-mi01.2-c2 := 1
+	SOC := ipq5332
+	KERNEL_INSTALL := 1
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
+	IMAGE_SIZE := 25344k
+	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
+endef
+TARGET_DEVICES += $(if $(CONFIG_LINUX_5_4), qcom_mi01.2-c2)
+
+define Device/qcom_mi01.6
+	$(call Device/FitImageLzma)
+	DEVICE_VENDOR := Qualcomm Technologies, Inc.
+	DEVICE_MODEL := RDP468
+	DEVICE_VARIANT := AP-MI01.6
+	BOARD_NAME := ap-mi01.6
+	BUILD_DTS_ipq5332-mi01.6 := 1
+	SOC := ipq5332
+	KERNEL_INSTALL := 1
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
+	IMAGE_SIZE := 25344k
+	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
+endef
+TARGET_DEVICES += $(if $(CONFIG_LINUX_5_4), qcom_mi01.6)
+
 define Device/qcom_rdp442
 	$(call Device/FitImageLzma)
 	DEVICE_VENDOR := Qualcomm Technologies, Inc.
