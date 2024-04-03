@@ -56,7 +56,7 @@ define Device/qcom_mi01.2
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
-TARGET_DEVICES += $(if $(CONFIG_LINUX_5_4), qcom_mi01.2)
+TARGET_DEVICES += $(if $(CONFIG_LOWMEM_FLASH)$(CONFIG_LINUX_6_1)$(CONFIG_LINUX_6_6), ,qcom_mi01.2)
 
 define Device/qcom_mi01.2-c2
 	$(call Device/FitImageLzma)
@@ -71,7 +71,7 @@ define Device/qcom_mi01.2-c2
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
-TARGET_DEVICES += $(if $(CONFIG_LINUX_5_4), qcom_mi01.2-c2)
+TARGET_DEVICES += $(if $(CONFIG_LOWMEM_FLASH)$(CONFIG_LINUX_6_1)$(CONFIG_LINUX_6_6), ,qcom_mi01.2-c2)
 
 define Device/qcom_mi01.6
 	$(call Device/FitImageLzma)
@@ -86,7 +86,7 @@ define Device/qcom_mi01.6
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
-TARGET_DEVICES += $(if $(CONFIG_LINUX_5_4), qcom_mi01.6)
+TARGET_DEVICES += $(if $(CONFIG_LOWMEM_FLASH)$(CONFIG_LINUX_6_1)$(CONFIG_LINUX_6_6), ,qcom_mi01.6)
 
 define Device/qcom_rdp442
 	$(call Device/FitImageLzma)
