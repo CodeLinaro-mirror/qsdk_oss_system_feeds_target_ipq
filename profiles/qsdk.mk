@@ -223,8 +223,6 @@ QCA_MAD:=qca-mad
 
 QCA_EZMESH:=qca-ezmesh qca-ezmesh-ctrl qca-ezmesh-agent qca-ezmesh-alg qca-ezmesh-agentalg
 
-AQ_PHY:=kmod-aq_phy kmod-qca_85xx_sw aq-fw-download
-
 #These packages depend on SWITCH_SSDK_PKGS
 IGMPSNOOPING_RSTP:=rstp qca-mcs-apps
 #qca-mcs-apps
@@ -287,7 +285,7 @@ define Profile/QSDK_Premium
 	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) $(VIDEO) $(TEST_TOOLS) \
 		$(FAILSAFE) $(DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) \
 		$(QCA_ECM_PREMIUM) $(NETWORKING) $(CD_ROUTER) $(KPI) $(MAP_PKGS) $(CTRL_APP_DUT) \
-		$(SWITCH_SSDK_NOHNAT_PKGS) $(IGMPSNOOPING_RSTP) -lacpd $(AQ_PHY) $(CNSS_DIAG)\
+		$(SWITCH_SSDK_NOHNAT_PKGS) $(IGMPSNOOPING_RSTP) -lacpd $(CNSS_DIAG)\
 		$(SWITCH_SSDK_PKGS) $(QMSCT_CLIENT) $(NSS_STANDARD) $(USB_DIAG) $(CHAR_DIAG) $(FTM) \
 		$(UTILS) $(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) $(NSS_EIP197_FW) \
 		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE) $(NSS_USERSPACE_OSS)\
@@ -310,7 +308,7 @@ define Profile/QSDK_Dpdk
 	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) $(VIDEO) $(TEST_TOOLS) \
 		$(FAILSAFE) $(DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(CNSS_DIAG) \
 		$(QCA_ECM_PREMIUM) $(NETWORKING) $(CD_ROUTER) $(KPI) $(MAP_PKGS) \
-		$(SWITCH_SSDK_NOHNAT_PKGS) $(IGMPSNOOPING_RSTP) -lacpd $(AQ_PHY) \
+		$(SWITCH_SSDK_NOHNAT_PKGS) $(IGMPSNOOPING_RSTP) -lacpd \
 		$(SWITCH_SSDK_PKGS) $(QMSCT_CLIENT) $(NSS_STANDARD) $(USB_DIAG) $(CHAR_DIAG) $(FTM) \
 		$(UTILS) $(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) $(NSS_EIP197_FW) \
 		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE) $(NSS_USERSPACE_OSS)\
@@ -333,7 +331,7 @@ define Profile/QSDK_Cov
 	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) $(VIDEO) $(TEST_TOOLS) \
 		$(FAILSAFE) $(DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) \
 		$(QCA_ECM_PREMIUM) $(NETWORKING) $(CD_ROUTER) sysstat $(MAP_PKGS) $(CTRL_APP_DUT) \
-		$(SWITCH_SSDK_NOHNAT_PKGS) $(IGMPSNOOPING_RSTP) -lacpd $(AQ_PHY) $(CNSS_DIAG)\
+		$(SWITCH_SSDK_NOHNAT_PKGS) $(IGMPSNOOPING_RSTP) -lacpd $(CNSS_DIAG)\
 		$(SWITCH_SSDK_PKGS) $(QMSCT_CLIENT) $(NSS_STANDARD) $(USB_DIAG) $(CHAR_DIAG) $(FTM) \
 		$(UTILS) $(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) $(NSS_EIP197_FW) \
 		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE) $(NSS_USERSPACE_OSS)\
@@ -359,7 +357,7 @@ define Profile/QSDK_Open
 		$(SWITCH_SSDK_NOHNAT_PKGS) $(SWITCH_SSDK_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) \
 		$(WIFI_OPEN_PKGS) -lacpd -qca-thermald $(UTILS) $(EXTRA_NETWORKING) \
 		$(USB_ETHERNET) $(NSS_COMMON) $(NSS_STANDARD) $(NSS_MESH) $(EMESH_SP) $(NPT66)\
-		$(NSS_NSM) $(SAL_QOS) $(IPSEC) $(NSS_CRYPTO) $(QOS) -lacpd  $(AQ_PHY) $(MACSEC_OPEN_PKGS) \
+		$(NSS_NSM) $(SAL_QOS) $(IPSEC) $(NSS_CRYPTO) $(QOS) -lacpd $(MACSEC_OPEN_PKGS) \
 		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
 		-qapp-store libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps \
 		 $(NSS_FLOWID) $(NSS_FLS) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl \
@@ -386,7 +384,7 @@ define Profile/QSDK_QBuilder
 		rstp qca-mcs-apps qca-hostap qca-hostapd-cli qca-wpa-supplicant qca-wpa-cli \
 		qca-spectral qca-wpc sigma-dut ctrl_app_dut qcmbr qca-wrapd qca-wapid qca-acfg whc-mesh whc-ui \
 		qca-lowi qca-iface-mgr qca-icm qca-cfg80211 athdiag qca-cnss-daemon athtestcmd-lith \
-		qca-wifi-hk-fw-hw1-10.4-asic kmod-aq_phy kmod-qca_85xx_sw aq-fw-download mcproxy mwan3 \
+		qca-wifi-hk-fw-hw1-10.4-asic mcproxy mwan3 \
 		-dnsmasq dnsmasq-dhcpv6 bridge ip-full rp-pppoe-relay iptables-mod-extra \
 		iputils-tracepath iputils-tracepath6 \
 		kmod-nf-nathelper-extra kmod-nf-nathelper kmod-ipt-nathelper-rtsp luci-app-upnp \
@@ -412,7 +410,7 @@ define Profile/QSDK_Enterprise
 		$(WIFI_PKGS) $(WIFI_FW_PKGS) $(STORAGE) $(HW_CRYPTO) $(QCA_RFS) \
 		$(IGMPSNOOPING_RSTP) $(NETWORKING) $(QOS) $(UTILS) $(TEST_TOOLS) $(COREBSP_UTILS) \
 		$(QCA_ECM_ENTERPRISE) $(NSS_CLIENTS_ENTERPRISE) $(NSS_MACSEC) $(NSS_CRYPTO) \
-		$(IPSEC) $(STRONGSWAN) $(NSS_EIP197_FW) $(CD_ROUTER) $(AQ_PHY) \
+		$(IPSEC) $(STRONGSWAN) $(NSS_EIP197_FW) $(CD_ROUTER) \
 		$(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) -lacpd \
 		$(DIAG) $(MHI_QRTR) $(KPI) $(FAILSAFE) $(NSS_USERSPACE) $(USB_DIAG) \
 		$(NSS_PPE) $(NSS_USERSPACE_OSS) kmod-qca-nss-drv-mscs $(RSRC_MGR)
@@ -431,7 +429,7 @@ define Profile/QSDK_MinEnt
 		$(WIFI_PKGS_MINENT) $(WIFI_FW_PKGS) $(STORAGE) $(HW_CRYPTO) $(QCA_RFS) \
 		$(NETWORKING) $(QOS) $(UTILS) $(TEST_TOOLS) $(COREBSP_UTILS) \
 		$(QCA_ECM_ENTERPRISE) $(NSS_CLIENTS_ENTERPRISE) $(NSS_MACSEC) $(NSS_CRYPTO) \
-		$(IPSEC) $(STRONGSWAN) $(NSS_EIP197_FW) $(CD_ROUTER) $(AQ_PHY) $(CNSS_DIAG) \
+		$(IPSEC) $(STRONGSWAN) $(NSS_EIP197_FW) $(CD_ROUTER) $(CNSS_DIAG) \
 		$(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) -lacpd -kmod-qca-nss-ecm-wifi-plugin \
 		$(DIAG) $(MHI_QRTR) $(KPI) $(FAILSAFE) $(NSS_USERSPACE) $(NSS_PPE) $(NSS_USERSPACE_OSS)\
 		$(RSRC_MGR) $(USB_DIAG) $(NSS_NETFN)
@@ -471,7 +469,7 @@ define Profile/QSDK_512
 		$(NETWORKING) $(OPENVPN) $(UTILS) $(HW_CRYPTO) $(QCA_RFS) \
 		$(VIDEO) $(IGMPSNOOPING_RSTP) $(IPSEC) $(QOS) $(QCA_ECM_PREMIUM) $(NSS_PPE) $(NSS_USERSPACE_OSS)\
 		$(NSS_MACSEC) $(TEST_TOOLS) $(NSS_CRYPTO) $(NSS_CLIENTS_STANDARD) \
-		$(COREBSP_UTILS) $(MAP_PKGS) $(AQ_PHY) $(FAILSAFE) -lacpd $(DIAG) $(USB_DIAG) \
+		$(COREBSP_UTILS) $(MAP_PKGS) $(FAILSAFE) -lacpd $(DIAG) $(USB_DIAG) \
 		$(NSS_EIP197_FW) $(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(KPI) \
 		$(NSS_USERSPACE) $(NSS_RMNET) $(HYFI) kmod-qca-hyfi-bridge $(EMESH_SP) \
 		$(QCA_EZMESH) kmod-macvlan $(MINIDUMP) $(RSRC_MGR) $(NSS_L2TP)
