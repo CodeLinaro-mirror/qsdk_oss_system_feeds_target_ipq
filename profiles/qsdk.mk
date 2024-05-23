@@ -269,7 +269,8 @@ QRTR:=qca-qrtr
 
 EMESH_SP:=kmod-emesh-sp
 
-RSRC_MGR:=qca-cfg80211 kmod-rsrcmgr-netstandby-drv qca-rsrcmgr qca-rsrcmgr-secure-libs
+RSRC_MGR:=qca-cfg80211 kmod-rsrcmgr-netstandby-drv qca-rsrcmgr qca-rsrcmgr-secure-libs \
+	qca-rsrcmgr-pmlo qca-rsrcmgr-detsched qca-rsrcmgr-admctrl qca-rsrcmgr-energy
 
 DPDK:=dpdk-tools kmod-qca-nss-dpdk-cfgmgr kmod-nss-ppe-uio
 
