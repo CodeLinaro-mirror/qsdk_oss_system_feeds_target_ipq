@@ -31,7 +31,9 @@ NSS_MACSEC:= \
 
 QCA_ECM_STANDARD:= kmod-qca-nss-ecm-standard
 QCA_ECM_ENTERPRISE:= kmod-qca-nss-ecm-noload kmod-qca-nss-ecm-wifi-plugin
-QCA_ECM_PREMIUM:= kmod-qca-nss-ecm-premium kmod-qca-nss-ecm-wifi-plugin
+#disable kmod-qca-nss-ecm-wifi-plugin for now as Wifi is not yet up on hazelnut_dev branch
+QCA_ECM_PREMIUM:= kmod-qca-nss-ecm-premium
+#kmod-qca-nss-ecm-wifi-plugin
 
 NSS_PPE_256:= kmod-qca-nss-ppe \
 	kmod-qca-nss-ppe-vp \
@@ -283,23 +285,22 @@ DIAG:= common-headers diag
 define Profile/QSDK_Premium
 	NAME:=Qualcomm Technologies, Inc SDK Premium Profile
 	PACKAGES:=$(OPENWRT_STANDARD) $(KPI) $(TEST_TOOLS) $(UTILS) $(COREBSP_UTILS) $(MINIDUMP) \
-		$(STORAGE) $(AUDIO) $(VIDEO) $(FAILSAFE) $(DIAG) \
+		$(STORAGE) $(AUDIO) $(VIDEO) $(FAILSAFE) $(DIAG) $(NPT66) \
 		$(NETWORKING) $(CTRL_APP_DUT) $(FTM) $(USB_DIAG) $(CHAR_DIAG) \
-		$(OPENVPN) $(CNSS_DIAG) $(CD_ROUTER) $(MAP_PKGS) \
-		$(HW_CRYPTO) $(IPSEC) $(QOS) $(SAL_QOS)
-#		$(SWITCH_SSDK_PKGS) $(IGMPSNOOPING_RSTP) -lacpd $(AQ_PHY)
-#		$(SWITCH_SSDK_NOHNAT_PKGS)
-#		$(NSS_PPE) $(NSS_COMMON) \
-#		$(QCA_ECM_PREMIUM) \
-#		$(QMSCT_CLIENT) $(NSS_STANDARD) \
-#		$(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) $(NSS_EIP197_FW) \
-#		$(HYFI) $(NSS_USERSPACE) $(NSS_USERSPACE_OSS)\
-#		$(NSS_RMNET) $(QCA_MAD) $(QCA_EZMESH) kmod-macvlan \
-#		kmod-qca-hyfi-bridge $(NSS_NSM) $(RSRC_MGR) $(WIFI_PKGS) $(NPT66) \
-#		$(NSS_FLS) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS) $(NSS_MACSEC) $(NSS_UDP_ST)
+		$(OPENVPN) $(CNSS_DIAG) $(CD_ROUTER) $(MAP_PKGS) $(NSS_RMNET) \
+		$(QCA_ECM_PREMIUM) $(NSS_PPE) $(NSS_COMMON) $(NSS_STANDARD) \
+		$(SWITCH_SSDK_PKGS)  -lacpd $(AQ_PHY) $(NSS_USERSPACE) $(NSS_USERSPACE_OSS) \
+		$(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) $(NSS_EIP197_FW)  kmod-macvlan \
+		$(HW_CRYPTO) $(IPSEC) $(QOS) $(SAL_QOS) $(SWITCH_SSDK_NOHNAT_PKGS) \
+		$(NSS_FLS) $(NSS_L2TP) $(NSS_MACSEC) $(NSS_UDP_ST) $(NSS_NSM)
+#		$(IGMPSNOOPING_RSTP) \
+#		$(QMSCT_CLIENT) \
+#		$(HYFI) \
+#		$(QCA_MAD) $(QCA_EZMESH) $(EMESH_SP) $(WIFI_FW_PKGS) \
+#		kmod-qca-hyfi-bridge  $(RSRC_MGR) $(WIFI_PKGS)
 endef
 
-#		$(QCA_RFS)
+#              $(QCA_RFS)
 
 define Profile/QSDK_Premium/Description
 	QSDK Premium package set configuration.
