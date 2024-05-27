@@ -313,7 +313,7 @@ define Profile/QSDK_BigEndian
                 $(UTILS) $(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) $(NSS_EIP197_FW) \
                 $(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE) $(NSS_USERSPACE_OSS)\
                 $(NSS_RMNET) $(QCA_MAD) $(QCA_EZMESH) $(OPENVPN) kmod-macvlan \
-                kmod-qca-hyfi-bridge $(NSS_NSM) $(SAL_QOS) $(RSRC_MGR) $(WIFI_PKGS) $(NPT66) \
+                kmod-qca-hyfi-bridge $(NSS_NSM) $(SAL_QOS) $(WIFI_PKGS) $(NPT66) \
                 $(NSS_FLS) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS) $(NSS_MACSEC) $(NSS_UDP_ST)
 endef
 
