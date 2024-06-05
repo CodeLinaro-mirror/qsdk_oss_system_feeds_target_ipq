@@ -473,14 +473,19 @@ $(eval $(call Profile,QSDK_MinEnt))
 
 define Profile/QSDK_256
 	NAME:=Qualcomm Technologies, Inc SDK 256MB Profile
-	PACKAGES:=$(OPENWRT_256MB) $(NSS_COMMON) $(NSS_STANDARD) $(SWITCH_SSDK_PKGS) \
-		$(WIFI_PKGS_256MB) $(WIFI_FW_PKGS) $(CD_ROUTER_256MB) $(NSS_PPE_256) \
-		$(NETWORKING_256MB) iperf rng-tools $(QCA_RFS) $(DIAG) $(CHAR_DIAG) \
-		$(QCA_ECM_STANDARD) $(NSS_MACSEC) $(NSS_CLIENTS_256MB) $(FAILSAFE) \
-		-lacpd $(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(HYFI) $(QCA_EZMESH) $(NSS_USERSPACE_OSS) kmod-macvlan \
-		$(IGMPSNOOPING_RSTP) $(EMESH_SP) e2fsprogs losetup kmod-qca-nss-ecm-wifi-plugin \
+	PACKAGES:=$(OPENWRT_256MB) \
+		$(WIFI_PKGS_256MB) $(WIFI_FW_PKGS) \
+		$(NETWORKING_256MB) iperf rng-tools $(CHAR_DIAG) \
+		$(FAILSAFE) \
+		-lacpd $(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(HYFI) $(QCA_EZMESH) kmod-macvlan \
+		$(EMESH_SP) e2fsprogs losetup kmod-qca-nss-ecm-wifi-plugin \
 	        -kmod-usb-dwc3-qcom-internal
 endef
+
+#	$(NSS_COMMON) $(NSS_STANDARD) $(SWITCH_SSDK_PKGS)
+#	$(CD_ROUTER_256MB) $(NSS_PPE_256) $(QCA_RFS) $(DIAG)
+#	$(QCA_ECM_STANDARD) $(NSS_MACSEC) $(NSS_CLIENTS_256MB)
+#	$(NSS_USERSPACE_OSS) $(IGMPSNOOPING_RSTP)
 
 #       $(MHI_QRTR)
 
