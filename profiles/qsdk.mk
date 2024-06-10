@@ -449,7 +449,7 @@ define Profile/QSDK_256
 		$(NETWORKING_256MB) iperf rng-tools $(QCA_RFS) $(DIAG) $(CHAR_DIAG) \
 		$(QCA_ECM_STANDARD) $(NSS_MACSEC) $(NSS_CLIENTS_256MB) $(FAILSAFE) \
 		-lacpd $(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(HYFI) $(QCA_EZMESH) $(NSS_USERSPACE_OSS) kmod-macvlan \
-		$(IGMPSNOOPING_RSTP) $(EMESH_SP) e2fsprogs losetup kmod-qca-nss-ecm-wifi-plugin \
+		$(IGMPSNOOPING_RSTP) $(EMESH_SP) $(SAL_QOS) e2fsprogs losetup kmod-qca-nss-ecm-wifi-plugin \
 	        -kmod-usb-dwc3-qcom-internal
 endef
 
