@@ -327,7 +327,7 @@ define Profile/QSDK_Cov
 		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE_OSS)\
 		$(QCA_MAD) $(QCA_EZMESH) $(OPENVPN) kmod-macvlan \
 		kmod-qca-hyfi-bridge $(NSS_NSM) $(SAL_QOS) $(WIFI_PKGS) $(NPT66) \
-		$(NSS_FLS) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS)
+		$(NSS_FLS) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS) kmod-hota-driver
 endef
 
 #		$(NSS_UDP_ST) $(NSS_MACSEC)
