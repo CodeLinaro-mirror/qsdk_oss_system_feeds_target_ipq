@@ -65,7 +65,7 @@ NSS_CLIENTS_STANDARD:= kmod-qca-nss-drv-qdisc kmod-qca-nss-drv-igs kmod-qca-nss-
 	kmod-qca-nss-drv-map-t kmod-qca-nss-drv-lag-mgr \
 	kmod-qca-nss-drv-bridge-mgr kmod-qca-nss-drv-gre kmod-qca-nss-drv-pppoe \
 	kmod-qca-nss-drv-ovpn-mgr kmod-qca-nss-drv-ovpn-link kmod-qca-nss-drv-vxlanmgr \
-	kmod-qca-nss-drv-netlink kmod-qca-ovsmgr kmod-qca-nss-drv-match kmod-qca-nss-drv-mirror \
+	kmod-qca-nss-drv-netlink kmod-qca-ovsmgr kmod-qca-nss-dscpstats kmod-qca-nss-drv-match kmod-qca-nss-drv-mirror \
 	kmod-qca-nss-drv-mscs
 
 NSS_CLIENTS_256MB:= kmod-qca-nss-drv-bridge-mgr kmod-qca-nss-drv-pppoe
@@ -418,7 +418,7 @@ define Profile/QSDK_QBuilder
 		luci-app-ddns luci-proto-ipv6 luci-app-multiwan tc kmod-sched \
 		kmod-sched-core kmod-sched-connmark kmod-ifb iptables kmod-pptp \
 		iptables-mod-filter iptables-mod-ipopt iptables-mod-conntrack-extra \
-		qca-nss-fw-eip-hk qca-nss-fw-eip-cp kmod-qca-ovsmgr \
+		qca-nss-fw-eip-hk qca-nss-fw-eip-cp kmod-qca-ovsmgr kmod-qca-nss-dscpstats \
 		file luci-app-samba rng-tools profilerd ethtool i2c-tools tcpdump \
 		pm-utils wififw_mount_script qca-thermald qca-qmi-framework qca-time-services \
 		qca-wlanfw-upgrade dashboard iperf sysstat nlcfg kmod-bootconfig qca-cfg80211tool
