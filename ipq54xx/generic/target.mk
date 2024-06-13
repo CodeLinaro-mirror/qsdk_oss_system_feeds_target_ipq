@@ -7,5 +7,5 @@ define Target/Description
 endef
 
 DEFAULT_PACKAGES += \
-	uboot-devsoc-mmc uboot-devsoc-norplusmmc \
-	uboot-devsoc-norplusnand uboot-devsoc-nand \
+	uboot-ipq5424-mmc uboot-ipq5424-norplusmmc \
+	uboot-ipq5424-norplusnand uboot-ipq5424-nand
