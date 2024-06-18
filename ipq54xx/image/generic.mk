@@ -5,7 +5,7 @@ define Device/qcom_maxx
 	DEVICE_MODEL := AP-MAXX
 	DEVICE_VARIANT :=
 	BOARD_NAME := ap-maxx
-	SOC := devsoc
+	SOC := ipq5424
 	KERNEL_INSTALL := 1
 	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
 	IMAGE_SIZE := 25344k
@@ -19,8 +19,8 @@ define Device/emulation
 	DEVICE_MODEL :=
 	DEVICE_VARIANT :=
 	BOARD_NAME :=
-	BUILD_DTS_devsoc-emulation := 1
-	SOC := devsoc
+	BUILD_DTS_ipq5424-emulation := 1
+	SOC := ipq5424
 	KERNEL_INSTALL := 1
 	KERNEL_SIZE := 6096k
 	IMAGE_SIZE := 25344k
