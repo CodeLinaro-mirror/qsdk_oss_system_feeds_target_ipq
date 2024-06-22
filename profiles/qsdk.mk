@@ -379,18 +379,17 @@ $(eval $(call Profile,QSDK_Cov))
 
 define Profile/QSDK_Open
 	NAME:=Qualcomm Technologies, Inc SDK Open Profile
-	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(TEST_TOOLS) $(AUDIO) $(VIDEO)
-		#$(CNSS_DIAG) \
-		#$(FAILSAFE) $(DIAG) $(FTM) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(NSS_USERSPACE_OSS)\
-		#$(QCA_ECM_PREMIUM) $(STRONGSWAN) $(NETWORKING) $(CD_ROUTER) $(USB_DIAG) \
-		#$(SWITCH_SSDK_NOHNAT_PKGS) $(SWITCH_SSDK_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) \
-		#$(WIFI_OPEN_PKGS) -lacpd -qca-thermald $(UTILS) $(EXTRA_NETWORKING) \
-		#$(USB_ETHERNET) $(NSS_COMMON) $(NSS_STANDARD) $(NSS_MESH) $(EMESH_SP) $(NPT66)\
-		#$(NSS_NSM) $(SAL_QOS) $(IPSEC) $(NSS_CRYPTO) $(QOS) -lacpd  $(AQ_PHY) $(MACSEC_OPEN_PKGS) \
-		#-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
-		#-qapp-store libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps \
-		# $(NSS_FLOWID) $(NSS_FLS) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl \
-		#$(RSRC_MGR) $(NSS_UDP_ST)
+	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(TEST_TOOLS) $(AUDIO) $(VIDEO) $(CNSS_DIAG) \
+		$(FAILSAFE) $(DIAG) $(FTM) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(NSS_USERSPACE_OSS)\
+		$(QCA_ECM_PREMIUM) $(STRONGSWAN) $(NETWORKING) $(CD_ROUTER) $(USB_DIAG) \
+		$(SWITCH_SSDK_NOHNAT_PKGS) $(SWITCH_SSDK_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) \
+		$(WIFI_OPEN_PKGS) -lacpd -qca-thermald $(UTILS) $(EXTRA_NETWORKING) \
+		$(USB_ETHERNET) $(NSS_COMMON) $(NSS_STANDARD) $(NSS_MESH) $(EMESH_SP) $(NPT66)\
+		$(NSS_NSM) $(SAL_QOS) $(IPSEC) $(NSS_CRYPTO) $(QOS) -lacpd  $(AQ_PHY) $(MACSEC_OPEN_PKGS) \
+		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
+		-qapp-store libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps \
+		$(NSS_FLOWID) $(NSS_FLS) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl \
+		$(RSRC_MGR) $(NSS_UDP_ST)
 endef
 
 #	$(HW_CRYPTO) $(QCA_RFS) $(QMI_SAMPLE_APP)
