@@ -154,6 +154,8 @@ WIFI_FW_PKGS:=qca-wifi-hk-fw-hw1-10.4-asic qca-wifi-cyp-fw-hw1-11.0-asic qca-wif
 
 OPENWRT_STANDARD:= luci openssl-util
 
+OPENWRT_BASIC:= wifi-scripts
+
 OPENWRT_256MB:=luci pm-utils wififw_mount_script qca-thermald qti-license-pfm -file \
 	-kmod-ata-core -kmod-ata-ahci -kmod-ata-ahci-platform \
 	-kmod-usb2 -kmod-usb3 -kmod-usb-dwc3-qcom \
@@ -284,7 +286,7 @@ DIAG:= common-headers diag
 
 define Profile/QSDK_Premium
 	NAME:=Qualcomm Technologies, Inc SDK Premium Profile
-	PACKAGES:=$(OPENWRT_STANDARD) $(KPI) $(TEST_TOOLS) $(UTILS) $(COREBSP_UTILS) $(MINIDUMP) \
+	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(KPI) $(TEST_TOOLS) $(UTILS) $(COREBSP_UTILS) $(MINIDUMP) \
 		$(STORAGE) $(AUDIO) $(VIDEO) $(FAILSAFE) $(DIAG) $(NPT66) \
 		$(NETWORKING) $(CTRL_APP_DUT) $(FTM) $(USB_DIAG) $(CHAR_DIAG) \
 		$(OPENVPN) $(CNSS_DIAG) $(CD_ROUTER) $(MAP_PKGS) $(NSS_RMNET) \
@@ -310,7 +312,7 @@ $(eval $(call Profile,QSDK_Premium))
 
 define Profile/QSDK_BigEndian
         NAME:=Qualcomm Technologies, Inc SDK Big Endian Profile
-        PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) $(VIDEO) $(TEST_TOOLS) \
+        PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) $(VIDEO) $(TEST_TOOLS) \
                 $(FAILSAFE) $(DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) \
                 $(QCA_ECM_PREMIUM) $(NETWORKING) $(CD_ROUTER) $(KPI) $(MAP_PKGS) $(CTRL_APP_DUT) \
                 $(SWITCH_SSDK_NOHNAT_PKGS) $(IGMPSNOOPING_RSTP) -lacpd $(CNSS_DIAG)\
@@ -333,7 +335,7 @@ $(eval $(call Profile,QSDK_BigEndian))
 
 define Profile/QSDK_Dpdk
 	NAME:=Qualcomm Technologies, Inc SDK Dpdk Profile
-	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) $(VIDEO) $(TEST_TOOLS) \
+	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) $(VIDEO) $(TEST_TOOLS) \
 		$(FAILSAFE) $(DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(CNSS_DIAG) \
 		$(QCA_ECM_PREMIUM) $(NETWORKING) $(CD_ROUTER) $(KPI) $(MAP_PKGS) \
 		$(SWITCH_SSDK_NOHNAT_PKGS) $(IGMPSNOOPING_RSTP) -lacpd \
@@ -356,7 +358,7 @@ $(eval $(call Profile,QSDK_Dpdk))
 
 define Profile/QSDK_Cov
 	NAME:=Qualcomm Technologies, Inc SDK Cov Profile
-	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) $(VIDEO) $(TEST_TOOLS) \
+	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) $(VIDEO) $(TEST_TOOLS) \
 		$(FAILSAFE) $(DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) \
 		$(QCA_ECM_PREMIUM) $(NETWORKING) $(CD_ROUTER) sysstat $(MAP_PKGS) $(CTRL_APP_DUT) \
 		$(SWITCH_SSDK_NOHNAT_PKGS) $(IGMPSNOOPING_RSTP) -lacpd $(CNSS_DIAG)\
@@ -379,7 +381,7 @@ $(eval $(call Profile,QSDK_Cov))
 
 define Profile/QSDK_Open
 	NAME:=Qualcomm Technologies, Inc SDK Open Profile
-	PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(TEST_TOOLS) $(AUDIO) $(VIDEO) $(CNSS_DIAG) \
+	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(STORAGE) $(TEST_TOOLS) $(AUDIO) $(VIDEO) $(CNSS_DIAG) \
 		$(FAILSAFE) $(DIAG) $(FTM) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(NSS_USERSPACE_OSS)\
 		$(QCA_ECM_PREMIUM) $(STRONGSWAN) $(NETWORKING) $(CD_ROUTER) $(USB_DIAG) \
 		$(SWITCH_SSDK_NOHNAT_PKGS) $(SWITCH_SSDK_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) \
@@ -434,7 +436,7 @@ $(eval $(call Profile,QSDK_QBuilder))
 
 define Profile/QSDK_Enterprise
 	NAME:=Qualcomm Technologies, Inc SDK Enterprise Profile
-	PACKAGES:=$(OPENWRT_STANDARD) $(NSS_COMMON) $(NSS_ENTERPRISE) $(SWITCH_SSDK_NOHNAT_PKGS) \
+	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(NSS_COMMON) $(NSS_ENTERPRISE) $(SWITCH_SSDK_NOHNAT_PKGS) \
 		$(WIFI_PKGS) $(WIFI_FW_PKGS) $(STORAGE) $(HW_CRYPTO) $(QCA_RFS) \
 		$(IGMPSNOOPING_RSTP) $(NETWORKING) $(QOS) $(UTILS) $(TEST_TOOLS) $(COREBSP_UTILS) \
 		$(QCA_ECM_ENTERPRISE) $(NSS_CLIENTS_ENTERPRISE) $(NSS_MACSEC) $(NSS_CRYPTO) \
@@ -453,7 +455,7 @@ $(eval $(call Profile,QSDK_Enterprise))
 
 define Profile/QSDK_MinEnt
 	NAME:=Qualcomm Technologies, Inc SDK MinEnt Profile
-	PACKAGES:=$(OPENWRT_STANDARD) $(NSS_COMMON) $(NSS_ENTERPRISE) $(SWITCH_SSDK_NOHNAT_PKGS) \
+	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(NSS_COMMON) $(NSS_ENTERPRISE) $(SWITCH_SSDK_NOHNAT_PKGS) \
 		$(WIFI_PKGS_MINENT) $(WIFI_FW_PKGS) $(STORAGE) $(HW_CRYPTO) $(QCA_RFS) \
 		$(NETWORKING) $(QOS) $(UTILS) $(TEST_TOOLS) $(COREBSP_UTILS) \
 		$(QCA_ECM_ENTERPRISE) $(NSS_CLIENTS_ENTERPRISE) $(NSS_MACSEC) $(NSS_CRYPTO) \
@@ -472,7 +474,7 @@ $(eval $(call Profile,QSDK_MinEnt))
 
 define Profile/QSDK_256
 	NAME:=Qualcomm Technologies, Inc SDK 256MB Profile
-	PACKAGES:=$(OPENWRT_256MB) \
+	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_256MB) \
 		$(WIFI_PKGS_256MB) $(WIFI_FW_PKGS) \
 		$(NETWORKING_256MB) iperf rng-tools $(CHAR_DIAG) \
 		$(FAILSAFE) \
@@ -497,7 +499,7 @@ $(eval $(call Profile,QSDK_256))
 
 define Profile/QSDK_512
 	NAME:=Qualcomm Technologies, Inc SDK 512MB Profile
-	PACKAGES:=$(OPENWRT_STANDARD) $(AUDIO) \
+	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(AUDIO) \
 		$(WIFI_PKGS) $(WIFI_FW_PKGS) $(STORAGE) $(CD_ROUTER) $(SAL_QOS) \
 		$(NETWORKING) $(OPENVPN) $(UTILS) \
 		$(VIDEO) $(IPSEC) $(QOS) $(TEST_TOOLS) \
@@ -521,7 +523,7 @@ $(eval $(call Profile,QSDK_512))
 
 define Profile/QSDK_8M
 	NAME:=Qualcomm Technologies, Inc SDK 8MB Flash Profile
-	PACKAGES:=$(NSS_COMMON) $(NSS_STANDARD) $(SWITCH_SSDK_PKGS) \
+	PACKAGES:=$(OPENWRT_BASIC) $(NSS_COMMON) $(NSS_STANDARD) $(SWITCH_SSDK_PKGS) \
 		$(WIFI_OPEN_PKGS_8M) $(NETWORKING_8MB) \
 		$(IGMPSNOOPING_RSTP) $(QCA_ECM_STANDARD) \
 		$(NSS_CLIENTS_256MB) qrtr
@@ -536,7 +538,7 @@ $(eval $(call Profile,QSDK_8M))
 
 define Profile/QSDK_16M
 	NAME:=Qualcomm Technologies, Inc SDK 16MB Flash Profile
-	PACKAGES:=wififw_mount_script $(NSS_COMMON) $(NSS_PPE_16M) $(SWITCH_SSDK_PKGS) \
+	PACKAGES:=$(OPENWRT_BASIC) wififw_mount_script $(NSS_COMMON) $(NSS_PPE_16M) $(SWITCH_SSDK_PKGS) \
 		$(WIFI_PKGS_16M) qca-wifi-hk-fw-hw1-10.4-asic $(NETWORKING_16MB) \
 		$(IGMPSNOOPING_RSTP) $(QCA_ECM_STANDARD) $(NSS_CLIENTS_256MB) \
 		xz xz-utils -kmod-usb-f-qdss \
