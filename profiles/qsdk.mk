@@ -126,10 +126,10 @@ WIFI_PKGS:=kmod-qca-wifi-unified-profile \
 	qca-wifi-hk-fw-hw1-10.4-asic \
 	qca-hostap qca-hostapd-cli qca-hapd-supp qca-wpa-supplicant \
 	qca-wpa-cli qca-cfg80211tool qca-wifi-scripts \
-	qca-acfg qca-wrapd athtestcmd-lith myftm qca-iface-mgr \
+	qca-acfg qca-wrapd athtestcmd-lith myftm -qca-iface-mgr \
 	qca-wapid qca-lowi athdiag whc-mesh whc-ui \
 	qca-spectral qca-icm -qcmbr sigma-dut \
-	-qca-wpc qca-cfg80211 qca-cnss-daemon
+	-qca-wpc qca-cfg80211 -qca-cnss-daemon
 
 WIFI_PKGS_MINENT:=kmod-qca-wifi-custc-profile \
 	qca-hostap qca-hostapd-cli qca-hapd-supp qca-wpa-supplicant \
@@ -294,11 +294,12 @@ define Profile/QSDK_Premium
 		$(SWITCH_SSDK_PKGS)  -lacpd $(AQ_PHY) $(NSS_USERSPACE) $(NSS_USERSPACE_OSS) \
 		$(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) $(NSS_EIP197_FW)  kmod-macvlan \
 		$(HW_CRYPTO) $(IPSEC) $(QOS) $(SAL_QOS) $(SWITCH_SSDK_NOHNAT_PKGS) \
-		$(IGMPSNOOPING_RSTP) $(NSS_L2TP) $(NSS_MACSEC) $(NSS_UDP_ST) $(NSS_NSM)
+		$(IGMPSNOOPING_RSTP) $(NSS_L2TP) $(NSS_MACSEC) $(NSS_UDP_ST) $(NSS_NSM) \
+		$(RSRC_MGR) $(WIFI_PKGS) $(WIFI_FW_PKGS)
 #		$(QMSCT_CLIENT) $(NSS_FLS) \
 #		$(HYFI) \
-#		$(QCA_MAD) $(QCA_EZMESH) $(EMESH_SP) $(WIFI_FW_PKGS) \
-#		kmod-qca-hyfi-bridge  $(RSRC_MGR) $(WIFI_PKGS)
+#		$(QCA_MAD) $(QCA_EZMESH) $(EMESH_SP) \
+#		kmod-qca-hyfi-bridge
 endef
 
 #              $(QCA_RFS)
