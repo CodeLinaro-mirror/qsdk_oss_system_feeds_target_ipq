@@ -255,7 +255,7 @@ FTM:=ftm qca-diag
 
 QMSCT_CLIENT:=qmsct_client
 
-OPENVPN:= -openvpn-easy-rsa openvpn-openssl luci-app-openvpn
+OPENVPN:= openvpn-easy-rsa openvpn-openssl luci-app-openvpn
 
 MINIDUMP:= minidump
 
