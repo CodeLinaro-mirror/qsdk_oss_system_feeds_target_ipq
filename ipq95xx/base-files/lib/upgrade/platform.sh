@@ -305,7 +305,6 @@ do_flash_tz() {
 
 	if [ -n "$mtdpart" -o -e "$emmcblock" ]; then
 		do_flash_failsafe_partition ${sec} "0:QSEE"
-		do_flash_failsafe_partition ${sec} "0:QSEE_1"
 	fi
 }
 
@@ -359,8 +358,7 @@ flash_section() {
 		ddr-$(to_upper $board_model)_*) do_flash_ddr ${sec};;
 		ddr-${board_model}-*) do_flash_failsafe_partition ${sec} "0:DDRCONFIG";;
 		tz*) do_flash_tz ${sec};;
-		tme*) do_flash_partition ${sec} "0:TME"; \
-			do_flash_partition ${sec} "0:TME_1";;
+		tme*) do_flash_partition ${sec} "0:TME";;
 		devcfg*) do_flash_failsafe_partition ${sec} "0:DEVCFG";;
 		apdp*) do_flash_failsafe_partition ${sec} "0:APDP";;
 		rpm*) do_flash_failsafe_partition ${sec} "0:RPM";;
