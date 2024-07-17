@@ -31,9 +31,7 @@ NSS_MACSEC:= \
 
 QCA_ECM_STANDARD:= kmod-qca-nss-ecm-standard
 QCA_ECM_ENTERPRISE:= kmod-qca-nss-ecm-noload kmod-qca-nss-ecm-wifi-plugin
-#disable kmod-qca-nss-ecm-wifi-plugin for now as Wifi is not yet up on hazelnut_dev branch
-QCA_ECM_PREMIUM:= kmod-qca-nss-ecm-premium
-#kmod-qca-nss-ecm-wifi-plugin
+QCA_ECM_PREMIUM:= kmod-qca-nss-ecm-premium kmod-qca-nss-ecm-wifi-plugin
 
 NSS_PPE_256:= kmod-qca-nss-ppe \
 	kmod-qca-nss-ppe-vp \
@@ -293,13 +291,13 @@ define Profile/QSDK_Premium
 		$(SWITCH_SSDK_PKGS)  -lacpd $(AQ_PHY) $(NSS_USERSPACE) $(NSS_USERSPACE_OSS) \
 		$(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) $(NSS_EIP197_FW)  kmod-macvlan \
 		$(HW_CRYPTO) $(IPSEC) $(QOS) $(SAL_QOS) $(SWITCH_SSDK_NOHNAT_PKGS) \
-		$(IGMPSNOOPING_RSTP) $(NSS_L2TP) $(NSS_MACSEC) $(NSS_UDP_ST) $(NSS_NSM) \
+		$(IGMPSNOOPING_RSTP) $(NSS_L2TP) $(NSS_MACSEC) $(NSS_UDP_ST) $(NSS_NSM) $(NSS_FLS) \
 		$(RSRC_MGR) $(WIFI_PKGS) $(WIFI_FW_PKGS) \
 		$(HYFI) \
 		$(QCA_MAD) $(QCA_EZMESH) $(EMESH_SP) \
 		kmod-qca-hyfi-bridge
 endef
-#		$(QMSCT_CLIENT) $(NSS_FLS)
+#		$(QMSCT_CLIENT)
 #              $(QCA_RFS)
 
 define Profile/QSDK_Premium/Description
@@ -390,7 +388,7 @@ define Profile/QSDK_Open
 		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
 		-qapp-store libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps \
 		$(NSS_FLOWID) $(NSS_FLS) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl \
-		$(NSS_UDP_ST)
+		$(NSS_UDP_ST) -kmod-qca-nss-ecm-wifi-plugin
 endef
 
 #	$(HW_CRYPTO) $(QCA_RFS) $(QMI_SAMPLE_APP) $(RSRC_MGR)
