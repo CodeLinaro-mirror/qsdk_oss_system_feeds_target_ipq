@@ -475,22 +475,24 @@ $(eval $(call Profile,QSDK_MinEnt))
 
 define Profile/QSDK_256
 	NAME:=Qualcomm Technologies, Inc SDK 256MB Profile
-	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_256MB)
-#		$(WIFI_PKGS_256MB) $(WIFI_FW_PKGS) \
-#		$(NETWORKING_256MB) iperf rng-tools \
-#		$(FAILSAFE) \
-#		-lacpd $(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(HYFI) $(QCA_EZMESH) kmod-macvlan \
-#		$(EMESH_SP) e2fsprogs losetup \
-#	        -kmod-usb-dwc3-qcom-internal \
-#		-kmod-usb-phy-ipq5018 \
-#		-kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget \
-#		-kmod-usb-phy-ipq807x
+	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_256MB) $(NSS_COMMON) $(NSS_STANDARD) $(SWITCH_SSDK_NOHNAT_PKGS) \
+		$(WIFI_PKGS_256MB) $(WIFI_FW_PKGS) $(CD_ROUTER_256MB) $(NSS_PPE_256) \
+		$(NETWORKING_256MB) iperf rng-tools  $(QCA_RFS) \
+		$(QCA_ECM_STANDARD) $(NSS_CLIENTS_256MB) \
+		-lacpd $(CTRL_APP_DUT) $(QMSCT_CLIENT) $(HYFI) $(QCA_EZMESH) $(NSS_USERSPACE_OSS) kmod-macvlan \
+		$(IGMPSNOOPING_RSTP) $(EMESH_SP) e2fsprogs losetup \
+	        -kmod-usb-dwc3-qcom-internal \
+		-kmod-usb-phy-ipq5018 \
+		-kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget \
+		-kmod-usb-phy-ipq807x
 endef
 
-#	$(NSS_COMMON) $(NSS_STANDARD) $(SWITCH_SSDK_PKGS)
-#	$(CD_ROUTER_256MB) $(NSS_PPE_256) $(QCA_RFS) $(DIAG)
-#	$(QCA_ECM_STANDARD) $(NSS_MACSEC) $(NSS_CLIENTS_256MB)
-#	$(NSS_USERSPACE_OSS) $(IGMPSNOOPING_RSTP) kmod-qca-nss-ecm-wifi-plugin
+# $(FAILSAFE)
+# $(CNSS_DIAG)
+# $(FTM)
+# $(NSS_MACSEC)
+# $(DIAG)
+# kmod-qca-nss-ecm-wifi-plugin
 
 define Profile/QSDK_256/Description
 	QSDK Premium package set configuration.
