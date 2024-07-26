@@ -39,7 +39,6 @@ NSS_PPE_256:= kmod-qca-nss-ppe \
 	kmod-qca-nss-ppe-vp \
 	kmod-qca-nss-ppe-bridge-mgr \
 	kmod-qca-nss-ppe-pppoe-mgr \
-	kmod-qca-nss-ppe-lag-mgr \
 	kmod-qca-nss-ppe-ds
 
 NSS_PPE_16M:= kmod-qca-nss-ppe \
@@ -156,7 +155,7 @@ OPENWRT_STANDARD:= luci openssl-util
 
 OPENWRT_BASIC:= wifi-scripts
 
-OPENWRT_256MB:=luci pm-utils wififw_mount_script qca-thermald qti-license-pfm -file \
+OPENWRT_256MB:= -luci pm-utils wififw_mount_script qca-thermald qti-license-pfm -file \
 	-kmod-ata-core -kmod-ata-ahci -kmod-ata-ahci-platform \
 	-kmod-usb2 -kmod-usb3 -kmod-usb-dwc3-qcom \
 	-kmod-usb-phy-qcom-dwc3 -kmod-usb-dwc3-of-simple \
@@ -184,10 +183,10 @@ NETWORKING:=mcproxy -dnsmasq dnsmasq-dhcpv6 bridge ip-bridge ip-full mwan3 \
 	kmod-nft-offload kmod-bonding vxlan kmod-gre6 conntrack
 
 NETWORKING_256MB:=-dnsmasq dnsmasq-dhcpv6 bridge ip-full \
-	rp-pppoe-relay iptables-mod-extra iputils-tracepath iputils-tracepath6 \
-	kmod-nf-nathelper-extra kmod-ipt-nathelper-rtsp \
-	luci-app-upnp luci-app-ddns luci-proto-ipv6 \
-	luci-app-multiwan
+	rp-pppoe-relay -iptables-mod-extra iputils-tracepath iputils-tracepath6 \
+	-kmod-nf-nathelper-extra -kmod-ipt-nathelper-rtsp \
+	-luci-app-upnp -luci-app-ddns -luci-proto-ipv6 \
+	-luci-app-multiwan
 
 NETWORKING_8MB:=dnsmasq -dnsmasq-dhcpv6 kmod-nf-nathelper-extra kmod-ipt-nathelper-rtsp
 
@@ -202,11 +201,11 @@ CD_ROUTER:=kmod-ipt-ipopt kmod-bonding kmod-ipt-sctp kmod-ipt-raw kmod-ipt-raw6 
 	kmod-ipv6 ip6tables iptables-mod-ipsec iptables-mod-filter \
 	isc-dhcp-relay-ipv6 rp-pppoe-server ppp-mod-pptp iptables-mod-physdev
 
-CD_ROUTER_256MB:=kmod-ipt-ipopt kmod-ipt-sctp kmod-ipt-raw kmod-ipt-raw6 lacpd \
+CD_ROUTER_256MB:= -kmod-ipt-ipopt -kmod-ipt-sctp -kmod-ipt-raw -kmod-ipt-raw6 lacpd \
 	arptables ddns-scripts \
-	quagga quagga-ripd quagga-zebra quagga-watchquagga quagga-vtysh \
-	kmod-ipv6 ip6tables iptables-mod-filter \
-	isc-dhcp-relay-ipv6 rp-pppoe-server iptables-mod-physdev
+	-quagga -quagga-ripd -quagga-zebra -quagga-watchquagga -quagga-vtysh \
+	kmod-ipv6 -ip6tables -iptables-mod-filter \
+	isc-dhcp-relay-ipv6 rp-pppoe-server -iptables-mod-physdev
 
 BLUETOOTH:=kmod-bluetooth bluez-libs bluez-utils kmod-ath3k
 
@@ -479,7 +478,7 @@ define Profile/QSDK_256
 		$(WIFI_PKGS_256MB) $(WIFI_FW_PKGS) $(CD_ROUTER_256MB) $(NSS_PPE_256) \
 		$(NETWORKING_256MB) iperf rng-tools  $(QCA_RFS) \
 		$(QCA_ECM_STANDARD) $(NSS_CLIENTS_256MB) \
-		-lacpd $(CTRL_APP_DUT) $(QMSCT_CLIENT) $(HYFI) $(QCA_EZMESH) $(NSS_USERSPACE_OSS) kmod-macvlan \
+		-lacpd $(CTRL_APP_DUT) $(QMSCT_CLIENT) $(HYFI) $(QCA_EZMESH) \
 		$(IGMPSNOOPING_RSTP) $(EMESH_SP) e2fsprogs losetup \
 	        -kmod-usb-dwc3-qcom-internal \
 		-kmod-usb-phy-ipq5018 \
