@@ -479,7 +479,7 @@ define Profile/QSDK_256
 		$(NETWORKING_256MB) iperf rng-tools  $(QCA_RFS) \
 		$(QCA_ECM_STANDARD) $(NSS_CLIENTS_256MB) \
 		-lacpd $(CTRL_APP_DUT) $(QMSCT_CLIENT) $(HYFI) $(QCA_EZMESH) \
-		$(IGMPSNOOPING_RSTP) $(EMESH_SP) e2fsprogs losetup \
+		$(IGMPSNOOPING_RSTP) $(EMESH_SP) $(SAL_QOS) e2fsprogs losetup \
 	        -kmod-usb-dwc3-qcom-internal \
 		-kmod-usb-phy-ipq5018 \
 		-kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget \
