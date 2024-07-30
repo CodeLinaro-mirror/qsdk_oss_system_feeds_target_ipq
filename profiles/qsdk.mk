@@ -124,7 +124,7 @@ WIFI_PKGS:=kmod-qca-wifi-unified-profile \
 	qca-hostap qca-hostapd-cli qca-hapd-supp qca-wpa-supplicant \
 	qca-wpa-cli qca-cfg80211tool qca-wifi-scripts \
 	qca-acfg qca-wrapd athtestcmd-lith myftm -qca-iface-mgr \
-	qca-wapid qca-lowi athdiag whc-mesh whc-ui \
+	qca-wapid qca-lowi athdiag whc-map \
 	qca-spectral qca-icm -qcmbr sigma-dut \
 	-qca-wpc qca-cfg80211 -qca-cnss-daemon
 
@@ -140,7 +140,7 @@ WIFI_PKGS_256MB:=kmod-qca-wifi-lowmem-profile \
 	qca-wpa-cli qca-cfg80211tool qca-wifi-scripts \
 	-qca-wpc sigma-dut qca-wrapd qca-wapid qca-acfg \
 	qca-iface-mgr qca-icm qca-cfg80211 athdiag qca-cnss-daemon \
-	athtestcmd-lith whc-mesh whc-ui myftm
+	athtestcmd-lith whc-map myftm
 
 WIFI_PKGS_16M:=kmod-qca-wifi-flash_16mb-profile \
 	qca-hostap qca-hostapd-cli -qca-hapd-supp qca-wpa-supplicant \
@@ -218,7 +218,7 @@ QOS:=tc-full kmod-sched kmod-sched-core kmod-sched-prio kmod-sched-red \
 
 MAP_PKGS:=map 464xlat tayga
 
-HYFI:=hyfi-mesh hyfi-ui
+HYFI:=hyfi-map
 
 QCA_MAD:=qca-mad
 
@@ -409,7 +409,7 @@ define Profile/QSDK_QBuilder
 		kmod-fs-vfat kmod-fs-ntfs ntfs-3g e2fsprogs losetup \
 		kmod-qca-nss-sfe \
 		rstp qca-mcs-apps qca-hostap qca-hostapd-cli qca-wpa-supplicant qca-wpa-cli \
-		qca-spectral qca-wpc sigma-dut ctrl_app_dut qcmbr qca-wrapd qca-wapid qca-acfg whc-mesh whc-ui \
+		qca-spectral qca-wpc sigma-dut ctrl_app_dut qcmbr qca-wrapd qca-wapid qca-acfg whc-map \
 		qca-lowi qca-iface-mgr qca-icm qca-cfg80211 athdiag qca-cnss-daemon athtestcmd-lith \
 		qca-wifi-hk-fw-hw1-10.4-asic mcproxy mwan3 \
 		-dnsmasq dnsmasq-dhcpv6 bridge ip-full rp-pppoe-relay iptables-mod-extra \
