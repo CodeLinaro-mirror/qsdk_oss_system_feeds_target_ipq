@@ -72,6 +72,7 @@ ipq_board_update() {
 			json_add_string uboot-envtool "true"
 	fi
 
+	json_add_string sysupgrade "true"
 	json_add_string wififw_name "$(get_fw_name $name)"
 }
 

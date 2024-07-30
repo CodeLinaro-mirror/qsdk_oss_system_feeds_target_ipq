@@ -467,7 +467,7 @@ do_upgrade() {
 }
 
 platform_do_upgrade() {
-	local board=$(get_board_details "board_name")
+	local upgrade_set=$(get_board_details "sysupgrade")
 
 	# verify some things exist before erasing
 	if [ ! -e $1 ]; then
@@ -482,38 +482,8 @@ platform_do_upgrade() {
 		fi
 	done
 
-	case "$board" in
-	qcom,ipq9574-ap-al01-c1 |\
-	qcom,ipq9574-ap-al02-c1 |\
-	qcom,ipq9574-ap-al03-c1 |\
-	qcom,ipq9574-ap-al03-c2 |\
-	qcom,ipq9574-ap-al02-c2 |\
-	qcom,ipq9574-ap-al02-c3 |\
-	qcom,ipq9574-ap-al02-c4 |\
-	qcom,ipq9574-ap-al02-c5 |\
-	qcom,ipq9574-ap-al02-c6 |\
-	qcom,ipq9574-ap-al02-c7 |\
-	qcom,ipq9574-ap-al02-c8 |\
-	qcom,ipq9574-ap-al02-c9 |\
-	qcom,ipq9574-ap-al02-c10 |\
-	qcom,ipq9574-ap-al02-c11 |\
-	qcom,ipq9574-ap-al02-c12 |\
-	qcom,ipq9574-ap-al02-c13 |\
-	qcom,ipq9574-ap-al02-c14 |\
-	qcom,ipq9574-ap-al02-c15 |\
-	qcom,ipq9574-ap-al02-c16 |\
-	qcom,ipq9574-ap-al02-c17 |\
-	qcom,ipq9574-ap-al02-c18 |\
-	qcom,ipq9574-ap-al02-c19 |\
-	qcom,ipq9574-ap-al02-c20 |\
-	qcom,ipq9574-ap-al05 |\
-	qcom,ipq9574-ap-al06 |\
-	qcom,ipq9574-db-al01-c1 |\
-	qcom,ipq9574-db-al01-c2 |\
-	qcom,ipq9574-db-al01-c3 |\
-	qcom,ipq9574-db-al02-c1 |\
-	qcom,ipq9574-db-al02-c2 |\
-	qcom,ipq9574-db-al02-c3)
+	case "$upgrade_set" in
+	true)
 		for sec in $(print_sections $1); do
 			flash_section ${sec}
 		done
