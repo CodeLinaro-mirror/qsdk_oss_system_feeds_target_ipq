@@ -218,7 +218,7 @@ QOS:=tc-full kmod-sched kmod-sched-core kmod-sched-prio kmod-sched-red \
 
 MAP_PKGS:=map 464xlat tayga
 
-HYFI:=hyfi-map
+HYFI:=hyfi-map qca-whc-lbd
 
 QCA_MAD:=qca-mad
 
