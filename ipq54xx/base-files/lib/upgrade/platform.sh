@@ -18,11 +18,31 @@
 
 . /lib/functions.sh
 . /lib/upgrade/common.sh
+. /usr/share/libubox/jshn.sh
 
-RAMFS_COPY_DATA="/etc/fw_env.config /var/lock/fw_printenv.lock"
+RAMFS_COPY_DATA="/etc/fw_env.config /var/lock/fw_printenv.lock /etc/board.json /usr/share/libubox/jshn.sh"
 RAMFS_COPY_BIN="/usr/bin/dumpimage /usr/sbin/ubiattach /usr/sbin/ubidetach
 	/usr/sbin/ubiformat /usr/sbin/ubiupdatevol /bin/rm /usr/bin/find
-	/usr/sbin/mkfs.ext4 /usr/sbin/fw_printenv /sbin/lsmod"
+	/usr/sbin/mkfs.ext4 /usr/sbin/fw_printenv /sbin/lsmod /usr/bin/jshn"
+
+get_board_details() {
+	local JSON_FILE="/etc/board.json"
+	local info_value
+
+	json_load_file "$JSON_FILE"
+
+	case $1 in
+		"model_name")
+			json_select model
+			json_get_var info_value name
+			info_value=${info_value##*/}
+			;;
+		*)
+			json_get_var info_value $1
+			;;
+	esac
+	echo $info_value
+}
 
 get_full_section_name() {
 	local img=$1
@@ -203,13 +223,17 @@ do_flash_failsafe_partition() {
 do_flash_ubi() {
 	local bin=$1
 	local mtdname=$2
+	local alive=$(cat /tmp/.alive_upgrade)
 	local mtdpart
 	local primaryboot
 	local default_mtd
 	local primary_bcname
 
 	mtdpart=$(grep "\"${mtdname}\"" /proc/mtd | awk -F: '{print $1}')
-	ubidetach -f -p /dev/${mtdpart}
+
+	if [ $alive -eq 0 ]; then
+		ubidetach -f -p /dev/${mtdpart}
+	fi
 
 	# Fail safe upgrade
 	default_mtd=$mtdname
@@ -301,54 +325,16 @@ image_is_nand()
 }
 
 get_fw_name() {
-	wifi_ipq="ignored"
-	image_suffix1="qcn9224_v2_single_dualmac"
-	image_suffix2="qcn6432cs"
-	image_suffix3="qcn6432"
-	image_suffix4="qcn9224_v2_qcn6432"
-	image_suffix5="qcn9224_v2_qcn9160"
-	machineid=$(fw_printenv -l /tmp/. machid | cut -d '=' -f 2)
-
-	case "${machineid}" in
-		"F060000"|\
-		"8060000"|\
-		"8060001"|\
-		"8060003"|\
-		"8060006"|\
-		"1060001"|\
-		"1060002"|\
-		"8060201")
-			wifi_ipq="ipq5332_"$image_suffix1
-			;;
-		"8060002"|\
-		"8060004")
-			wifi_ipq="ipq5332_"$image_suffix2
-			;;
-		"1060003"|\
-		"8060102"|\
-		"8060007")
-			wifi_ipq="ipq5332_"$image_suffix3
-			;;
-		"8060202"|\
-		"8060302")
-			wifi_ipq="ipq5332_"$image_suffix4
-			;;
-		"8060101")
-			wifi_ipq="ipq5332_"$image_suffix5
-			;;
-		*)
-			wifi_ipq="ipq5332_qcn9224_v2_single_dualmac_qcn9160"
-			;;
-
-	esac
+	local wifi_ipq=$(get_board_details "wififw_name")
+	wifi_ipq=${wifi_ipq%_squashfs*}
 
 	echo $wifi_ipq
 }
 
 flash_section() {
 	local sec=$1
-	local board=$(board_name)
-	local board_model=$(to_lower $(grep -o "RDP.*" /proc/device-tree/model | awk -F/ '{print $2}'))
+	local board=$(get_board_details "board_name")
+	local board_model=$(to_lower $(get_board_details "model_name"))
 
 	case "${sec}" in
 		hlos*) image_is_nand && return || do_flash_failsafe_partition ${sec} "0:HLOS";;
@@ -379,8 +365,8 @@ erase_emmc_config() {
 }
 
 platform_check_image() {
-	local board=$(board_name)
-	local board_model=$(to_lower $(grep -o "RDP.*" /proc/device-tree/model | awk -F/ '{print $2}'))
+	local board=$(get_board_details "board_name")
+	local board_model=$(to_lower $(get_board_details "model_name"))
 	local mandatory_nand="ubi"
 	local mandatory_nor_emmc="hlos fs"
 	local mandatory_nor="hlos"
@@ -446,8 +432,28 @@ platform_check_image() {
 	fi
 }
 
+do_upgrade() {
+	v "Performing system upgrade..."
+	if [ ! -e /proc/boot_info/bootconfig0/ ] && [ ! -e /proc/boot_info/bootconfig1/ ]; then
+		echo " Bootconfig is not available. Aborting upgrade..... "
+		exit 1
+	fi
+
+	if type 'platform_do_upgrade' >/dev/null 2>/dev/null; then
+		platform_do_upgrade "$ARGV"
+	else
+		default_do_upgrade "$ARGV"
+	fi
+
+	if [ "$SAVE_CONFIG" -eq 1 ] && type 'platform_copy_config' >/dev/null 2>/dev/null; then
+		platform_copy_config
+	fi
+
+	v "Upgrade completed"
+}
+
 platform_do_upgrade() {
-	local board=$(board_name)
+	local upgrade_set=$(get_board_details "sysupgrade")
 
 	# verify some things exist before erasing
 	if [ ! -e $1 ]; then
@@ -462,23 +468,8 @@ platform_do_upgrade() {
 		fi
 	done
 
-	case "$board" in
-	qcom,devsoc-ap-emulation |\
-	qcom,ipq5332-ap-mi01.2 |\
-	qcom,ipq5332-ap-mi01.2-c2 |\
-	qcom,ipq5332-ap-mi01.2-qcn9160-c1 |\
-	qcom,ipq5332-ap-mi01.3 |\
-	qcom,ipq5332-ap-mi01.3-c2 |\
-	qcom,ipq5332-ap-mi01.4 |\
-	qcom,ipq5332-ap-mi01.6 |\
-	qcom,ipq5332-ap-mi01.7 |\
-	qcom,ipq5332-ap-mi01.9 |\
-	qcom,ipq5332-ap-mi01.12 |\
-	qcom,ipq5332-ap-mi01.14 |\
-	qcom,ipq5332-ap-mi04.1 |\
-	qcom,ipq5332-ap-mi04.1-c2 |\
-	qcom,ipq5332-db-mi01.1 |\
-	qcom,ipq5332-db-mi02.1)
+	case "$upgrade_set" in
+	true)
 		for sec in $(print_sections $1); do
 			flash_section ${sec}
 		done
@@ -524,6 +515,44 @@ age_do_upgrade(){
 	fi
 }
 
+# activate_bootconfig() - activates bootconfig0 or bootconfig1 for OMCI upgrade
+# It sets trybit only if the upgraded bootconfig is having lower age
+activate_bootconfig() {
+	age0=$(cat /proc/boot_info/bootconfig0/age)
+	age1=$(cat /proc/boot_info/bootconfig1/age)
+
+	if [ "$1" -eq "0" ]; then
+		if [ $age0 -le $age1 ]; then
+			echo 1 > /proc/upgrade_info/trybit
+		fi
+	else
+		if [ $age1 -le $age0 ]; then
+			echo 1 > /proc/upgrade_info/trybit
+		fi
+	fi
+}
+
+# commit_bootconfig() - commits bootconfig0 or bootconfig1 for OMCI upgrade
+# It increaments age of the currently booted bootconfig and updates into
+# flash after age increament.
+commit_bootconfig() {
+	age0=$(cat /proc/boot_info/bootconfig0/age)
+	age1=$(cat /proc/boot_info/bootconfig1/age)
+
+	if [ "$1" -eq "0" ]; then
+		if [ $age0 -le $age1 ]; then
+			age1=$((age1+1))
+			echo $age1 > /proc/boot_info/bootconfig0/age
+			do_flash_bootconfig bootconfig0 "0:BOOTCONFIG"
+		fi
+	else
+		if [ $age1 -le $age0 ]; then
+			age0=$((age0+1))
+			echo $age0 > /proc/boot_info/bootconfig1/age
+			do_flash_bootconfig bootconfig1 "0:BOOTCONFIG1"
+		fi
+	fi
+}
 
 get_magic_long_at() {
         dd if="$1" skip=$(( 65536 / 4 * $2 )) bs=4 count=1 2>/dev/null | hexdump -v -n 4 -e '1/1 "%02x"'
@@ -550,12 +579,15 @@ platform_get_offset() {
 platform_copy_config() {
 	local nand_part="$(find_mtd_part "ubi_rootfs")"
 	local emmcblock="$(find_mmc_part "rootfs")"
+	local alive=$(cat /tmp/.alive_upgrade)
 	local upgradepart
 	mkdir -p /tmp/overlay
 
 	#setting Try bit
-	if [ -e /proc/upgrade_info/trybit ]; then
-		echo 1 > /proc/upgrade_info/trybit
+	if [ $alive -eq 0 ]; then
+		if [ -e /proc/upgrade_info/trybit ]; then
+			echo 1 > /proc/upgrade_info/trybit
+		fi
 	fi
 
 	for bcname in $(get_alternate_bootconfig)
