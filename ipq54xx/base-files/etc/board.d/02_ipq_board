@@ -14,13 +14,13 @@
 CFG="/etc/board.json"
 
 get_fw_name() {
-	wifi_ipq="ignored"
+	wifi_ipq="ipq5424_qcn9224_v2_squashfs.img"
 
-	case "$1" in
-		*)
-			echo "Unsupported hardware. skipped wifi fw image flash"
-			;;
-	esac
+#	case "$1" in
+#		*)
+#			echo "Unsupported hardware. skipped wifi fw image flash"
+#			;;
+#	esac
 
 	echo $wifi_ipq
 }
@@ -39,6 +39,7 @@ ipq_board_update() {
 			json_add_string uboot-envtool "true"
 	fi
 
+	json_add_string sysupgrade "true"
 	json_add_string wififw_name "$(get_fw_name $name)"
 }
 
