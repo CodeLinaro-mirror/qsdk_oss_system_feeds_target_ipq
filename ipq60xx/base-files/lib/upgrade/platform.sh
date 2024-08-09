@@ -425,6 +425,11 @@ platform_do_upgrade() {
 			fi
 		done
 
+		#setting Try bit for upgrade without config preserve
+     		if [ -e /proc/upgrade_info/trybit ]; then
+			echo 1 > /proc/upgrade_info/trybit
+		fi
+
 		erase_emmc_config
 		return 0;
 		;;
