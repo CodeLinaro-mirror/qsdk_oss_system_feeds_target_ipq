@@ -11,5 +11,5 @@ endef
 DEFAULT_PACKAGES += \
 	uboot-2016-ipq9574 uboot-2016-ipq9574-debug uboot-ipq9574-mmc32 \
 	uboot-ipq9574-norplusmmc32 uboot-ipq9574-norplusnand32 \
-	uboot-ipq9574-nand32 fwupgrade-tools \
+	uboot-ipq9574-nand32 \
 	sysupgrade-helper
