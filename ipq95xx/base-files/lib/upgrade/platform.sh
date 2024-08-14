@@ -358,7 +358,7 @@ flash_section() {
 		ddr-$(to_upper $board_model)_*) do_flash_ddr ${sec};;
 		ddr-${board_model}-*) do_flash_failsafe_partition ${sec} "0:DDRCONFIG";;
 		tz*) do_flash_tz ${sec};;
-		tme*) do_flash_partition ${sec} "0:TME";;
+		tme*) do_flash_failsafe_partition ${sec} "0:TME";;
 		devcfg*) do_flash_failsafe_partition ${sec} "0:DEVCFG";;
 		apdp*) do_flash_failsafe_partition ${sec} "0:APDP";;
 		rpm*) do_flash_failsafe_partition ${sec} "0:RPM";;
