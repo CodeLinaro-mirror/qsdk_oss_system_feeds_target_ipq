@@ -346,7 +346,7 @@ flash_section() {
 		ddr-$(to_upper $board_model)_*) do_flash_ddr ${sec};;
 		ddr-${board_model}-*) do_flash_failsafe_partition ${sec} "0:DDRCONFIG";;
 		tz*) do_flash_tz ${sec};;
-		tme*) do_flash_partition ${sec} "0:TME";;
+		tme*) do_flash_failsafe_partition ${sec} "0:TME";;
 		devcfg*) do_flash_failsafe_partition ${sec} "0:DEVCFG";;
 		*) echo "Section ${sec} ignored"; return 1;;
 	esac
@@ -452,6 +452,7 @@ do_upgrade() {
 
 platform_do_upgrade() {
 	local upgrade_set=$(get_board_details "sysupgrade")
+	local alive=$(cat /tmp/.alive_upgrade)
 
 	# verify some things exist before erasing
 	if [ ! -e $1 ]; then
@@ -480,6 +481,13 @@ platform_do_upgrade() {
 				do_flash_bootconfig $bcname "0:BOOTCONFIG1"
 			fi
 		done
+
+		#setting Try bit for upgrade without config preserve
+		if [ $alive -eq 0 ]; then
+			if [ -e /proc/upgrade_info/trybit ]; then
+				echo 1 > /proc/upgrade_info/trybit
+			fi
+		fi
 
 		erase_emmc_config
 		return 0;
