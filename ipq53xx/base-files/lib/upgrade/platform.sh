@@ -98,6 +98,7 @@ extract_images() {
 	local output_file=$2
 	local version=$(dumpimage -V 2>&1 | awk '{split($3, a, "."); print a[1]}')
 
+	echo "Extracted Firmwares are ..."
 	while IFS= read -r line; do
 		image_name=$(echo $line | cut -d ' ' -f1)
 		echo $image_name
@@ -325,28 +326,20 @@ to_upper ()
 flash_section() {
 	local img=$1
 	local output_list=/tmp/firm_list.txt
-	local ignored="mibib bootconfig gpt gptbackup"
 
 	while IFS= read -r line; do
 		image_name=$(echo $line | cut -d ' ' -f1)
 		partition=$(echo $line | cut -d ' ' -f2)
-		skip=false
-		for ignore in $ignored; do
-			if [[ $image_name == *$ignore* ]]; then
-				skip=true
-				break
-			fi
-		done
-		if [ "$skip" == true ]; then
-			echo " Section $image_name is ignored "
-		else
-			case "${image_name}" in
-				wifi_fw*) do_flash_failsafe_partition ${image_name} $partition; do_flash_failsafe_ubi_volume ${image_name} "rootfs" $partition ;;
-				ubi*) do_flash_ubi ${image_name} $partition;;
-				*) do_flash_failsafe_partition ${image_name} $partition;;
-			esac
-			echo "Flashed ${image_name}"
-		fi
+		case "${image_name}" in
+			mibib*) echo " Section $image_name is ignored "; continue ;;
+			bootconfig*) echo " Section $image_name is ignored "; continue ;;
+			gpt*) echo " Section $image_name is ignored "; continue ;;
+			gptbackup*) echo " Section $image_name is ignored "; continue ;;
+			wifi_fw*) do_flash_failsafe_partition ${image_name} $partition; do_flash_failsafe_ubi_volume ${image_name} "rootfs" $partition ;;
+			ubi*) do_flash_ubi ${image_name} $partition;;
+			*) do_flash_failsafe_partition ${image_name} $partition;;
+		esac
+		echo "Flashed ${image_name}"
 	done < $output_list
 }
 
