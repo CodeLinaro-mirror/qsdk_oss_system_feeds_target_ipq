@@ -387,7 +387,7 @@ define Profile/QSDK_Open
 		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
 		-qapp-store libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps \
 		$(NSS_FLOWID) $(NSS_FLS) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl \
-		$(NSS_UDP_ST) -kmod-qca-nss-ecm-wifi-plugin
+		$(NSS_UDP_ST) kmod-qca-nss-ecm-wifi-plugin $(EMESH_SP)
 endef
 
 #	$(HW_CRYPTO) $(QCA_RFS) $(QMI_SAMPLE_APP) $(RSRC_MGR)
