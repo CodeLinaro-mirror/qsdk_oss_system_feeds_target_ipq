@@ -9,5 +9,9 @@ define Target/Description
 endef
 
 DEFAULT_PACKAGES += \
-	uboot-ipq5424-mmc32 uboot-ipq5424-norplusmmc32 \
-	uboot-ipq5424-norplusnand32 uboot-ipq5424-nand32
+	uboot-ipq5424-mmc32 \
+	uboot-ipq5424-norplusmmc32 \
+	uboot-ipq5424-nand32 \
+	uboot-ipq5424-norplusnand32 \
+	uboot-ipq5424-tiny_nand32 \
+	uboot-ipq5424-tiny_norplusnand32
