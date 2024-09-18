@@ -152,6 +152,8 @@ WIFI_FW_PKGS:=qca-wifi-hk-fw-hw1-10.4-asic qca-wifi-cyp-fw-hw1-11.0-asic qca-wif
 
 OPENWRT_STANDARD:= luci openssl-util
 
+WIFI_PLUGINS:=kmod-qca-wifi-plugins
+
 OPENWRT_BASIC:= wifi-scripts
 
 OPENWRT_256MB:= -luci pm-utils wififw_mount_script qca-thermald qti-license-pfm -file \
@@ -293,7 +295,7 @@ define Profile/QSDK_Premium
 		$(IGMPSNOOPING_RSTP) $(NSS_L2TP) $(NSS_MACSEC) $(NSS_UDP_ST) $(NSS_NSM) $(NSS_FLS) \
 		$(RSRC_MGR) $(WIFI_PKGS) $(WIFI_FW_PKGS) \
 		$(HYFI) \
-		$(QCA_MAD) $(QCA_EZMESH) $(EMESH_SP) \
+		$(QCA_MAD) $(QCA_EZMESH) $(EMESH_SP) $(WIFI_PLUGINS) \
 		kmod-qca-hyfi-bridge
 endef
 #		$(QMSCT_CLIENT)
@@ -478,7 +480,7 @@ define Profile/QSDK_256
 		$(NETWORKING_256MB) iperf rng-tools \
 		$(QCA_ECM_STANDARD) $(NSS_CLIENTS_256MB) \
 		-lacpd $(CTRL_APP_DUT) $(QMSCT_CLIENT) $(HYFI) $(QCA_EZMESH) \
-		$(IGMPSNOOPING_RSTP) $(EMESH_SP) $(SAL_QOS) e2fsprogs losetup kmod-qca-nss-ecm-wifi-plugin \
+		$(IGMPSNOOPING_RSTP) $(EMESH_SP) $(SAL_QOS) e2fsprogs losetup kmod-qca-nss-ecm-wifi-plugin $(WIFI_PLUGINS) \
 	        -kmod-usb-dwc3-qcom-internal -kmod-ata-ahci -kmod-ata-core -kmod-scsi-core \
 		-kmod-usb-phy-ipq5018 \
 		-kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget \
@@ -509,7 +511,7 @@ define Profile/QSDK_512
 		$(NSS_MACSEC) $(TEST_TOOLS) $(NSS_CRYPTO) $(NSS_CLIENTS_STANDARD) \
 		$(COREBSP_UTILS) $(MAP_PKGS) $(FAILSAFE) -lacpd $(DIAG) \
 		$(NSS_EIP197_FW) $(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(KPI) \
-		$(NSS_USERSPACE) $(NSS_RMNET) $(HYFI) kmod-qca-hyfi-bridge $(EMESH_SP) \
+		$(NSS_USERSPACE) $(NSS_RMNET) $(HYFI) kmod-qca-hyfi-bridge $(EMESH_SP) $(WIFI_PLUGINS) \
 		$(QCA_EZMESH) kmod-macvlan $(MINIDUMP) $(RSRC_MGR) $(NSS_L2TP)
 endef
 
