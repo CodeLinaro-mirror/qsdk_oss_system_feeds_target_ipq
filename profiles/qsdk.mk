@@ -280,6 +280,14 @@ STRONGSWAN:=strongswan strongswan-default strongswan-mod-ctr strongswan-mod-gcm 
 
 DIAG:= common-headers diag
 
+OPENSYNC:=kmod-gre6 strace libzmq-curve mosquitto-ssl libwolfssl protobuf pping kmod-ipt-skipaccel iptables-mod-skipaccel \
+	  curl iperf3 htpdate 6relayd libev libip4tc libip6tc mxml libprotobuf-c blkid miniupnpd-iptables openvswitch opensync kmod-qcom-sec \
+	  kmod-qseecom ndisc6 rdisc6 rdnssd traceroute6 ip6tables-mod-nat libsodium ebtables ebtables-utils kmod-ebtables kmod-ebtables-ipv4 \
+	  kmod-ebtables-ipv6 kmod-ebtables-watchers libfdt kmod-dummy memtester tinyproxy iptables-mod-tproxy ip6tables-zz-legacy \
+	  iptables-zz-legacy ebtables-legacy ebtables-legacy-utils libnghttp2 libcares libiperf3 coreutils coreutils-sleep libatomic \
+	  openvswitch-common openvswitch-libofproto openvswitch-libopenvswitch openvswitch-libovsdb openvswitch-ovsdb openvswitch-vswitchd \
+	  protobuf-lite xtables-legacy libunbound libunwind cJSON libwebsockets-openssl libmosquitto-ssl kmod-nf-tproxy libffi libiw uuidgen
+
 define Profile/QSDK_Premium
 	NAME:=Qualcomm Technologies, Inc SDK Premium Profile
 	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(KPI) $(TEST_TOOLS) $(UTILS) $(COREBSP_UTILS) $(MINIDUMP) \
@@ -305,6 +313,19 @@ define Profile/QSDK_Premium/Description
 endef
 
 $(eval $(call Profile,QSDK_Premium))
+
+define Profile/QSDK_OpenSync
+	NAME:=Qualcomm Technologies, Inc SDK OpenSync Profile
+	$(call Profile,QSDK_Premium)
+	PACKAGES+=$(OPENSYNC)
+endef
+
+define Profile/QSDK_OpenSync/Description
+	QSDK OpenSync package set configuration.
+	Enables opensync packages
+endef
+
+$(eval $(call Profile,QSDK_OpenSync))
 
 define Profile/QSDK_BigEndian
         NAME:=Qualcomm Technologies, Inc SDK Big Endian Profile
