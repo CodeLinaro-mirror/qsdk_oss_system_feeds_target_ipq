@@ -163,6 +163,13 @@ do_flash_emmc() {
 	dd if=/tmp/${bin}.bin of=${emmcblock}
 }
 
+set_boot_part() {
+	local output=$(find /sys/block/ -name '*boot*')
+	echo "$output" | while read -r line; do
+		echo $1 > ${line}/force_ro
+	done
+}
+
 do_flash_partition() {
 	local bin=$1
 	local mtdname=$2
@@ -440,6 +447,8 @@ platform_do_upgrade() {
 
 	case "$upgrade_set" in
 	true)
+		#setting boot mmc device to write enabled
+		set_boot_part 0
 		flash_section $1
 
 		#passing value '0' to parse the bootconfig and
@@ -452,6 +461,8 @@ platform_do_upgrade() {
 		fi
 		do_flash_bootconfig "0:BOOTCONFIG"
 
+		#setting back boot mmc devices to read only
+		set_boot_part 1
 		#setting Try bit for upgrade without config preserve
 		if [ $alive -eq 0 ]; then
 			if [ -e /proc/upgrade_info/trybit ]; then
@@ -570,7 +581,6 @@ platform_copy_config() {
 		losetup --detach-all
 		local data_blockoffset="$(platform_get_offset $(ls /tmp/rootfs-*))"
 		local loopdev="$(losetup -f)"
-		[ "$upgradepart" == "rootfs" ] && upgradepart="rootfs_1" || upgradepart="rootfs"
 		emmcblock="$(find_mmc_part ${upgradepart})"
 		losetup -o $data_blockoffset $loopdev $emmcblock || {
 			echo "Failed to mount looped rootfs_data."
