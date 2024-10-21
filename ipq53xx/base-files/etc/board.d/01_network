@@ -52,6 +52,8 @@ ipq53xx_setup_interfaces()
 	qcom,ipq5332-ap-mi03.1 |\
 	qcom,ipq5332-ap-mi04.1 |\
 	qcom,ipq5332-ap-mi04.1-c2 |\
+	qcom,ipq5332-tb-mi03.1 |\
+	qcom,ipq5332-tb-mi05.1 |\
 	qcom,ipq5332-ap-mi04.3)
 		ucidef_set_interfaces_lan_wan "eth1" "eth0"
 		ucidef_add_switch "switch1"
