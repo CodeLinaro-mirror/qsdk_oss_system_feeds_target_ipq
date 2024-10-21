@@ -152,6 +152,8 @@ WIFI_FW_PKGS:=qca-wifi-hk-fw-hw1-10.4-asic qca-wifi-cyp-fw-hw1-11.0-asic qca-wif
 
 OPENWRT_STANDARD:= luci openssl-util
 
+WIFI_PLUGINS:=kmod-qca-wifi-plugins
+
 OPENWRT_BASIC:= wifi-scripts
 
 OPENWRT_256MB:= -luci pm-utils wififw_mount_script qca-thermald qti-license-pfm -file \
@@ -280,6 +282,14 @@ STRONGSWAN:=strongswan strongswan-default strongswan-mod-ctr strongswan-mod-gcm 
 
 DIAG:= common-headers diag
 
+OPENSYNC:=kmod-gre6 strace libzmq-curve mosquitto-ssl libwolfssl protobuf pping kmod-ipt-skipaccel iptables-mod-skipaccel \
+	  curl iperf3 htpdate 6relayd libev libip4tc libip6tc mxml libprotobuf-c blkid miniupnpd-iptables openvswitch opensync kmod-qcom-sec \
+	  kmod-qseecom ndisc6 rdisc6 rdnssd traceroute6 ip6tables-mod-nat libsodium ebtables ebtables-utils kmod-ebtables kmod-ebtables-ipv4 \
+	  kmod-ebtables-ipv6 kmod-ebtables-watchers libfdt kmod-dummy memtester tinyproxy iptables-mod-tproxy ip6tables-zz-legacy \
+	  iptables-zz-legacy ebtables-legacy ebtables-legacy-utils libnghttp2 libcares libiperf3 coreutils coreutils-sleep libatomic \
+	  openvswitch-common openvswitch-libofproto openvswitch-libopenvswitch openvswitch-libovsdb openvswitch-ovsdb openvswitch-vswitchd \
+	  protobuf-lite xtables-legacy libunbound libunwind cJSON libwebsockets-openssl libmosquitto-ssl kmod-nf-tproxy libffi libiw uuidgen
+
 define Profile/QSDK_Premium
 	NAME:=Qualcomm Technologies, Inc SDK Premium Profile
 	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(KPI) $(TEST_TOOLS) $(UTILS) $(COREBSP_UTILS) $(MINIDUMP) \
@@ -293,7 +303,7 @@ define Profile/QSDK_Premium
 		$(IGMPSNOOPING_RSTP) $(NSS_L2TP) $(NSS_MACSEC) $(NSS_UDP_ST) $(NSS_NSM) $(NSS_FLS) \
 		$(RSRC_MGR) $(WIFI_PKGS) $(WIFI_FW_PKGS) \
 		$(HYFI) \
-		$(QCA_MAD) $(QCA_EZMESH) $(EMESH_SP) \
+		$(QCA_MAD) $(QCA_EZMESH) $(EMESH_SP) $(WIFI_PLUGINS) \
 		kmod-qca-hyfi-bridge
 endef
 #		$(QMSCT_CLIENT)
@@ -305,6 +315,19 @@ define Profile/QSDK_Premium/Description
 endef
 
 $(eval $(call Profile,QSDK_Premium))
+
+define Profile/QSDK_OpenSync
+	NAME:=Qualcomm Technologies, Inc SDK OpenSync Profile
+	$(call Profile,QSDK_Premium)
+	PACKAGES+=$(OPENSYNC)
+endef
+
+define Profile/QSDK_OpenSync/Description
+	QSDK OpenSync package set configuration.
+	Enables opensync packages
+endef
+
+$(eval $(call Profile,QSDK_OpenSync))
 
 define Profile/QSDK_BigEndian
         NAME:=Qualcomm Technologies, Inc SDK Big Endian Profile
@@ -383,7 +406,7 @@ define Profile/QSDK_Open
 		$(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) \
 		$(WIFI_OPEN_PKGS) -lacpd -qca-thermald $(UTILS) $(EXTRA_NETWORKING) \
 		$(USB_ETHERNET) $(NSS_COMMON) $(NSS_STANDARD) $(NSS_MESH) $(EMESH_SP) $(NPT66)\
-		$(NSS_NSM) $(SAL_QOS) $(IPSEC) $(NSS_CRYPTO) $(QOS) -lacpd  $(AQ_PHY) $(MACSEC_OPEN_PKGS) \
+		$(NSS_NSM) $(SAL_QOS) $(IPSEC) $(MINIDUMP) $(NSS_CRYPTO) $(QOS) -lacpd  $(AQ_PHY) $(MACSEC_OPEN_PKGS) \
 		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
 		-qapp-store libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps \
 		$(NSS_FLOWID) $(NSS_FLS) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl \
@@ -478,7 +501,7 @@ define Profile/QSDK_256
 		$(NETWORKING_256MB) iperf rng-tools \
 		$(QCA_ECM_STANDARD) $(NSS_CLIENTS_256MB) \
 		-lacpd $(CTRL_APP_DUT) $(QMSCT_CLIENT) $(HYFI) $(QCA_EZMESH) \
-		$(IGMPSNOOPING_RSTP) $(EMESH_SP) $(SAL_QOS) e2fsprogs losetup kmod-qca-nss-ecm-wifi-plugin \
+		$(IGMPSNOOPING_RSTP) $(EMESH_SP) $(SAL_QOS) e2fsprogs losetup kmod-qca-nss-ecm-wifi-plugin $(WIFI_PLUGINS) \
 	        -kmod-usb-dwc3-qcom-internal -kmod-ata-ahci -kmod-ata-core -kmod-scsi-core \
 		-kmod-usb-phy-ipq5018 \
 		-kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget \
@@ -504,12 +527,12 @@ define Profile/QSDK_512
 	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(AUDIO) $(NSS_COMMON) $(NSS_STANDARD)\
 		$(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) \
 		$(WIFI_PKGS) $(WIFI_FW_PKGS) $(STORAGE) $(CD_ROUTER) $(SAL_QOS) \
-		$(NETWORKING) $(OPENVPN) $(UTILS) $(HW_CRYPTO) $(QCA_RFS) \
+		$(NETWORKING) $(OPENVPN) $(UTILS) $(HW_CRYPTO) \
 		$(VIDEO) $(IGMPSNOOPING_RSTP) $(IPSEC) $(QOS) $(QCA_ECM_PREMIUM) $(NSS_PPE) $(NSS_USERSPACE_OSS) \
 		$(NSS_MACSEC) $(TEST_TOOLS) $(NSS_CRYPTO) $(NSS_CLIENTS_STANDARD) \
 		$(COREBSP_UTILS) $(MAP_PKGS) $(FAILSAFE) -lacpd $(DIAG) \
 		$(NSS_EIP197_FW) $(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(KPI) \
-		$(NSS_USERSPACE) $(NSS_RMNET) $(HYFI) kmod-qca-hyfi-bridge $(EMESH_SP) \
+		$(NSS_USERSPACE) $(NSS_RMNET) $(HYFI) kmod-qca-hyfi-bridge $(EMESH_SP) $(WIFI_PLUGINS) \
 		$(QCA_EZMESH) kmod-macvlan $(MINIDUMP) $(RSRC_MGR) $(NSS_L2TP)
 endef
 
