@@ -485,6 +485,8 @@ platform_do_upgrade() {
 	qcom,ipq5332-ap-mi04.1 |\
 	qcom,ipq5332-ap-mi04.1-c2 |\
 	qcom,ipq5332-ap-mi04.3 |\
+	qcom,ipq5332-tb-mi03.1 |\
+	qcom,ipq5332-tb-mi05.1 |\
 	qcom,ipq5332-db-mi01.1 |\
 	qcom,ipq5332-db-mi02.1)
 		for sec in $(print_sections $1); do
