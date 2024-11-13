@@ -497,7 +497,7 @@ $(eval $(call Profile,QSDK_MinEnt))
 define Profile/QSDK_256
 	NAME:=Qualcomm Technologies, Inc SDK 256MB Profile
 	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_256MB) $(NSS_COMMON) $(NSS_STANDARD) \
-		$(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS)\
+		$(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) $(FTM) $(DIAG) \
 		$(WIFI_PKGS_256MB) $(WIFI_FW_PKGS) $(CD_ROUTER_256MB) $(NSS_PPE_256) \
 		$(NETWORKING_256MB) iperf rng-tools \
 		$(QCA_ECM_STANDARD) $(NSS_CLIENTS_256MB) \
@@ -511,9 +511,7 @@ endef
 
 # $(FAILSAFE)
 # $(CNSS_DIAG)
-# $(FTM)
 # $(NSS_MACSEC)
-# $(DIAG)
 # kmod-qca-nss-ecm-wifi-plugin
 
 define Profile/QSDK_256/Description
