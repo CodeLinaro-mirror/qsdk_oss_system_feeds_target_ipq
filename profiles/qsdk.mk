@@ -289,7 +289,7 @@ OPENSYNC:=kmod-gre6 strace libzmq-curve mosquitto-ssl libwolfssl protobuf pping 
 	  kmod-ebtables-ipv6 kmod-ebtables-watchers libfdt kmod-dummy memtester tinyproxy iptables-mod-tproxy ip6tables-zz-legacy \
 	  iptables-zz-legacy ebtables-legacy ebtables-legacy-utils libnghttp2 libcares libiperf3 coreutils coreutils-sleep libatomic \
 	  openvswitch-common openvswitch-libofproto openvswitch-libopenvswitch openvswitch-libovsdb openvswitch-ovsdb openvswitch-vswitchd \
-	  protobuf-lite xtables-legacy libunbound libunwind cJSON libwebsockets-openssl libmosquitto-ssl kmod-nf-tproxy libffi libiw uuidgen
+	  protobuf-lite xtables-legacy libunbound libunwind cJSON libwebsockets-openssl libmosquitto-ssl kmod-nf-tproxy libffi libiw uuidgen opensync-certs
 
 define Profile/QSDK_Premium
 	NAME:=Qualcomm Technologies, Inc SDK Premium Profile
