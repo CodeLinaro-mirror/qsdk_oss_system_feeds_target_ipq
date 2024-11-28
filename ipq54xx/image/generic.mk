@@ -26,4 +26,3 @@ define Device/emulation
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
-TARGET_DEVICES += emulation
