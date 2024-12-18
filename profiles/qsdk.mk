@@ -58,6 +58,8 @@ NSS_NSM:= qca-nsm-app
 
 NSS_FLS:= kmod-qca-nss-fls
 
+UDP_CLF:= udp-clf
+
 SAL_QOS:= qca-sal-qos-test qca-sal-rule-test
 
 SWITCH_SSDK_NOHNAT_PKGS:= kmod-qca-ssdk-nohnat qca-ssdk-shell swconfig kmod-qca8k
@@ -242,7 +244,7 @@ define Profile/QSDK_Premium
 		$(AQ_PHY) $(NSS_USERSPACE_OSS) \
 		$(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) kmod-macvlan \
 		$(HW_CRYPTO) $(IPSEC) $(QOS) $(SAL_QOS) $(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) \
-		$(IGMPSNOOPING_RSTP) $(NSS_L2TP) $(NSS_MACSEC) $(NSS_UDP_ST) $(NSS_NSM) $(NSS_FLS) \
+		$(IGMPSNOOPING_RSTP) $(NSS_L2TP) $(NSS_MACSEC) $(NSS_UDP_ST) $(NSS_NSM) $(NSS_FLS) $(UDP_CLF) \
 		$(RSRC_MGR) $(WIFI_PKGS) $(WIFI_FW_PKGS) \
 		$(HYFI) \
 		$(QCA_MAD) $(QCA_EZMESH) $(EMESH_SP) $(WIFI_PLUGINS) \
@@ -281,7 +283,7 @@ define Profile/QSDK_BigEndian
                 $(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE_OSS)\
                 $(QCA_MAD) $(QCA_EZMESH) $(OPENVPN) kmod-macvlan \
                 kmod-qca-hyfi-bridge $(NSS_NSM) $(SAL_QOS) $(WIFI_PKGS) $(NPT66) \
-                $(NSS_FLS) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS) $(NSS_MACSEC) $(NSS_UDP_ST)
+                $(NSS_FLS) $(UDP_CLF) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS) $(NSS_MACSEC) $(NSS_UDP_ST)
 endef
 
 define Profile/QSDK_BigEndian/Description
@@ -302,7 +304,7 @@ define Profile/QSDK_Dpdk
 		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE_OSS)\
 		$(QCA_MAD) $(QCA_EZMESH) $(OPENVPN) kmod-macvlan kmod-qca-hyfi-bridge \
 		$(NSS_NSM) $(SAL_QOS) $(RSRC_MGR) $(WIFI_PKGS) $(NPT66) $(CTRL_APP_DUT) \
-		$(NSS_FLS) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS) $(DPDK)
+		$(NSS_FLS) $(UDP_CLF) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS) $(DPDK)
 endef
 
 #		$(NSS_UDP_ST) $(NSS_MACSEC)
@@ -348,7 +350,7 @@ define Profile/QSDK_Open
 		$(NSS_NSM) $(SAL_QOS) $(IPSEC) $(MINIDUMP) $(NSS_CRYPTO) $(QOS) -lacpd $(AQ_PHY) $(MACSEC_OPEN_PKGS) \
 		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
 		-qapp-store libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps \
-		$(NSS_FLOWID) $(NSS_FLS) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl \
+		$(NSS_FLOWID) $(NSS_FLS) $(UDP_CLF) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl \
 		$(NSS_UDP_ST) kmod-qca-nss-ecm-wifi-plugin $(EMESH_SP) $(RSRC_MGR)
 endef
 
@@ -441,7 +443,7 @@ define Profile/QSDK_256
 		$(NETWORKING_256MB) iperf rng-tools \
 		$(QCA_ECM_STANDARD) $(WIFI_PLUGINS) \
 		-lacpd $(CTRL_APP_DUT) $(QMSCT_CLIENT) $(HYFI) $(QCA_EZMESH) \
-		$(IGMPSNOOPING_RSTP) $(EMESH_SP) $(SAL_QOS) e2fsprogs losetup kmod-qca-nss-ecm-wifi-plugin \
+		$(IGMPSNOOPING_RSTP) $(EMESH_SP) $(SAL_QOS) $(NSS_FLS) $(UDP_CLF) e2fsprogs losetup kmod-qca-nss-ecm-wifi-plugin \
 		-kmod-usb-dwc3-qcom-internal -kmod-ata-ahci -kmod-ata-core -kmod-scsi-core \
 		-kmod-usb-phy-ipq5018 \
 		-kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget \
@@ -464,7 +466,7 @@ define Profile/QSDK_512
 	NAME:=Qualcomm Technologies, Inc SDK 512MB Profile
 	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(AUDIO) $(NSS_COMMON) \
 		$(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) \
-		$(WIFI_PKGS) $(WIFI_FW_PKGS) $(STORAGE) $(CD_ROUTER) $(SAL_QOS) \
+		$(WIFI_PKGS) $(WIFI_FW_PKGS) $(STORAGE) $(CD_ROUTER) $(SAL_QOS) $(NSS_FLS) $(UDP_CLF) \
 		$(NETWORKING) $(OPENVPN) $(UTILS) $(HW_CRYPTO) \
 		$(VIDEO) $(IGMPSNOOPING_RSTP) $(IPSEC) $(QOS) $(QCA_ECM_PREMIUM) $(NSS_PPE) $(NSS_USERSPACE_OSS) \
 		$(NSS_MACSEC) $(TEST_TOOLS) $(NSS_CRYPTO) $(NSS_CLIENTS_STANDARD) \
