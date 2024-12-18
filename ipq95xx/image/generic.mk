@@ -7,7 +7,7 @@ define Device/qcom_alxx
 	BOARD_NAME := ap-alxx
 	SOC := ipq9574
 	KERNEL_INSTALL := 1
-	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,7000k)
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
@@ -22,7 +22,7 @@ define Device/qcom_al01-c1
 	BUILD_DTS_ipq9574-al01-c1 := 1
 	SOC := ipq9574
 	KERNEL_INSTALL := 1
-	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,7000k)
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
@@ -37,7 +37,7 @@ define Device/qcom_al02-c1
 	BUILD_DTS_ipq9574-al02-c1 := 1
 	SOC := ipq9574
 	KERNEL_INSTALL := 1
-	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,7000k)
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
@@ -52,7 +52,7 @@ define Device/qcom_al02-c2
 	BUILD_DTS_ipq9574-al02-c2 := 1
 	SOC := ipq9574
 	KERNEL_INSTALL := 1
-	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,7000k)
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
@@ -67,7 +67,7 @@ define Device/qcom_al02-c7
 	BUILD_DTS_ipq9574-al02-c7 := 1
 	SOC := ipq9574
 	KERNEL_INSTALL := 1
-	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,7000k)
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
@@ -82,7 +82,7 @@ define Device/qcom_rdp433
 	BUILD_DTS_ipq9574-rdp433 := 1
 	SOC := ipq9574
 	KERNEL_INSTALL := 1
-	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,7000k)
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
