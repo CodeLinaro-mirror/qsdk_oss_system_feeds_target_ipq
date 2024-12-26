@@ -47,13 +47,11 @@ NSS_CLIENTS_STANDARD:= kmod-qca-ovsmgr kmod-qca-nss-dscpstats
 NSS_CRYPTO:= kmod-qca-nss-crypto kmod-qca-nss-cfi-cryptoapi \
         kmod-qca-nss-eip kmod-qca-nss-eip-crypto kmod-qca-nss-eip-ipsec
 
-NSS_NETFN_MINENT:= kmod-qca-nss-netfn-pkt-steer \
+NSS_NETFN:= kmod-qca-nss-netfn-pkt-steer \
 	kmod-qca-nss-netfn-capwap \
 	kmod-qca-nss-netfn-dtls \
 	kmod-qca-nss-netfn-capwapmgr \
 	kmod-qca-nss-flowmgr
-
-NSS_NETFN_TCPST:= nss-tcp-st-cli
 
 HW_CRYPTO:= kmod-crypto-qcrypto
 
@@ -253,7 +251,7 @@ define Profile/QSDK_Premium
 		$(RSRC_MGR) $(WIFI_PKGS) $(WIFI_FW_PKGS) \
 		$(HYFI) \
 		$(QCA_MAD) $(QCA_EZMESH) $(EMESH_SP) $(WIFI_PLUGINS) \
-		kmod-qca-hyfi-bridge $(NSS_NETFN_TCPST)
+		kmod-qca-hyfi-bridge
 endef
 #		$(QMSCT_CLIENT)
 
@@ -429,7 +427,7 @@ define Profile/QSDK_MinEnt
 		$(IPSEC) $(STRONGSWAN) $(CD_ROUTER) $(CNSS_DIAG) \
 		$(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) -lacpd -kmod-qca-nss-ecm-wifi-plugin \
 		$(DIAG) $(KPI) $(FAILSAFE) $(NSS_PPE) $(NSS_USERSPACE_OSS)\
-		$(RSRC_MGR) $(NSS_NETFN_MINENT)
+		$(RSRC_MGR) $(NSS_NETFN)
 endef
 
 define Profile/QSDK_MinEnt/Description
