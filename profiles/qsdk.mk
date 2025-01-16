@@ -61,7 +61,7 @@ NSS_UDP_ST:= kmod-nss-udp-st-drv nss-udp-st
 
 NSS_NSM:= qca-nsm-app
 
-NSS_FLS:= kmod-qca-nss-fls
+NSS_FLS:= kmod-qca-nss-fls kmod-qca-nss-fls-lite
 
 UDP_CLF:= udp-clf
 
@@ -198,7 +198,7 @@ NSS_USERSPACE_OSS:=ppecfg
 
 NSS_FLOWID:=ifli
 
-NSS_FLS:=kmod-qca-nss-fls
+NSS_FLS:=kmod-qca-nss-fls kmod-qca-nss-fls-lite
 
 KPI:=iperf sysstat
 
@@ -448,7 +448,7 @@ define Profile/QSDK_256
 		$(NETWORKING_256MB) iperf rng-tools \
 		$(QCA_ECM_STANDARD) $(WIFI_PLUGINS) \
 		-lacpd $(CTRL_APP_DUT) $(QMSCT_CLIENT) $(HYFI) $(QCA_EZMESH) \
-		$(IGMPSNOOPING_RSTP) $(EMESH_SP) $(SAL_QOS) $(NSS_FLS) $(UDP_CLF) e2fsprogs losetup kmod-qca-nss-ecm-wifi-plugin \
+		$(IGMPSNOOPING_RSTP) $(EMESH_SP) $(SAL_QOS) $(UDP_CLF) kmod-qca-nss-fls-lite e2fsprogs losetup kmod-qca-nss-ecm-wifi-plugin \
 		-kmod-usb-dwc3-qcom-internal -kmod-ata-ahci -kmod-ata-core -kmod-scsi-core \
 		-kmod-usb-phy-ipq5018 \
 		-kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget \
@@ -471,7 +471,7 @@ define Profile/QSDK_512
 	NAME:=Qualcomm Technologies, Inc SDK 512MB Profile
 	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(AUDIO) $(NSS_COMMON) \
 		$(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) \
-		$(WIFI_PKGS) $(WIFI_FW_PKGS) $(STORAGE) $(CD_ROUTER) $(SAL_QOS) $(NSS_FLS) $(UDP_CLF) \
+		$(WIFI_PKGS) $(WIFI_FW_PKGS) $(STORAGE) $(CD_ROUTER) $(SAL_QOS) $(UDP_CLF) kmod-qca-nss-fls-lite \
 		$(NETWORKING) $(OPENVPN) $(UTILS) $(HW_CRYPTO) \
 		$(VIDEO) $(IGMPSNOOPING_RSTP) $(IPSEC) $(QOS) $(QCA_ECM_PREMIUM) $(NSS_PPE) $(NSS_USERSPACE_OSS) \
 		$(NSS_MACSEC) $(TEST_TOOLS) $(NSS_CRYPTO) $(NSS_CLIENTS_STANDARD) \
