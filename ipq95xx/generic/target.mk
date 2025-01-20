@@ -10,4 +10,6 @@ endef
 DEFAULT_PACKAGES += \
 	uboot-ipq9574-mmc uboot-ipq9574-norplusmmc \
 	uboot-ipq9574-norplusnand uboot-ipq9574-nand \
+	uboot-ipq9574-debug-mmc uboot-ipq9574-debug-norplusmmc \
+	uboot-ipq9574-debug-norplusnand uboot-ipq9574-debug-nand \
 	sysupgrade-helper
