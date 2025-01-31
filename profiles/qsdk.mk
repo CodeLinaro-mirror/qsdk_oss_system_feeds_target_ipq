@@ -235,7 +235,7 @@ OPENSYNC:=kmod-gre6 strace libzmq-curve mosquitto-ssl libwolfssl protobuf pping 
 	  curl iperf3 -htpdate htpdate-old 6relayd libev libip4tc libip6tc mxml libprotobuf-c blkid miniupnpd-iptables openvswitch opensync kmod-qcom-sec opensync-scripts \
 	  kmod-qseecom ndisc6 rdisc6 rdnssd traceroute6 ip6tables-mod-nat libsodium ebtables ebtables-utils kmod-ebtables kmod-ebtables-ipv4 \
 	  kmod-ebtables-ipv6 kmod-ebtables-watchers libfdt kmod-dummy memtester tinyproxy iptables-mod-tproxy ip6tables-zz-legacy \
-	  iptables-zz-legacy ebtables-legacy ebtables-legacy-utils libnghttp2 libcares libiperf3 coreutils coreutils-sleep libatomic \
+	  iptables-zz-legacy iptables-mod-nflog iptables-mod-nfqueue miniupnpd-iptables ebtables-legacy ebtables-legacy-utils libnghttp2 libcares libiperf3 coreutils coreutils-sleep libatomic \
 	  openvswitch-common openvswitch-libofproto openvswitch-libopenvswitch openvswitch-libovsdb openvswitch-ovsdb openvswitch-vswitchd \
 	  protobuf-lite xtables-legacy libunbound libunwind cJSON libwebsockets-openssl libmosquitto-ssl kmod-nf-tproxy libffi libiw uuidgen opensync-certs
 
