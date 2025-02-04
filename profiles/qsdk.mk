@@ -267,7 +267,8 @@ $(eval $(call Profile,QSDK_Premium))
 define Profile/QSDK_OpenSync
 	NAME:=Qualcomm Technologies, Inc SDK OpenSync Profile
 	$(call Profile,QSDK_Premium)
-	PACKAGES+=$(OPENSYNC)
+	PACKAGES+=$(OPENSYNC) -qca-ezmesh -qca-ezmesh-ctrl -qca-ezmesh-agent \
+		-qca-ezmesh-alg -qca-ezmesh-agentalg
 endef
 
 define Profile/QSDK_OpenSync/Description
