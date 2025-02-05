@@ -324,16 +324,19 @@ $(eval $(call Profile,QSDK_Dpdk))
 
 define Profile/QSDK_Cov
 	NAME:=Qualcomm Technologies, Inc SDK Cov Profile
-	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) $(VIDEO) $(TEST_TOOLS) \
-		$(FAILSAFE) $(DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) \
-		$(QCA_ECM_PREMIUM) $(NETWORKING) $(CD_ROUTER) sysstat $(MAP_PKGS) $(CTRL_APP_DUT) \
-		$(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) $(IGMPSNOOPING_RSTP) -lacpd $(CNSS_DIAG) \
-		$(QMSCT_CLIENT) $(FTM) \
-		$(UTILS) $(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) \
-		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE_OSS)\
-		$(QCA_MAD) $(QCA_EZMESH) $(OPENVPN) kmod-macvlan \
-		kmod-qca-hyfi-bridge $(NSS_NSM) $(SAL_QOS) $(WIFI_PKGS) $(NPT66) \
-		$(NSS_FLS) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS) kmod-hota-driver
+        PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(KPI) $(TEST_TOOLS) $(UTILS) $(COREBSP_UTILS) $(MINIDUMP) \
+                $(STORAGE) $(AUDIO) $(VIDEO) $(FAILSAFE) $(DIAG) $(NPT66) \
+                $(NETWORKING) $(CTRL_APP_DUT) $(FTM) \
+                $(OPENVPN) $(CNSS_DIAG) $(CD_ROUTER) $(MAP_PKGS) \
+                $(QCA_ECM_PREMIUM) $(NSS_PPE) $(NSS_COMMON) -lacpd \
+                $(AQ_PHY) $(NSS_USERSPACE_OSS) \
+                $(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) kmod-macvlan \
+                $(HW_CRYPTO) $(IPSEC) $(QOS) $(SAL_QOS) $(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) \
+                $(IGMPSNOOPING_RSTP) $(NSS_L2TP) $(NSS_MACSEC) $(NSS_UDP_ST) $(NSS_NSM) $(NSS_FLS) $(UDP_CLF) \
+                $(RSRC_MGR) $(WIFI_PKGS) $(WIFI_FW_PKGS) \
+                $(HYFI) \
+                $(QCA_MAD) $(QCA_EZMESH) $(EMESH_SP) $(WIFI_PLUGINS) kmod-hota-driver \
+                kmod-qca-hyfi-bridge $(NSS_NETFN_TCPST)
 endef
 
 #		$(NSS_UDP_ST) $(NSS_MACSEC)
