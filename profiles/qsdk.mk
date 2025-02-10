@@ -192,8 +192,6 @@ IPSEC:=kmod-ipsec kmod-ipsec4 kmod-ipsec6
 
 AUDIO:=kmod-sound-soc-ipq alsa
 
-VIDEO:=kmod-qpic_panel_ertft
-
 NSS_USERSPACE_OSS:=ppecfg
 
 NSS_FLOWID:=ifli
@@ -242,7 +240,7 @@ OPENSYNC:=kmod-gre6 strace libzmq-curve mosquitto-ssl libwolfssl protobuf pping 
 define Profile/QSDK_Premium
 	NAME:=Qualcomm Technologies, Inc SDK Premium Profile
 	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(KPI) $(TEST_TOOLS) $(UTILS) $(COREBSP_UTILS) $(MINIDUMP) \
-		$(STORAGE) $(AUDIO) $(VIDEO) $(FAILSAFE) $(DIAG) $(NPT66) \
+		$(STORAGE) $(AUDIO) $(FAILSAFE) $(DIAG) $(NPT66) \
 		$(NETWORKING) $(CTRL_APP_DUT) $(FTM) \
 		$(OPENVPN) $(CNSS_DIAG) $(CD_ROUTER) $(MAP_PKGS) \
 		$(QCA_ECM_PREMIUM) $(NSS_PPE) $(NSS_COMMON) -lacpd \
@@ -280,7 +278,7 @@ $(eval $(call Profile,QSDK_OpenSync))
 
 define Profile/QSDK_BigEndian
         NAME:=Qualcomm Technologies, Inc SDK Big Endian Profile
-        PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) $(VIDEO) $(TEST_TOOLS) \
+        PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(STORAGE) $(TEST_TOOLS) \
                 $(FAILSAFE) $(DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) \
                 $(QCA_ECM_PREMIUM) $(NETWORKING) $(CD_ROUTER) $(KPI) $(MAP_PKGS) $(CTRL_APP_DUT) \
                 $(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) $(IGMPSNOOPING_RSTP) -lacpd $(CNSS_DIAG) \
@@ -301,7 +299,7 @@ $(eval $(call Profile,QSDK_BigEndian))
 
 define Profile/QSDK_Dpdk
 	NAME:=Qualcomm Technologies, Inc SDK Dpdk Profile
-	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) $(VIDEO) $(TEST_TOOLS) \
+	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(STORAGE) $(AUDIO) $(TEST_TOOLS) \
 		$(FAILSAFE) $(DIAG) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(CNSS_DIAG) \
 		$(QCA_ECM_PREMIUM) $(NETWORKING) $(CD_ROUTER) $(KPI) $(MAP_PKGS) \
 		$(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) $(IGMPSNOOPING_RSTP) -lacpd \
@@ -325,7 +323,7 @@ $(eval $(call Profile,QSDK_Dpdk))
 define Profile/QSDK_Cov
 	NAME:=Qualcomm Technologies, Inc SDK Cov Profile
         PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(KPI) $(TEST_TOOLS) $(UTILS) $(COREBSP_UTILS) $(MINIDUMP) \
-                $(STORAGE) $(AUDIO) $(VIDEO) $(FAILSAFE) $(DIAG) $(NPT66) \
+                $(STORAGE) $(AUDIO) $(FAILSAFE) $(DIAG) $(NPT66) \
                 $(NETWORKING) $(CTRL_APP_DUT) $(FTM) \
                 $(OPENVPN) $(CNSS_DIAG) $(CD_ROUTER) $(MAP_PKGS) \
                 $(QCA_ECM_PREMIUM) $(NSS_PPE) $(NSS_COMMON) -lacpd \
@@ -350,7 +348,7 @@ $(eval $(call Profile,QSDK_Cov))
 
 define Profile/QSDK_Open
 	NAME:=Qualcomm Technologies, Inc SDK Open Profile
-	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(STORAGE) $(TEST_TOOLS) $(AUDIO) $(VIDEO) $(CNSS_DIAG) \
+	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(STORAGE) $(TEST_TOOLS) $(AUDIO) $(CNSS_DIAG) \
 		$(FAILSAFE) $(DIAG) $(FTM) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(NSS_USERSPACE_OSS)\
 		$(QCA_ECM_PREMIUM) $(STRONGSWAN) $(NETWORKING) $(CD_ROUTER) \
 		$(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) $(MAP_PKGS) \
@@ -477,7 +475,7 @@ define Profile/QSDK_512
 		$(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) \
 		$(WIFI_PKGS) $(WIFI_FW_PKGS) $(STORAGE) $(CD_ROUTER) $(SAL_QOS) $(UDP_CLF) kmod-qca-nss-fls-lite \
 		$(NETWORKING) $(OPENVPN) $(UTILS) $(HW_CRYPTO) \
-		$(VIDEO) $(IGMPSNOOPING_RSTP) $(IPSEC) $(QOS) $(QCA_ECM_PREMIUM) $(NSS_PPE) $(NSS_USERSPACE_OSS) \
+		$(IGMPSNOOPING_RSTP) $(IPSEC) $(QOS) $(QCA_ECM_PREMIUM) $(NSS_PPE) $(NSS_USERSPACE_OSS) \
 		$(NSS_MACSEC) $(TEST_TOOLS) $(NSS_CRYPTO) $(NSS_CLIENTS_STANDARD) \
 		$(COREBSP_UTILS) $(MAP_PKGS) $(FAILSAFE) -lacpd $(DIAG) \
 		$(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(KPI) \
