@@ -253,7 +253,7 @@ define Profile/QSDK_Premium
 		$(RSRC_MGR) $(WIFI_PKGS) $(WIFI_FW_PKGS) \
 		$(HYFI) \
 		$(QCA_MAD) $(QCA_EZMESH) $(EMESH_SP) $(WIFI_PLUGINS) \
-		kmod-qca-hyfi-bridge $(NSS_NETFN_TCPST)
+		kmod-qca-hyfi-bridge $(NSS_NETFN_TCPST) kmod-noc-dp-drv kmod-llcc_perfmon libunwind
 endef
 #		$(QMSCT_CLIENT)
 
