@@ -237,6 +237,8 @@ OPENSYNC:=kmod-gre6 strace libzmq-curve mosquitto-ssl libwolfssl protobuf pping 
 	  openvswitch-common openvswitch-libofproto openvswitch-libopenvswitch openvswitch-libovsdb openvswitch-ovsdb openvswitch-vswitchd \
 	  protobuf-lite xtables-legacy libunbound libunwind cJSON libwebsockets-openssl libmosquitto-ssl kmod-nf-tproxy libffi libiw uuidgen opensync-certs
 
+MMAP_TELEMETRY:= kmod-qca-mmap-telemetry libmmap-telemetry
+
 define Profile/QSDK_Premium
 	NAME:=Qualcomm Technologies, Inc SDK Premium Profile
 	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(KPI) $(TEST_TOOLS) $(UTILS) $(COREBSP_UTILS) $(MINIDUMP) \
@@ -251,7 +253,8 @@ define Profile/QSDK_Premium
 		$(RSRC_MGR) $(WIFI_PKGS) $(WIFI_FW_PKGS) \
 		$(HYFI) \
 		$(QCA_MAD) $(QCA_EZMESH) $(EMESH_SP) $(WIFI_PLUGINS) \
-		kmod-qca-hyfi-bridge $(NSS_NETFN_TCPST) qsig kmod-noc-dp-drv kmod-llcc_perfmon libunwind iperf3
+		kmod-qca-hyfi-bridge $(NSS_NETFN_TCPST) qsig kmod-noc-dp-drv kmod-llcc_perfmon libunwind iperf3 \
+		$(MMAP_TELEMETRY)
 endef
 #		$(QMSCT_CLIENT)
 
@@ -358,7 +361,8 @@ define Profile/QSDK_Open
 		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
 		-qapp-store libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps \
 		$(NSS_FLOWID) $(NSS_FLS) $(UDP_CLF) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl \
-		$(NSS_UDP_ST) kmod-qca-nss-ecm-wifi-plugin $(EMESH_SP) $(RSRC_MGR) $(NSS_NETFN_TCPST) iperf3
+		$(NSS_UDP_ST) kmod-qca-nss-ecm-wifi-plugin $(EMESH_SP) $(RSRC_MGR) $(NSS_NETFN_TCPST) iperf3 \
+		$(MMAP_TELEMETRY)
 endef
 
 #	$(HW_CRYPTO) $(QMI_SAMPLE_APP)
@@ -454,7 +458,7 @@ define Profile/QSDK_256
 		-kmod-usb-dwc3-qcom-internal -kmod-ata-ahci -kmod-ata-core -kmod-scsi-core \
 		-kmod-usb-phy-ipq5018 \
 		-kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget \
-		-kmod-usb-phy-ipq807x kmod-vxlan
+		-kmod-usb-phy-ipq807x kmod-vxlan $(MMAP_TELEMETRY)
 
 endef
 
@@ -480,7 +484,7 @@ define Profile/QSDK_512
 		$(COREBSP_UTILS) $(MAP_PKGS) $(FAILSAFE) -lacpd $(DIAG) \
 		$(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(KPI) \
 		$(HYFI) kmod-qca-hyfi-bridge $(EMESH_SP) $(WIFI_PLUGINS) \
-		$(QCA_EZMESH) kmod-macvlan $(MINIDUMP) $(RSRC_MGR) $(NSS_L2TP) iperf3
+		$(QCA_EZMESH) kmod-macvlan $(MINIDUMP) $(RSRC_MGR) $(NSS_L2TP) iperf3 $(MMAP_TELEMETRY)
 endef
 
 define Profile/QSDK_512/Description
