@@ -198,7 +198,7 @@ NSS_FLOWID:=ifli
 
 NSS_FLS:=kmod-qca-nss-fls kmod-qca-nss-fls-lite
 
-KPI:=iperf sysstat
+KPI:=sysstat
 
 CNSS_DIAG:=cnssdiag
 
@@ -251,7 +251,7 @@ define Profile/QSDK_Premium
 		$(RSRC_MGR) $(WIFI_PKGS) $(WIFI_FW_PKGS) \
 		$(HYFI) \
 		$(QCA_MAD) $(QCA_EZMESH) $(EMESH_SP) $(WIFI_PLUGINS) \
-		kmod-qca-hyfi-bridge $(NSS_NETFN_TCPST) qsig kmod-noc-dp-drv kmod-llcc_perfmon libunwind
+		kmod-qca-hyfi-bridge $(NSS_NETFN_TCPST) qsig kmod-noc-dp-drv kmod-llcc_perfmon libunwind iperf3
 endef
 #		$(QMSCT_CLIENT)
 
@@ -358,7 +358,7 @@ define Profile/QSDK_Open
 		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
 		-qapp-store libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps \
 		$(NSS_FLOWID) $(NSS_FLS) $(UDP_CLF) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl \
-		$(NSS_UDP_ST) kmod-qca-nss-ecm-wifi-plugin $(EMESH_SP) $(RSRC_MGR) $(NSS_NETFN_TCPST)
+		$(NSS_UDP_ST) kmod-qca-nss-ecm-wifi-plugin $(EMESH_SP) $(RSRC_MGR) $(NSS_NETFN_TCPST) iperf3
 endef
 
 #	$(HW_CRYPTO) $(QMI_SAMPLE_APP)
@@ -391,7 +391,7 @@ define Profile/QSDK_QBuilder
 		qca-nss-fw-eip-hk qca-nss-fw-eip-cp kmod-qca-ovsmgr kmod-qca-nss-dscpstats \
 		file luci-app-samba rng-tools profilerd ethtool i2c-tools tcpdump \
 		pm-utils wififw_mount_script qca-thermald qca-qmi-framework qca-time-services \
-		qca-wlanfw-upgrade dashboard iperf sysstat kmod-bootconfig qca-cfg80211tool
+		qca-wlanfw-upgrade dashboard sysstat kmod-bootconfig qca-cfg80211tool
 endef
 
 define Profile/QSDK_QBuilder/Description
@@ -447,7 +447,7 @@ define Profile/QSDK_256
 		$(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) $(FTM) $(DIAG) \
 		$(WIFI_PKGS_256MB) $(WIFI_FW_PKGS) $(CD_ROUTER_256MB) $(NSS_PPE_256) \
 		$(FAILSAFE) \
-		$(NETWORKING_256MB) iperf rng-tools \
+		$(NETWORKING_256MB) rng-tools \
 		$(QCA_ECM_STANDARD) $(WIFI_PLUGINS) \
 		-lacpd $(CTRL_APP_DUT) $(QMSCT_CLIENT) $(HYFI) $(QCA_EZMESH) \
 		$(IGMPSNOOPING_RSTP) $(EMESH_SP) $(SAL_QOS) $(UDP_CLF) kmod-qca-nss-fls-lite e2fsprogs losetup kmod-qca-nss-ecm-wifi-plugin \
@@ -480,7 +480,7 @@ define Profile/QSDK_512
 		$(COREBSP_UTILS) $(MAP_PKGS) $(FAILSAFE) -lacpd $(DIAG) \
 		$(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(KPI) \
 		$(HYFI) kmod-qca-hyfi-bridge $(EMESH_SP) $(WIFI_PLUGINS) \
-		$(QCA_EZMESH) kmod-macvlan $(MINIDUMP) $(RSRC_MGR) $(NSS_L2TP)
+		$(QCA_EZMESH) kmod-macvlan $(MINIDUMP) $(RSRC_MGR) $(NSS_L2TP) iperf3
 endef
 
 define Profile/QSDK_512/Description
