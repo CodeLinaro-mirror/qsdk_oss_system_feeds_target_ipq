@@ -494,21 +494,17 @@ endef
 
 $(eval $(call Profile,QSDK_512))
 
-define Profile/QSDK_8M
-	NAME:=Qualcomm Technologies, Inc SDK 8MB Flash Profile
-	PACKAGES:=$(OPENWRT_BASIC) $(NSS_COMMON) \
-		$(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) \
-		$(WIFI_OPEN_PKGS_8M) $(NETWORKING_8MB) \
-		$(IGMPSNOOPING_RSTP) $(QCA_ECM_STANDARD) \
-		qrtr
+define Profile/QSDK_Default
+	NAME:=Qualcomm Technologies, Inc SDK Default Profile
+	PACKAGES:=
 endef
 
-define Profile/QSDK_8M/Description
-	QSDK 8M package set configuration.
+define Profile/QSDK_Default/Description
+	QSDK Default package set configuration.
 	Enables wifi open source packages
 endef
 
-$(eval $(call Profile,QSDK_8M))
+$(eval $(call Profile,QSDK_Default))
 
 define Profile/QSDK_16M
 	NAME:=Qualcomm Technologies, Inc SDK 16MB Flash Profile
@@ -530,3 +526,4 @@ define Profile/QSDK_16M/Description
 endef
 
 $(eval $(call Profile,QSDK_16M))
+
