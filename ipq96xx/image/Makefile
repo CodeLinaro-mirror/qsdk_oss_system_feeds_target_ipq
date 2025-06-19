@@ -50,4 +50,22 @@ define Build/CopyDebugInformation
 	$(CP) $(DTS_DIR)/devsoc-emulation.dtb $(BIN_DIR)/dtbs/
 endef
 
+define Build/MkFITMulti
+	$(TOPDIR)/scripts/mkits.sh \
+		-D $(1) -o $(KDIR)/fit-$(1).its -k $(2) $(foreach dtb,$(subst \",,$(3)), -d $(DTS_DIR)/$(dtb).dtb$(if $(7),.gz)) -C $(4) -a $(5) -e $(6) $(if $(7),-x $(7) -l $(8))\
+		-A $(LINUX_KARCH) -v $(LINUX_VERSION)
+	PATH=$(LINUX_DIR)/scripts/dtc:$(PATH) mkimage -f $(KDIR)/fit-$(1).its $(KDIR)/$(1)$(KERNEL_SUFFIX)
+endef
+
+define Build/MultiDTBFIT
+	$(call Build/MkFITMulti,qcom_jhxx,$@,$(call FindDeviceTrees, ipq9679-), lzma, $(KERNEL_LOADADDR),$(KERNEL_LOADADDR))
+	mkdir -p $(BIN_DIR)/debug/modules
+	mkdir -p $(BIN_DIR)/dtbs
+	$(CP) $(STAGING_DIR_ROOT)/lib/modules/$(LINUX_VERSION)*/* $(BIN_DIR)/debug/modules/
+	$(CP) $(KDIR)/vmlinux.debug $(BIN_DIR)/$(IMG_PREFIX)-vmlinux.elf
+	$(CP) $(KDIR)/vmlinux-initramfs.debug $(BIN_DIR)/$(IMG_PREFIX)-vmlinux-initramfs.elf
+	$(CP) $(KDIR)/Image* $(BIN_DIR)/dtbs/
+	$(CP) $(DTS_DIR)/ipq9679-*.dtb $(BIN_DIR)/dtbs/
+endef
+
 $(eval $(call BuildImage))
