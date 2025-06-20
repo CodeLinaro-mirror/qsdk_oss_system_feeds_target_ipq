@@ -111,7 +111,7 @@ WIFI_PKGS_16M:=kmod-qca-wifi-flash_16mb-profile \
 
 WIFI_FW_PKGS:=qca-wifi-wkk-fw-hw1-asic
 
-OPENWRT_STANDARD:= luci openssl-util
+OPENWRT_STANDARD:= luci lua openssl-util
 
 WIFI_PLUGINS:=kmod-qca-wifi-plugins
 
