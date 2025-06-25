@@ -1,3 +1,8 @@
+NETWORKING_MK := $(TOPDIR)/qca/feeds/nss/apps-oss/networking.mk
+
+ifneq ("$(wildcard $(NETWORKING_MK))","")
+include $(NETWORKING_MK)
+else
 NSS_COMMON:= kmod-qca-nss-dp
 
 NSS_MACSEC:= \
@@ -7,7 +12,9 @@ NSS_MACSEC:= \
 	qca-hapd-supp-macsec
 
 QCA_ECM_STANDARD:= kmod-qca-nss-ecm-standard
+
 QCA_ECM_ENTERPRISE:= kmod-qca-nss-ecm-noload kmod-qca-nss-ecm-wifi-plugin
+
 QCA_ECM_PREMIUM:= kmod-qca-nss-ecm-premium kmod-qca-nss-ecm-wifi-plugin
 
 NSS_PPE_256:= kmod-qca-nss-ppe \
@@ -55,24 +62,84 @@ NSS_NETFN_MINENT:= kmod-qca-nss-netfn-pkt-steer \
 
 NSS_NETFN_TCPST:= nss-tcp-st-cli
 
-HW_CRYPTO:= kmod-crypto-qcrypto
-
 NSS_UDP_ST:= kmod-nss-udp-st-drv nss-udp-st
 
 NSS_NSM:= qca-nsm-app
 
 NSS_FLS:= kmod-qca-nss-fls kmod-qca-nss-fls-lite
 
+OPENVPN:= -openvpn-easy-rsa openvpn-openssl luci-app-openvpn
+
 UDP_CLF:= udp-clf
 
 SAL_QOS:= qca-sal-qos-test qca-sal-rule-test
 
 SWITCH_SSDK_NOHNAT_PKGS:= kmod-qca-ssdk-nohnat qca-ssdk-shell swconfig kmod-qca8k
+
 QCA_PHY_PKGS:= kmod-qca-nss-phy kmod-qca81xx kmod-qca8084 kmod-aqr-phy kmod-qca8xxx-phc
 
 MACSEC_OPEN_PKGS:= kmod-qca-nss-macsec wpa-supplicant-macsec hostapd-macsec
 
 NSS_L2TP:= kmod-l2tp kmod-l2tp-ip kmod-l2tp-eth
+
+WIFI_PLUGINS:=kmod-qca-wifi-plugins
+
+DEFAULT_PACKAGES += -dnsmasq
+
+NETWORKING:=mcproxy -dnsmasq dnsmasq-dhcpv6 bridge ip-bridge ip-full mwan3 \
+	rp-pppoe-relay iptables-mod-extra iputils-tracepath iputils-tracepath6 \
+	luci-app-upnp luci-app-ddns luci-proto-ipv6 \
+	kmod-nf-nathelper-extra kmod-nf-nathelper \
+	kmod-ipt-nathelper-rtsp nftables kmod-nft-netdev \
+	kmod-nft-offload kmod-bonding vxlan kmod-gre6 conntrack
+
+NETWORKING_256MB:=-dnsmasq dnsmasq-dhcpv6 bridge ip-full \
+	rp-pppoe-relay iputils-tracepath iputils-tracepath6
+
+NETWORKING_8MB:=dnsmasq -dnsmasq-dhcpv6 kmod-nf-nathelper-extra kmod-ipt-nathelper-rtsp
+
+NETWORKING_16MB:=-dnsmasq dnsmasq-dhcpv6 kmod-nf-nathelper-extra kmod-ipt-nathelper-rtsp ip \
+	rp-pppoe-relay
+
+NPT66:= kmod-ipt-nat6 iptables-mod-nat-extra
+
+CD_ROUTER:=kmod-ipt-ipopt kmod-bonding kmod-ipt-sctp kmod-ipt-raw kmod-ipt-raw6 lacpd \
+	arptables ds-lite 6rd ddns-scripts xl2tpd \
+	quagga quagga-ripd quagga-zebra quagga-watchquagga quagga-vtysh \
+	kmod-ipv6 ip6tables iptables-mod-ipsec iptables-mod-filter \
+	isc-dhcp-relay-ipv6 rp-pppoe-server ppp-mod-pptp iptables-mod-physdev
+
+CD_ROUTER_256MB:=kmod-ipv6 ddns-scripts rp-pppoe-server
+
+QOS:=tc-full kmod-sched kmod-sched-core kmod-sched-prio kmod-sched-red \
+	kmod-sched-cake kmod-sched-pie kmod-sched-act-police kmod-sched-act-ipt \
+	kmod-sched-connmark kmod-ifb iptables iptables-mod-filter \
+	iptables-mod-ipopt iptables-mod-conntrack-extra
+
+#These packages depend on SWITCH_SSDK_NOHNAT_PKGS
+IGMPSNOOPING_RSTP:=rstp qca-mcs-apps
+
+IPSEC:=kmod-ipsec kmod-ipsec4 kmod-ipsec6
+
+NSS_USERSPACE_OSS:=ppecfg
+
+NSS_FLOWID:=ifli
+
+NSS_FLS:=kmod-qca-nss-fls kmod-qca-nss-fls-lite
+
+EMESH_SP:=kmod-emesh-sp
+
+DPDK:=dpdk-tools kmod-qca-nss-dpdk-cfgmgr kmod-nss-ppe-uio
+
+EXTRA_NETWORKING:= $(CD_ROUTER) kmod-qca-nss-macsec \
+	$(MACSEC_OPEN_PKGS) $(NSS_CRYPTO) $(NSS_CLIENTS_STANDARD)
+
+STRONGSWAN:=strongswan strongswan-default strongswan-mod-ctr strongswan-mod-gcm strongswan-mod-kdf strongswan-mod-openssl strongswan-mod-uci
+
+MMAP_TELEMETRY:= kmod-qca-mmap-telemetry libmmap-telemetry
+endif
+
+HW_CRYPTO:= kmod-crypto-qcrypto
 
 WIFI_OPEN_PKGS:= kmod-ath12k kmod-ath11k wpad-mesh hostapd-utils \
 	control-app-open sigma-dut-open wpa-cli qca-wifi-scripts cnssdiag myftm kmod-telemetry-agent \
@@ -113,8 +180,6 @@ WIFI_FW_PKGS:=qca-wifi-wkk-fw-hw1-asic
 
 OPENWRT_STANDARD:= luci lua openssl-util
 
-WIFI_PLUGINS:=kmod-qca-wifi-plugins
-
 OPENWRT_BASIC:= wifi-scripts
 
 OPENWRT_256MB:= pm-utils wififw_mount_script qca-thermald qti-license-pfm
@@ -132,49 +197,12 @@ COREBSP_UTILS:=pm-utils wififw_mount_script qca-thermald qca-qmi-framework \
 	qca-wlanfw-upgrade qti-license-pfm dashboard qti-softsku-license-loader-libs llcc-perfmon-scripts
 
 FAILSAFE:= kmod-bootconfig
-DEFAULT_PACKAGES += -dnsmasq
-NETWORKING:=mcproxy -dnsmasq dnsmasq-dhcpv6 bridge ip-bridge ip-full mwan3 \
-	rp-pppoe-relay iptables-mod-extra iputils-tracepath iputils-tracepath6 \
-	luci-app-upnp luci-app-ddns luci-proto-ipv6 \
-	kmod-nf-nathelper-extra kmod-nf-nathelper \
-	kmod-ipt-nathelper-rtsp nftables kmod-nft-netdev \
-	kmod-nft-offload kmod-bonding vxlan kmod-gre6 conntrack
-
-NETWORKING_256MB:=-dnsmasq dnsmasq-dhcpv6 bridge ip-full \
-	rp-pppoe-relay iputils-tracepath iputils-tracepath6
-
-NETWORKING_8MB:=dnsmasq -dnsmasq-dhcpv6 kmod-nf-nathelper-extra kmod-ipt-nathelper-rtsp
-
-NETWORKING_16MB:=-dnsmasq dnsmasq-dhcpv6 kmod-nf-nathelper-extra kmod-ipt-nathelper-rtsp ip \
-	rp-pppoe-relay
-
-NPT66:= kmod-ipt-nat6 iptables-mod-nat-extra
-
-CD_ROUTER:=kmod-ipt-ipopt kmod-bonding kmod-ipt-sctp kmod-ipt-raw kmod-ipt-raw6 lacpd \
-	arptables ds-lite 6rd ddns-scripts xl2tpd \
-	quagga quagga-ripd quagga-zebra quagga-watchquagga quagga-vtysh \
-	kmod-ipv6 ip6tables iptables-mod-ipsec iptables-mod-filter \
-	isc-dhcp-relay-ipv6 rp-pppoe-server ppp-mod-pptp iptables-mod-physdev
-
-CD_ROUTER_256MB:=kmod-ipv6 ddns-scripts rp-pppoe-server
-
-#Disabling below packages for LM256 profile
-#CD_ROUTER_256MB:= -kmod-ipt-ipopt -kmod-ipt-sctp -kmod-ipt-raw -kmod-ipt-raw6 lacpd \
-#	arptables \
-#	-quagga -quagga-ripd -quagga-zebra -quagga-watchquagga -quagga-vtysh \
-#	kmod-ipv6 -ip6tables -iptables-mod-filter \
-#	isc-dhcp-relay-ipv6 -iptables-mod-physdev
 
 BLUETOOTH:=kmod-bluetooth bluez-libs bluez-utils kmod-ath3k
 
 BLUETOPIA:=bluetopia
 
 ZIGBEE:=zigbee_efr32
-
-QOS:=tc-full kmod-sched kmod-sched-core kmod-sched-prio kmod-sched-red \
-	kmod-sched-cake kmod-sched-pie kmod-sched-act-police kmod-sched-act-ipt \
-	kmod-sched-connmark kmod-ifb iptables iptables-mod-filter \
-	iptables-mod-ipopt iptables-mod-conntrack-extra
 
 MAP_PKGS:=map 464xlat tayga
 
@@ -184,19 +212,7 @@ QCA_MAD:=qca-mad
 
 QCA_EZMESH:=qca-ezmesh qca-ezmesh-ctrl qca-ezmesh-agent qca-ezmesh-alg qca-ezmesh-agentalg
 
-#These packages depend on SWITCH_SSDK_NOHNAT_PKGS
-IGMPSNOOPING_RSTP:=rstp qca-mcs-apps
-#qca-mcs-apps
-
-IPSEC:=kmod-ipsec kmod-ipsec4 kmod-ipsec6
-
 AUDIO:=kmod-sound-soc-ipq alsa
-
-NSS_USERSPACE_OSS:=ppecfg
-
-NSS_FLOWID:=ifli
-
-NSS_FLS:=kmod-qca-nss-fls kmod-qca-nss-fls-lite
 
 KPI:=sysstat
 
@@ -208,24 +224,13 @@ FTM:=ftm diag
 
 QMSCT_CLIENT:=qmsct_client
 
-OPENVPN:= -openvpn-easy-rsa openvpn-openssl luci-app-openvpn
-
 MINIDUMP:= minidump
 
 QMI_SAMPLE_APP:=kmod-qmi_sample_client
 
-EMESH_SP:=kmod-emesh-sp
-
 RSRC_MGR:=qca-cfg80211 kmod-rsrcmgr-netstandby-drv qca-rsrcmgr qca-rsrcmgr-secure-libs \
 	  qca-rsrcmgr-pmlo qca-rsrcmgr-detsched qca-rsrcmgr-admctrl qca-rsrcmgr-energy qca-rsrcmgr-ifli \
 	  qca-peripherals-api
-
-DPDK:=dpdk-tools kmod-qca-nss-dpdk-cfgmgr kmod-nss-ppe-uio
-
-EXTRA_NETWORKING:= $(CD_ROUTER) kmod-qca-nss-macsec \
-	$(MACSEC_OPEN_PKGS) $(NSS_CRYPTO) $(NSS_CLIENTS_STANDARD)
-
-STRONGSWAN:=strongswan strongswan-default strongswan-mod-ctr strongswan-mod-gcm strongswan-mod-kdf strongswan-mod-openssl strongswan-mod-uci
 
 DIAG:= common-headers diag
 
@@ -236,8 +241,6 @@ OPENSYNC:=kmod-gre6 strace libzmq-curve mosquitto-ssl libwolfssl protobuf pping 
 	  iptables-zz-legacy iptables-mod-nflog iptables-mod-nfqueue miniupnpd-iptables ebtables-legacy ebtables-legacy-utils libnghttp2 libcares libiperf3 coreutils coreutils-sleep libatomic \
 	  openvswitch-common openvswitch-libofproto openvswitch-libopenvswitch openvswitch-libovsdb openvswitch-ovsdb openvswitch-vswitchd \
 	  protobuf-lite xtables-legacy libunbound libunwind cJSON libwebsockets-openssl libmosquitto-ssl kmod-nf-tproxy libffi libiw uuidgen opensync-certs
-
-MMAP_TELEMETRY:= kmod-qca-mmap-telemetry libmmap-telemetry
 
 define Profile/QSDK_Premium
 	NAME:=Qualcomm Technologies, Inc SDK Premium Profile
@@ -524,4 +527,3 @@ define Profile/QSDK_16M/Description
 endef
 
 $(eval $(call Profile,QSDK_16M))
-
