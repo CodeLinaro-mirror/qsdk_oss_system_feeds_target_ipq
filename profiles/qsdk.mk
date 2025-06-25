@@ -89,7 +89,7 @@ WIFI_PKGS:=kmod-qca-wifi-unified-profile \
 	qca-wpa-cli qca-cfg80211tool qca-wifi-scripts \
 	qca-acfg qca-wrapd athtestcmd-lith myftm qca-iface-mgr \
 	qca-wapid qca-lowi athdiag whc-map \
-	qca-spectral qca-icm sigma-dut
+	qca-spectral qca-icm sigma-dut qca-hapd-supp-wapi
 
 WIFI_PKGS_MINENT:=kmod-qca-wifi-custc-profile \
 	qca-hostap qca-hostapd-cli qca-hapd-supp qca-wpa-supplicant qca-wifi-scripts \
