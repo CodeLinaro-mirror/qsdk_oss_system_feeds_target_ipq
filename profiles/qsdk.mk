@@ -62,6 +62,8 @@ NSS_NETFN_MINENT:= kmod-qca-nss-netfn-pkt-steer \
 
 NSS_NETFN_TCPST:= nss-tcp-st-cli
 
+NSS_SOCK_OFFLOAD:= kmod-qca-nss-netfn-sk-offload
+
 NSS_UDP_ST:= kmod-nss-udp-st-drv nss-udp-st
 
 NSS_NSM:= qca-nsm-app
@@ -363,7 +365,7 @@ define Profile/QSDK_Open
 		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
 		-qapp-store libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps \
 		$(NSS_FLOWID) $(NSS_FLS) $(UDP_CLF) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl \
-		$(NSS_UDP_ST) kmod-qca-nss-ecm-wifi-plugin $(EMESH_SP) $(RSRC_MGR) $(NSS_NETFN_TCPST) iperf3
+		$(NSS_UDP_ST) kmod-qca-nss-ecm-wifi-plugin $(EMESH_SP) $(RSRC_MGR) $(NSS_NETFN_TCPST) $(NSS_SOCK_OFFLOAD) iperf3
 endef
 
 #	$(HW_CRYPTO) $(QMI_SAMPLE_APP)
