@@ -125,8 +125,6 @@ IPSEC:=kmod-ipsec kmod-ipsec4 kmod-ipsec6
 
 NSS_USERSPACE_OSS:=ppecfg
 
-NSS_FLOWID:=ifli
-
 NSS_FLS:=kmod-qca-nss-fls kmod-qca-nss-fls-lite
 
 EMESH_SP:=kmod-emesh-sp
@@ -366,7 +364,7 @@ define Profile/QSDK_Open
 		$(NSS_NSM) $(SAL_QOS) $(IPSEC) $(MINIDUMP) $(NSS_CRYPTO) $(QOS) -lacpd $(AQ_PHY) $(MACSEC_OPEN_PKGS) \
 		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
 		-qapp-store libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps \
-		$(NSS_FLOWID) $(NSS_FLS) $(UDP_CLF) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl \
+		$(NSS_FLS) $(UDP_CLF) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl \
 		$(NSS_UDP_ST) kmod-qca-nss-ecm-wifi-plugin $(EMESH_SP) $(RSRC_MGR) $(NSS_NETFN_TCPST) $(NSS_SOCK_OFFLOAD) iperf3
 endef
 
