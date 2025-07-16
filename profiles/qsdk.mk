@@ -228,10 +228,6 @@ MINIDUMP:= minidump
 
 QMI_SAMPLE_APP:=kmod-qmi_sample_client
 
-RSRC_MGR:=qca-cfg80211 kmod-rsrcmgr-netstandby-drv qca-rsrcmgr qca-rsrcmgr-secure-libs \
-	  qca-rsrcmgr-pmlo qca-rsrcmgr-detsched qca-rsrcmgr-admctrl qca-rsrcmgr-energy qca-rsrcmgr-ifli \
-	  qca-peripherals-api
-
 DIAG:= common-headers diag
 
 OPENSYNC:=kmod-gre6 strace libzmq-curve mosquitto-ssl libwolfssl protobuf pping kmod-ipt-skipaccel iptables-mod-skipaccel \
@@ -257,7 +253,7 @@ define Profile/QSDK_Premium
 		$(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) kmod-macvlan \
 		$(HW_CRYPTO) $(IPSEC) $(QOS) $(SAL_QOS) $(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) \
 		$(IGMPSNOOPING_RSTP) $(NSS_L2TP) $(NSS_MACSEC) $(NSS_UDP_ST) $(NSS_NSM) $(NSS_FLS) $(UDP_CLF) \
-		$(RSRC_MGR) $(WIFI_PKGS) $(WIFI_FW_PKGS) \
+		$(WIFI_PKGS) $(WIFI_FW_PKGS) \
 		$(EMESH_SP) $(WIFI_PLUGINS) \
 		kmod-qca-hyfi-bridge $(NSS_NETFN_TCPST) qsig kmod-noc-dp-drv kmod-llcc_perfmon libunwind iperf3
 endef
@@ -315,7 +311,7 @@ define Profile/QSDK_Dpdk
 		$(UTILS) $(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) \
 		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(NSS_USERSPACE_OSS)\
 		$(OPENVPN) kmod-macvlan kmod-qca-hyfi-bridge \
-		$(NSS_NSM) $(SAL_QOS) $(RSRC_MGR) $(WIFI_PKGS) $(NPT66) $(CTRL_APP_DUT) \
+		$(NSS_NSM) $(SAL_QOS) $(WIFI_PKGS) $(NPT66) $(CTRL_APP_DUT) \
 		$(NSS_FLS) $(UDP_CLF) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS) $(DPDK)
 endef
 
@@ -339,7 +335,7 @@ define Profile/QSDK_Cov
                 $(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) kmod-macvlan \
                 $(HW_CRYPTO) $(IPSEC) $(QOS) $(SAL_QOS) $(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) \
                 $(IGMPSNOOPING_RSTP) $(NSS_L2TP) $(NSS_MACSEC) $(NSS_UDP_ST) $(NSS_NSM) $(NSS_FLS) $(UDP_CLF) \
-                $(RSRC_MGR) $(WIFI_PKGS) $(WIFI_FW_PKGS) \
+                $(WIFI_PKGS) $(WIFI_FW_PKGS) \
                 $(EMESH_SP) $(WIFI_PLUGINS) kmod-hota-driver \
                 kmod-qca-hyfi-bridge $(NSS_NETFN_TCPST)
 endef
@@ -365,7 +361,7 @@ define Profile/QSDK_Open
 		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
 		-qapp-store libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps \
 		$(NSS_FLS) $(UDP_CLF) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl \
-		$(NSS_UDP_ST) kmod-qca-nss-ecm-wifi-plugin $(EMESH_SP) $(RSRC_MGR) $(NSS_NETFN_TCPST) $(NSS_SOCK_OFFLOAD) iperf3 \
+		$(NSS_UDP_ST) kmod-qca-nss-ecm-wifi-plugin $(EMESH_SP) $(NSS_NETFN_TCPST) $(NSS_SOCK_OFFLOAD) iperf3 \
 		$(PRPLMESH_DEP_PKGS)
 endef
 
@@ -419,7 +415,7 @@ define Profile/QSDK_Enterprise
 		$(IPSEC) $(STRONGSWAN) $(CD_ROUTER) \
 		$(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) -lacpd \
 		$(DIAG) $(KPI) $(FAILSAFE) \
-		$(NSS_PPE) $(NSS_USERSPACE_OSS) kmod-qca-nss-drv-mscs $(RSRC_MGR)
+		$(NSS_PPE) $(NSS_USERSPACE_OSS) kmod-qca-nss-drv-mscs
 endef
 
 define Profile/QSDK_Enterprise/Description
@@ -439,7 +435,7 @@ define Profile/QSDK_MinEnt
 		$(IPSEC) $(STRONGSWAN) $(CD_ROUTER) $(CNSS_DIAG) \
 		$(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) -lacpd -kmod-qca-nss-ecm-wifi-plugin \
 		$(DIAG) $(KPI) $(FAILSAFE) $(NSS_PPE) $(NSS_USERSPACE_OSS)\
-		$(RSRC_MGR) $(NSS_NETFN_MINENT)
+		$(NSS_NETFN_MINENT)
 endef
 
 define Profile/QSDK_MinEnt/Description
@@ -488,7 +484,7 @@ define Profile/QSDK_512
 		$(COREBSP_UTILS) $(MAP_PKGS) $(FAILSAFE) -lacpd $(DIAG) \
 		$(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(KPI) \
 		kmod-qca-hyfi-bridge $(EMESH_SP) $(WIFI_PLUGINS) \
-		kmod-macvlan $(MINIDUMP) $(RSRC_MGR) $(NSS_L2TP) iperf3
+		kmod-macvlan $(MINIDUMP) $(NSS_L2TP) iperf3
 endef
 
 define Profile/QSDK_512/Description
