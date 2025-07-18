@@ -258,8 +258,7 @@ define Profile/QSDK_Premium
 		$(HW_CRYPTO) $(IPSEC) $(QOS) $(SAL_QOS) $(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) \
 		$(IGMPSNOOPING_RSTP) $(NSS_L2TP) $(NSS_MACSEC) $(NSS_UDP_ST) $(NSS_NSM) $(NSS_FLS) $(UDP_CLF) \
 		$(RSRC_MGR) $(WIFI_PKGS) $(WIFI_FW_PKGS) \
-		$(HYFI) \
-		$(QCA_MAD) $(QCA_EZMESH) $(EMESH_SP) $(WIFI_PLUGINS) \
+		$(EMESH_SP) $(WIFI_PLUGINS) \
 		kmod-qca-hyfi-bridge $(NSS_NETFN_TCPST) qsig kmod-noc-dp-drv kmod-llcc_perfmon libunwind iperf3
 endef
 #		$(QMSCT_CLIENT)
@@ -293,8 +292,8 @@ define Profile/QSDK_BigEndian
                 $(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) $(IGMPSNOOPING_RSTP) -lacpd $(CNSS_DIAG) \
                 $(QMSCT_CLIENT) $(FTM) \
                 $(UTILS) $(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) \
-                $(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE_OSS)\
-                $(QCA_MAD) $(QCA_EZMESH) $(OPENVPN) kmod-macvlan \
+                $(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(NSS_USERSPACE_OSS)\
+                $(OPENVPN) kmod-macvlan \
                 kmod-qca-hyfi-bridge $(NSS_NSM) $(SAL_QOS) $(WIFI_PKGS) $(NPT66) \
                 $(NSS_FLS) $(UDP_CLF) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS) $(NSS_MACSEC) $(NSS_UDP_ST)
 endef
@@ -314,8 +313,8 @@ define Profile/QSDK_Dpdk
 		$(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) $(IGMPSNOOPING_RSTP) -lacpd \
 		$(QMSCT_CLIENT) $(FTM) \
 		$(UTILS) $(NSS_CLIENTS_STANDARD) $(NSS_CRYPTO) \
-		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(HYFI) $(NSS_USERSPACE_OSS)\
-		$(QCA_MAD) $(QCA_EZMESH) $(OPENVPN) kmod-macvlan kmod-qca-hyfi-bridge \
+		$(HW_CRYPTO) $(IPSEC) $(MINIDUMP) $(QOS) $(NSS_USERSPACE_OSS)\
+		$(OPENVPN) kmod-macvlan kmod-qca-hyfi-bridge \
 		$(NSS_NSM) $(SAL_QOS) $(RSRC_MGR) $(WIFI_PKGS) $(NPT66) $(CTRL_APP_DUT) \
 		$(NSS_FLS) $(UDP_CLF) $(NSS_L2TP) $(EMESH_SP) $(WIFI_FW_PKGS) $(DPDK)
 endef
@@ -341,8 +340,7 @@ define Profile/QSDK_Cov
                 $(HW_CRYPTO) $(IPSEC) $(QOS) $(SAL_QOS) $(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) \
                 $(IGMPSNOOPING_RSTP) $(NSS_L2TP) $(NSS_MACSEC) $(NSS_UDP_ST) $(NSS_NSM) $(NSS_FLS) $(UDP_CLF) \
                 $(RSRC_MGR) $(WIFI_PKGS) $(WIFI_FW_PKGS) \
-                $(HYFI) \
-                $(QCA_MAD) $(QCA_EZMESH) $(EMESH_SP) $(WIFI_PLUGINS) kmod-hota-driver \
+                $(EMESH_SP) $(WIFI_PLUGINS) kmod-hota-driver \
                 kmod-qca-hyfi-bridge $(NSS_NETFN_TCPST)
 endef
 
@@ -459,7 +457,7 @@ define Profile/QSDK_256
 		$(FAILSAFE) \
 		$(NETWORKING_256MB) rng-tools \
 		$(QCA_ECM_STANDARD) $(WIFI_PLUGINS) \
-		-lacpd $(CTRL_APP_DUT) $(QMSCT_CLIENT) $(HYFI) $(QCA_EZMESH) \
+		-lacpd $(CTRL_APP_DUT) $(QMSCT_CLIENT) \
 		$(IGMPSNOOPING_RSTP) $(EMESH_SP) $(SAL_QOS) $(UDP_CLF) kmod-qca-nss-fls-lite e2fsprogs losetup kmod-qca-nss-ecm-wifi-plugin \
 		-kmod-usb-dwc3-qcom-internal -kmod-ata-ahci -kmod-ata-core -kmod-scsi-core \
 		-kmod-usb-phy-ipq5018 \
@@ -489,8 +487,8 @@ define Profile/QSDK_512
 		$(NSS_MACSEC) $(TEST_TOOLS) $(NSS_CRYPTO) $(NSS_CLIENTS_STANDARD) \
 		$(COREBSP_UTILS) $(MAP_PKGS) $(FAILSAFE) -lacpd $(DIAG) \
 		$(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(KPI) \
-		$(HYFI) kmod-qca-hyfi-bridge $(EMESH_SP) $(WIFI_PLUGINS) \
-		$(QCA_EZMESH) kmod-macvlan $(MINIDUMP) $(RSRC_MGR) $(NSS_L2TP) iperf3
+		kmod-qca-hyfi-bridge $(EMESH_SP) $(WIFI_PLUGINS) \
+		kmod-macvlan $(MINIDUMP) $(RSRC_MGR) $(NSS_L2TP) iperf3
 endef
 
 define Profile/QSDK_512/Description
