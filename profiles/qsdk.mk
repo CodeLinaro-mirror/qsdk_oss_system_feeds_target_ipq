@@ -145,17 +145,17 @@ WIFI_OPEN_PKGS:= kmod-ath12k kmod-ath11k wpad-mesh hostapd-utils \
 	control-app-open sigma-dut-open wpa-cli qca-wifi-scripts cnssdiag myftm kmod-telemetry-agent \
 	athtestcmd-lith-nl udtool qca-cfg80211tool
 #	sigma-dut-open wpa-cli qcmbr-netlink iwinfo \
-#	athtestcmd athtestcmd-lith-nl -qca-whc-lbd -qca-whc-init -libhyficommon qca-wifi-scripts -kmod-telemetry-agent
+#	athtestcmd athtestcmd-lith-nl -libhyficommon qca-wifi-scripts -kmod-telemetry-agent
 
 WIFI_OPEN_PKGS_8M:= kmod-ath11k wpad-mesh hostapd-utils \
-	wpa-cli qca-whc-lbd qca-whc-init libhyficommon \
+	wpa-cli libhyficommon \
 	wififw_mount_script
 
 WIFI_PKGS:=kmod-qca-wifi-unified-profile \
 	qca-hostap qca-hostapd-cli qca-hapd-supp qca-wpa-supplicant \
 	qca-wpa-cli qca-cfg80211tool qca-wifi-scripts \
 	qca-acfg qca-wrapd athtestcmd-lith myftm qca-iface-mgr \
-	qca-wapid qca-lowi athdiag whc-map \
+	qca-wapid qca-lowi athdiag \
 	qca-spectral qca-icm sigma-dut qca-hapd-supp-wapi
 
 WIFI_PKGS_MINENT:=kmod-qca-wifi-custc-profile \
@@ -170,7 +170,7 @@ WIFI_PKGS_256MB:=kmod-qca-wifi-lowmem-profile \
 	qca-wpa-cli qca-cfg80211tool qca-wifi-scripts \
 	sigma-dut qca-wrapd qca-wapid qca-acfg \
 	qca-iface-mgr qca-icm qca-cfg80211 athdiag qca-cnss-daemon \
-	athtestcmd-lith whc-map myftm
+	athtestcmd-lith myftm
 
 WIFI_PKGS_16M:=kmod-qca-wifi-flash_16mb-profile \
 	qca-hostap qca-hostapd-cli qca-wpa-supplicant \
@@ -205,12 +205,6 @@ BLUETOPIA:=bluetopia
 ZIGBEE:=zigbee_efr32
 
 MAP_PKGS:=map 464xlat tayga
-
-HYFI:=hyfi-map qca-whc-lbd
-
-QCA_MAD:=qca-mad
-
-QCA_EZMESH:=qca-ezmesh qca-ezmesh-ctrl qca-ezmesh-agent qca-ezmesh-alg qca-ezmesh-agentalg
 
 AUDIO:=kmod-sound-soc-ipq alsa
 
@@ -273,8 +267,7 @@ $(eval $(call Profile,QSDK_Premium))
 define Profile/QSDK_OpenSync
 	NAME:=Qualcomm Technologies, Inc SDK OpenSync Profile
 	$(call Profile,QSDK_Premium)
-	PACKAGES+=$(OPENSYNC) -qca-ezmesh -qca-ezmesh-ctrl -qca-ezmesh-agent \
-		-qca-ezmesh-alg -qca-ezmesh-agentalg
+	PACKAGES+=$(OPENSYNC)
 endef
 
 define Profile/QSDK_OpenSync/Description
@@ -387,7 +380,7 @@ define Profile/QSDK_QBuilder
 		kmod-fs-vfat kmod-fs-ntfs ntfs-3g e2fsprogs losetup \
 		kmod-qca-nss-sfe \
 		rstp qca-mcs-apps qca-hostap qca-hostapd-cli qca-wpa-supplicant qca-wpa-cli \
-		qca-spectral qca-wpc sigma-dut ctrl_app_dut qcmbr qca-wrapd qca-wapid qca-acfg whc-map \
+		qca-spectral qca-wpc sigma-dut ctrl_app_dut qcmbr qca-wrapd qca-wapid qca-acfg \
 		qca-lowi qca-iface-mgr qca-icm qca-cfg80211 athdiag qca-cnss-daemon athtestcmd-lith \
 		qca-wifi-hk-fw-hw1-10.4-asic mcproxy mwan3 \
 		-dnsmasq dnsmasq-dhcpv6 bridge ip-full rp-pppoe-relay iptables-mod-extra \
