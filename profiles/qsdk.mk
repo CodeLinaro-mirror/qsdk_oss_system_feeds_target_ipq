@@ -377,6 +377,26 @@ endef
 
 $(eval $(call Profile,QSDK_Open))
 
+define Profile/QSDK_Sfu
+        NAME:=Qualcomm Technologies, Inc SDK Sfu Profile
+        PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(TEST_TOOLS) $(AUDIO) \
+                $(FAILSAFE) $(COREBSP_UTILS) $(NSS_PPE) $(NSS_COMMON) $(NSS_USERSPACE_OSS)\
+                $(QCA_ECM_PREMIUM) $(NSS_UDP_ST) $(NSS_NETFN_TCPST)  $(STRONGSWAN) $(NETWORKING) $(CD_ROUTER) \
+                $(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) -qca-mcs-apps $(MAP_PKGS) \
+                $(USB_ETHERNET) $(NSS_COMMON) $(NPT66)\
+                $(NSS_NSM) $(SAL_QOS) $(IPSEC) $(MINIDUMP) $(NSS_CRYPTO) $(QOS) -lacpd $(AQ_PHY) -kmod-qca-nss-ecm-wifi-plugin \
+                $(UTILS) $(EXTRA_NETWORKING) -wpa-supplicant-macsec -hostapd-macsec -wpad-mesh-openssl\
+                $(NSS_FLS) $(UDP_CLF) kmod-macvlan $(NSS_L2TP) \
+                $(NSS_SOCK_OFFLOAD) iperf3
+endef
+
+define Profile/QSDK_Sfu/Description
+        QSDK Open package set configuration.
+        disable all wifi packages
+endef
+
+$(eval $(call Profile,QSDK_Sfu))
+
 define Profile/QSDK_QBuilder
 	NAME:=Qualcomm Technologies, Inc SDK QBuilder Profile
 	PACKAGES:=luci openssl-util kmod-qca-nss-dp kmod-qca-nss-drv -kmod-qca-nss-gmac \
