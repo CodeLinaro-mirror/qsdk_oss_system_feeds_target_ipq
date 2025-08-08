@@ -5,12 +5,6 @@ include $(NETWORKING_MK)
 else
 NSS_COMMON:= kmod-qca-nss-dp
 
-NSS_MACSEC:= \
-	kmod-qca-nss-macsec \
-	qca-wpa-supplicant-macsec \
-	qca-hostap-macsec \
-	qca-hapd-supp-macsec
-
 QCA_ECM_STANDARD:= kmod-qca-nss-ecm-standard
 
 QCA_ECM_ENTERPRISE:= kmod-qca-nss-ecm-noload kmod-qca-nss-ecm-wifi-plugin
@@ -80,6 +74,8 @@ SWITCH_SSDK_NOHNAT_PKGS:= kmod-qca-ssdk-nohnat qca-ssdk-shell swconfig kmod-qca8
 
 QCA_PHY_PKGS:= kmod-qca-nss-phy kmod-qca81xx kmod-qca8084 kmod-aqr-phy kmod-qca8xxx-phc
 
+NSS_MACSEC:= kmod-qca-nss-macsec qca-hapd-supp-macsec
+
 MACSEC_OPEN_PKGS:= kmod-qca-nss-macsec wpa-supplicant-macsec hostapd-macsec
 
 NSS_L2TP:= kmod-l2tp kmod-l2tp-ip kmod-l2tp-eth
@@ -131,8 +127,7 @@ EMESH_SP:=kmod-emesh-sp
 
 DPDK:=dpdk-tools kmod-qca-nss-dpdk-cfgmgr kmod-nss-ppe-uio
 
-EXTRA_NETWORKING:= $(CD_ROUTER) kmod-qca-nss-macsec \
-	$(MACSEC_OPEN_PKGS) $(NSS_CRYPTO) $(NSS_CLIENTS_STANDARD)
+EXTRA_NETWORKING:= $(CD_ROUTER) $(NSS_CRYPTO) $(NSS_CLIENTS_STANDARD)
 
 STRONGSWAN:=strongswan strongswan-default strongswan-mod-ctr strongswan-mod-gcm strongswan-mod-kdf strongswan-mod-openssl strongswan-mod-uci
 
@@ -375,7 +370,7 @@ define Profile/QSDK_Sfu
                 $(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) $(KPI) $(IGMPSNOOPING_RSTP) -qca-mcs-apps $(MAP_PKGS) \
                 $(USB_ETHERNET) $(NSS_COMMON) $(NPT66)\
                 $(NSS_NSM) $(SAL_QOS) $(IPSEC) $(MINIDUMP) $(NSS_CRYPTO) $(QOS) -lacpd $(AQ_PHY) -kmod-qca-nss-ecm-wifi-plugin \
-                $(UTILS) $(EXTRA_NETWORKING) -wpa-supplicant-macsec -hostapd-macsec -wpad-mesh-openssl\
+                $(UTILS) $(EXTRA_NETWORKING) $(MACSEC_OPEN_PKGS) -wpad-mesh-openssl\
                 $(NSS_FLS) $(UDP_CLF) kmod-macvlan $(NSS_L2TP) \
                 $(NSS_SOCK_OFFLOAD) iperf3
 endef
