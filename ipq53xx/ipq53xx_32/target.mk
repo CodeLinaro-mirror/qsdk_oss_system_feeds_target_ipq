@@ -20,4 +20,15 @@ DEFAULT_PACKAGES += \
 	uboot-ipq5332-tiny_v2_nand32_64M \
 	uboot-ipq5332-tiny_nor32 \
 	uboot-ipq5332-tiny_norplusnand32 \
-	uboot-ipq5332-tiny_v2_norplusnand32
+	uboot-ipq5332-tiny_v2_norplusnand32 \
+	uboot-2025-ipq5332-mmc32 \
+	uboot-2025-ipq5332-norplusmmc32 \
+	uboot-2025-ipq5332-norplusnand32 \
+	uboot-2025-ipq5332-nand32 \
+	uboot-2025-ipq5332-tiny_nand32 \
+	uboot-2025-ipq5332-tiny_v2_nand32 \
+	uboot-2025-ipq5332-tiny_nand32_64M \
+	uboot-2025-ipq5332-tiny_v2_nand32_64M \
+	uboot-2025-ipq5332-tiny_nor32 \
+	uboot-2025-ipq5332-tiny_norplusnand32 \
+	uboot-2025-ipq5332-tiny_v2_norplusnand32
