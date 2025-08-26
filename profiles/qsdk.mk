@@ -367,6 +367,28 @@ endef
 
 $(eval $(call Profile,QSDK_Open))
 
+define Profile/QSDK_256Open
+        NAME:=Qualcomm Technologies, Inc SDK 256MB Profile
+        PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_256MB) $(NSS_COMMON) \
+                $(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) $(FTM) $(DIAG) \
+                -qca-thermald $(NSS_USERSPACE_OSS) $(CD_ROUTER_256MB) $(NSS_PPE_256) \
+                $(FAILSAFE) $(NETWORKING_256MB) rng-tools -lacpd -qca-cnss-daemon \
+                $(IGMPSNOOPING_RSTP) $(SAL_QOS) $(UDP_CLF) kmod-qca-nss-fls-lite e2fsprogs losetup kmod-qca-nss-ecm-wifi-plugin \
+		-qapp-store libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps kmod-macvlan \
+                -kmod-usb-dwc3-qcom-internal -kmod-ata-ahci -kmod-ata-core -kmod-scsi-core \
+                -kmod-usb-phy-ipq5018 \
+                -kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget \
+                -kmod-usb-phy-ipq807x kmod-vxlan
+
+endef
+
+define Profile/QSDK_256Open/Description
+        QSDK Premium package set configuration.
+        Enables wifi open source packages
+endef
+
+$(eval $(call Profile,QSDK_256Open))
+
 define Profile/QSDK_Sfu
         NAME:=Qualcomm Technologies, Inc SDK Sfu Profile
         PACKAGES:=$(OPENWRT_STANDARD) $(STORAGE) $(TEST_TOOLS) $(AUDIO) \
