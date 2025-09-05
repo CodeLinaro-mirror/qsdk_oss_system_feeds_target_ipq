@@ -132,7 +132,7 @@ EXTRA_NETWORKING:= $(CD_ROUTER) $(NSS_CRYPTO) $(NSS_CLIENTS_STANDARD)
 STRONGSWAN:=strongswan strongswan-default strongswan-mod-ctr strongswan-mod-gcm strongswan-mod-kdf strongswan-mod-openssl strongswan-mod-uci
 
 MMAP_TELEMETRY:= kmod-qca-mmap-telemetry
-SXC_DRVS:= kmod-qca-sdc-drv
+SXC_DRVS:= kmod-qca-sdc-drv kmod-qca-sac-drv
 endif
 
 HW_CRYPTO:= kmod-crypto-qcrypto
