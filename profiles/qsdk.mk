@@ -132,6 +132,7 @@ EXTRA_NETWORKING:= $(CD_ROUTER) $(NSS_CRYPTO) $(NSS_CLIENTS_STANDARD)
 STRONGSWAN:=strongswan strongswan-default strongswan-mod-ctr strongswan-mod-gcm strongswan-mod-kdf strongswan-mod-openssl strongswan-mod-uci
 
 MMAP_TELEMETRY:= kmod-qca-mmap-telemetry
+SXC_DRVS:= kmod-qca-sdc-drv
 endif
 
 HW_CRYPTO:= kmod-crypto-qcrypto
@@ -244,7 +245,7 @@ define Profile/QSDK_Premium
 		$(IGMPSNOOPING_RSTP) $(NSS_L2TP) $(NSS_MACSEC) $(NSS_UDP_ST) $(NSS_NSM) $(NSS_FLS) $(UDP_CLF) \
 		$(WIFI_PKGS) $(WIFI_FW_PKGS) \
 		$(EMESH_SP) $(WIFI_PLUGINS) \
-		kmod-qca-hyfi-bridge $(NSS_NETFN_TCPST) qsig kmod-noc-dp-drv kmod-llcc_perfmon libunwind iperf3 $(MMAP_TELEMETRY)
+		kmod-qca-hyfi-bridge $(NSS_NETFN_TCPST) qsig kmod-noc-dp-drv kmod-llcc_perfmon libunwind iperf3 $(MMAP_TELEMETRY) $(SXC_DRVS)
 endef
 #		$(QMSCT_CLIENT)
 
@@ -350,7 +351,7 @@ define Profile/QSDK_Open
 		-qapp-store libtirpc cfr_tools kmod-qca-ovsmgr -qca-mcs-apps \
 		$(NSS_FLS) $(UDP_CLF) kmod-macvlan $(NSS_L2TP) wpad-mesh-openssl \
 		$(NSS_UDP_ST) $(EMESH_SP) $(NSS_NETFN_TCPST) $(NSS_SOCK_OFFLOAD) iperf3 \
-		$(PRPLMESH_DEP_PKGS)
+		$(PRPLMESH_DEP_PKGS) $(MMAP_TELEMETRY) $(SXC_DRVS)
 endef
 
 #	$(HW_CRYPTO) $(QMI_SAMPLE_APP)
