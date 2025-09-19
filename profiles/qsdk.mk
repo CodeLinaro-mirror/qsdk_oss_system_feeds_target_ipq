@@ -4,6 +4,8 @@ include $(NETWORKING_MK)
 
 DEFAULT_PACKAGES += -dnsmasq
 
+ERP:=kmod-rsrcmgr-netstandby-drv
+
 HW_CRYPTO:= kmod-crypto-qcrypto
 
 WIFI_OPEN_PKGS:= kmod-ath12k kmod-ath11k wpad-mesh hostapd-utils \
@@ -106,7 +108,7 @@ define Profile/QSDK_Premium
 		$(HW_CRYPTO) \
 		$(WIFI_PKGS) $(WIFI_FW_PKGS) \
 		qsig kmod-noc-dp-drv kmod-llcc_perfmon libunwind iperf3 \
-		$(NSS_PREMIUM)
+		$(NSS_PREMIUM) $(ERP)
 endef
 #		$(QMSCT_CLIENT)
 
@@ -329,7 +331,7 @@ define Profile/QSDK_256
 	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_256MB) \
 		$(FTM) $(DIAG) \
 		$(WIFI_PKGS_256MB) $(WIFI_FW_PKGS) \
-		$(FAILSAFE) \
+		$(FAILSAFE) $(ERP) \
 		rng-tools \
 		$(CTRL_APP_DUT) $(QMSCT_CLIENT) \
 		e2fsprogs losetup \
@@ -357,7 +359,7 @@ define Profile/QSDK_512
 		$(WIFI_PKGS) $(WIFI_FW_PKGS) $(STORAGE) \
 		$(UTILS) $(HW_CRYPTO) \
 		$(TEST_TOOLS) \
-		$(COREBSP_UTILS) $(FAILSAFE) $(DIAG) \
+		$(COREBSP_UTILS) $(FAILSAFE) $(DIAG) $(ERP)\
 		$(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(KPI) \
 		$(MINIDUMP) iperf3 \
 		$(NSS_512)
