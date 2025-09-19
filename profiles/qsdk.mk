@@ -84,6 +84,8 @@ WIFI_PLUGINS:=kmod-qca-wifi-plugins
 
 DEFAULT_PACKAGES += -dnsmasq
 
+ERP:=kmod-rsrcmgr-netstandby-drv
+
 NETWORKING:=mcproxy -dnsmasq dnsmasq-dhcpv6 bridge ip-bridge ip-full mwan3 \
 	rp-pppoe-relay iptables-mod-extra iputils-tracepath iputils-tracepath6 \
 	luci-app-upnp luci-app-ddns luci-proto-ipv6 \
@@ -244,7 +246,7 @@ define Profile/QSDK_Premium
 		$(HW_CRYPTO) $(IPSEC) $(QOS) $(SAL_QOS) $(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) \
 		$(IGMPSNOOPING_RSTP) $(NSS_L2TP) $(NSS_MACSEC) $(NSS_UDP_ST) $(NSS_NSM) $(NSS_FLS) $(UDP_CLF) \
 		$(WIFI_PKGS) $(WIFI_FW_PKGS) \
-		$(EMESH_SP) $(WIFI_PLUGINS) \
+		$(EMESH_SP) $(WIFI_PLUGINS) $(ERP) \
 		kmod-qca-hyfi-bridge $(NSS_NETFN_TCPST) qsig kmod-noc-dp-drv kmod-llcc_perfmon libunwind iperf3 $(MMAP_TELEMETRY) $(SXC_DRVS)
 endef
 #		$(QMSCT_CLIENT)
@@ -482,7 +484,7 @@ define Profile/QSDK_256
 		$(FAILSAFE) \
 		$(NETWORKING_256MB) rng-tools \
 		$(QCA_ECM_STANDARD) $(WIFI_PLUGINS) \
-		-lacpd $(CTRL_APP_DUT) $(QMSCT_CLIENT) \
+		-lacpd $(CTRL_APP_DUT) $(QMSCT_CLIENT) $(ERP) \
 		$(IGMPSNOOPING_RSTP) $(EMESH_SP) $(SAL_QOS) $(UDP_CLF) kmod-qca-nss-fls-lite e2fsprogs losetup kmod-qca-nss-ecm-wifi-plugin \
 		-kmod-usb-dwc3-qcom-internal -kmod-ata-ahci -kmod-ata-core -kmod-scsi-core \
 		-kmod-usb-phy-ipq5018 \
@@ -510,7 +512,7 @@ define Profile/QSDK_512
 		$(NETWORKING) $(OPENVPN) $(UTILS) $(HW_CRYPTO) \
 		$(IGMPSNOOPING_RSTP) $(IPSEC) $(QOS) $(QCA_ECM_PREMIUM) $(NSS_PPE) $(NSS_USERSPACE_OSS) \
 		$(NSS_MACSEC) $(TEST_TOOLS) $(NSS_CRYPTO) $(NSS_CLIENTS_STANDARD) \
-		$(COREBSP_UTILS) $(MAP_PKGS) $(FAILSAFE) -lacpd $(DIAG) \
+		$(COREBSP_UTILS) $(MAP_PKGS) $(FAILSAFE) -lacpd $(DIAG) $(ERP) \
 		$(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(KPI) \
 		kmod-qca-hyfi-bridge $(EMESH_SP) $(WIFI_PLUGINS) \
 		kmod-macvlan $(MINIDUMP) $(NSS_L2TP) iperf3
