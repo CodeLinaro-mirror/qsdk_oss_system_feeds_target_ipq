@@ -487,7 +487,7 @@ define Profile/QSDK_256
 		-kmod-usb-dwc3-qcom-internal -kmod-ata-ahci -kmod-ata-core -kmod-scsi-core \
 		-kmod-usb-phy-ipq5018 \
 		-kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget \
-		-kmod-usb-phy-ipq807x kmod-vxlan
+		-kmod-usb-phy-ipq807x kmod-vxlan kmod-qca-hyfi-bridge
 
 endef
 
