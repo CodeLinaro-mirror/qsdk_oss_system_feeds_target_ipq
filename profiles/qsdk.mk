@@ -251,7 +251,9 @@ define Profile/QSDK_Sfu
 		$(USB_ETHERNET) rng-tools \
 		$(MINIDUMP) \
 		$(UTILS) \
-		iperf3 \
+		-kmod-usb-dwc3-qcom-internal -kmod-ata-ahci -kmod-ata-core -kmod-scsi-core \
+                -kmod-usb-phy-ipq5018 \
+                -kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget -kmod-usb-phy-ipq807x \
 		$(NSS_SFU)
 endef
 
