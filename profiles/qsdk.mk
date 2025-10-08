@@ -108,7 +108,7 @@ define Profile/QSDK_Premium
 		$(HW_CRYPTO) \
 		$(WIFI_PKGS) $(WIFI_FW_PKGS) \
 		qsig kmod-noc-dp-drv kmod-llcc_perfmon libunwind iperf3 \
-		$(NSS_PREMIUM) $(ERP)
+		$(NSS_PREMIUM) $(ERP) kmod-qca-hyfi-bridge
 endef
 #		$(QMSCT_CLIENT)
 
@@ -142,7 +142,7 @@ define Profile/QSDK_BigEndian
 		$(UTILS) \
 		$(HW_CRYPTO) $(MINIDUMP) \
 		$(WIFI_PKGS) \
-		$(WIFI_FW_PKGS) \
+		$(WIFI_FW_PKGS) kmod-qca-hyfi-bridge \
 		$(NSS_BIGENDIAN)
 endef
 
@@ -162,7 +162,7 @@ define Profile/QSDK_Dpdk
 		$(UTILS) \
 		$(HW_CRYPTO) $(MINIDUMP) \
 		$(WIFI_PKGS) $(CTRL_APP_DUT) \
-		$(WIFI_FW_PKGS) \
+		$(WIFI_FW_PKGS) kmod-qca-hyfi-bridge \
 		$(NSS_DPDK)
 endef
 
@@ -183,7 +183,7 @@ define Profile/QSDK_Cov
 		$(CNSS_DIAG) \
 		$(HW_CRYPTO) \
 		$(WIFI_PKGS) $(WIFI_FW_PKGS) \
-		kmod-hota-driver \
+		kmod-hota-driver kmod-qca-hyfi-bridge \
 		$(NSS_COV)
 endef
 
@@ -361,7 +361,7 @@ define Profile/QSDK_512
 		$(TEST_TOOLS) \
 		$(COREBSP_UTILS) $(FAILSAFE) $(DIAG) $(ERP)\
 		$(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(KPI) \
-		$(MINIDUMP) iperf3 \
+		$(MINIDUMP) iperf3 kmod-qca-hyfi-bridge \
 		$(NSS_512)
 endef
 
