@@ -1,5 +1,5 @@
 #The NSS packages are included by the networking.mk file from the below path.
-NETWORKING_MK := $(TOPDIR)/qca/feeds/nss/profiles/networking.mk
+NETWORKING_MK := $(wildcard $(TOPDIR)/qca/feeds/nss/profiles/networking.mk)
 include $(NETWORKING_MK)
 
 DEFAULT_PACKAGES += -dnsmasq
