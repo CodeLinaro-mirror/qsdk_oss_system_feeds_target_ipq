@@ -328,6 +328,26 @@ endef
 
 $(eval $(call Profile,QSDK_MinEnt))
 
+define Profile/QSDK_MinEntOpen
+	NAME:=Qualcomm Technologies, Inc SDK MinEnt Open Profile
+	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(NSS_COMMON) \
+		$(SWITCH_SSDK_NOHNAT_PKGS) $(QCA_PHY_PKGS) \
+		$(WIFI_OPEN_PKGS) $(WIFI_FW_PKGS) $(STORAGE) $(HW_CRYPTO) \
+		$(NETWORKING) $(QOS) $(UTILS) $(TEST_TOOLS) $(COREBSP_UTILS) \
+		$(QCA_ECM_ENTERPRISE) $(MACSEC_OPEN_PKGS) $(NSS_CRYPTO_MINENT) \
+		$(IPSEC) $(STRONGSWAN) $(CD_ROUTER) $(CNSS_DIAG) \
+		$(FTM) -lacpd -kmod-qca-nss-ecm-wifi-plugin -qca-cnss-daemon \
+		$(DIAG) $(KPI) $(FAILSAFE) $(NSS_PPE) $(NSS_USERSPACE_OSS) wpad-mesh-openssl \
+		$(NSS_NETFN_MINENT)
+endef
+
+define Profile/QSDK_MinEntOpen/Description
+	QSDK MinEnt package set configuration.
+	Enables qca-wifi 11.0 packages
+endef
+
+$(eval $(call Profile,QSDK_MinEntOpen))
+
 define Profile/QSDK_256
 	NAME:=Qualcomm Technologies, Inc SDK 256MB Profile
 	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_256MB) \
