@@ -224,17 +224,17 @@ $(eval $(call Profile,QSDK_Open))
 define Profile/QSDK_256Open
 	NAME:=Qualcomm Technologies, Inc SDK 256MB Profile
 	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_256MB) \
-		$(FTM) $(DIAG) \
-		-qca-thermald \
-		$(FAILSAFE) rng-tools -qca-cnss-daemon \
-		e2fsprogs losetup\
+		$(FAILSAFE) rng-tools -qca-cnss-daemon e2fsprogs losetup \
 		-qapp-store libtirpc cfr_tools \
 		-kmod-usb-dwc3-qcom-internal -kmod-ata-ahci -kmod-ata-core -kmod-scsi-core \
 		-kmod-usb-phy-ipq5018 \
 		-kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget \
-		-kmod-usb-phy-ipq807x \
+		$(FTM) $(DIAG) -qca-thermald \
+		-kmod-usb-phy-ipq807x kmod-qca-hyfi-bridge \
 		$(NSS_256)
 endef
+		#$(WIFI_OPEN_PKGS) $(WIFI_FW_PKGS) $(MACSEC_OPEN_PKGS) wpad-mesh-openssl
+
 
 define Profile/QSDK_256Open/Description
         QSDK Premium package set configuration.
