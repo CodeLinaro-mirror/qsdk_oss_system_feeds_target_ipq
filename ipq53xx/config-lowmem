@@ -21,6 +21,7 @@
 # CONFIG_SM_VIDEOCC_8350 is not set
 # CONFIG_SM_VIDEOCC_8550 is not set
 # CONFIG_SM_VIDEOCC_8450 is not set
+# CONFIG_QTI_TFA_OPTEE_LOG is not set
 # CONFIG_QTI_EMULATION_APSS_ACC is not set
 # CONFIG_ARM_SMMU_V3_PMU is not set
 # CONFIG_CDX_BUS is not set
