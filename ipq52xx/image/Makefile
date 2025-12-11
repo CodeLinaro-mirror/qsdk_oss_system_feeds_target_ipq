@@ -58,7 +58,7 @@ define Build/MkFITMulti
 endef
 
 define Build/MultiDTBFIT
-        $(call Build/MkFITMulti,qcom_hrxx,$@,$(call FindDeviceTrees, ipq5200-), lzma, $(KERNEL_LOADADDR),$(KERNEL_LOADADDR))
+        $(call Build/MkFITMulti,qcom_hmxx,$@,$(call FindDeviceTrees, ipq5200-), lzma, $(KERNEL_LOADADDR),$(KERNEL_LOADADDR))
         mkdir -p $(BIN_DIR)/debug/modules
         mkdir -p $(BIN_DIR)/dtbs
         $(CP) $(STAGING_DIR_ROOT)/lib/modules/$(LINUX_VERSION)*/* $(BIN_DIR)/debug/modules/
