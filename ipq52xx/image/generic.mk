@@ -5,7 +5,7 @@ define Device/qcom_hmxx
         DEVICE_MODEL := AP-HMXX
         DEVICE_VARIANT :=
         BOARD_NAME := ap-hmxx
-        SOC := ipq5200
+        SOC := ipq5210
         KERNEL_INSTALL := 1
         KERNEL_SIZE := $(if $(CONFIG_DEBUG),9216k,6500k)
         IMAGE_SIZE := 25344k
@@ -19,8 +19,8 @@ define Device/emulation
 	DEVICE_MODEL :=
 	DEVICE_VARIANT :=
 	BOARD_NAME :=
-	BUILD_DTS_ipq5200-emulation := 1
-	SOC := ipq5200
+	BUILD_DTS_ipq5210-emulation := 1
+	SOC := ipq5210
 	KERNEL_INSTALL := 1
 	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
 	IMAGE_SIZE := 25344k
