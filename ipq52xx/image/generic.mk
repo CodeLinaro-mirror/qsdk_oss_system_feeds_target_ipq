@@ -26,3 +26,18 @@ define Device/emulation
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
+
+define Device/emulation_fbc
+	$(call Device/FitImageLzma)
+	DEVICE_VENDOR := Qualcomm Technologies, Inc.
+	DEVICE_MODEL :=
+	DEVICE_VARIANT :=
+	DEVICE_DTS := ipq5210-emulation-fbc
+	BUILD_DTS_ipq5210-emulation-fbc := 1
+	SOC := ipq5210
+	KERNEL_INSTALL := 1
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
+	IMAGE_SIZE := 25344k
+	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
+endef
+TARGET_DEVICES += emulation_fbc
