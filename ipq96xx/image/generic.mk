@@ -5,7 +5,7 @@ define Device/qcom_jhxx
         DEVICE_MODEL := AP-JHXX
         DEVICE_VARIANT :=
         BOARD_NAME := ap-jhxx
-        SOC := ipq9679
+        SOC := ipq9650
         KERNEL_INSTALL := 1
         KERNEL_SIZE := $(if $(CONFIG_DEBUG),9216k,6500k)
         IMAGE_SIZE := 25344k
@@ -19,8 +19,8 @@ define Device/emulation
 	DEVICE_MODEL :=
 	DEVICE_VARIANT :=
 	BOARD_NAME :=
-	BUILD_DTS_ipq9679-emulation := 1
-	SOC := ipq9679
+	BUILD_DTS_ipq9650-emulation := 1
+	SOC := ipq9650
 	KERNEL_INSTALL := 1
 	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
 	IMAGE_SIZE := 25344k
