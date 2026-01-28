@@ -10,7 +10,8 @@ HW_CRYPTO:= kmod-crypto-qcrypto
 
 WIFI_OPEN_PKGS:= kmod-ath12k kmod-ath11k wpad-mesh hostapd-utils \
 	control-app-open sigma-dut-open wpa-cli qca-wifi-scripts cnssdiag myftm kmod-telemetry-agent \
-	athtestcmd-lith-nl udtool qca-cfg80211tool wifitelemetry qca-acfg
+	athtestcmd-lith-nl udtool qca-cfg80211tool wifitelemetry qca-acfg \
+	qca-rptr-mgr
 #	sigma-dut-open wpa-cli qcmbr-netlink iwinfo \
 #	athtestcmd athtestcmd-lith-nl -libhyficommon qca-wifi-scripts -kmod-telemetry-agent
 
