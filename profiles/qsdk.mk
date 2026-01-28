@@ -231,10 +231,9 @@ define Profile/QSDK_256Open
 		-kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget \
 		$(FTM) $(DIAG) -qca-thermald \
 		-kmod-usb-phy-ipq807x kmod-qca-hyfi-bridge \
-		$(NSS_256) kmod-bonding
+		$(NSS_256) kmod-bonding \
+		$(WIFI_OPEN_PKGS) $(WIFI_FW_PKGS) $(MACSEC_OPEN_PKGS) wpad-mesh-openssl
 endef
-		#$(WIFI_OPEN_PKGS) $(WIFI_FW_PKGS) $(MACSEC_OPEN_PKGS) wpad-mesh-openssl
-
 
 define Profile/QSDK_256Open/Description
         QSDK Premium package set configuration.
