@@ -62,8 +62,7 @@ TEST_TOOLS:=ethtool i2c-tools tcpdump
 UTILS:=file luci-app-samba4 rng-tools profilerd
 
 COREBSP_UTILS:=pm-utils wififw_mount_script qca-thermald qca-qmi-framework \
-	qca-wlanfw-upgrade qti-license-pfm dashboard qti-softsku-license-loader-libs llcc-perfmon-scripts \
-	kmod-updtest_mod
+	qca-wlanfw-upgrade qti-license-pfm dashboard qti-softsku-license-loader-libs llcc-perfmon-scripts
 
 FAILSAFE:= kmod-bootconfig
 
