@@ -8,14 +8,14 @@ ERP:=kmod-rsrcmgr-netstandby-drv
 
 HW_CRYPTO:= kmod-crypto-qcrypto
 
-WIFI_OPEN_PKGS:= kmod-ath12k kmod-ath11k wpad-mesh hostapd-utils \
+WIFI_OPEN_PKGS:= kmod-ath12k kmod-ath11k wpad-mesh-openssl hostapd-utils \
 	control-app-open sigma-dut-open wpa-cli qca-wifi-scripts cnssdiag myftm kmod-telemetry-agent \
 	athtestcmd-lith-nl udtool qca-cfg80211tool wifitelemetry qca-acfg \
 	qca-rptr-mgr
 #	sigma-dut-open wpa-cli qcmbr-netlink iwinfo \
 #	athtestcmd athtestcmd-lith-nl -libhyficommon qca-wifi-scripts -kmod-telemetry-agent
 
-WIFI_OPEN_PKGS_8M:= kmod-ath11k wpad-mesh hostapd-utils \
+WIFI_OPEN_PKGS_8M:= kmod-ath11k wpad-mesh-openssl hostapd-utils \
 	wpa-cli libhyficommon \
 	wififw_mount_script
 
@@ -207,7 +207,6 @@ define Profile/QSDK_Open
 		$(MINIDUMP) $(MACSEC_OPEN_PKGS) \
 		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
 		-qapp-store libtirpc cfr_tools \
-		wpad-mesh-openssl \
 		iperf3 libunwind perf qsig kmod-noc-dp-drv kmod-llcc_perfmon llcc-perfmon-scripts \
 		$(PRPLMESH_DEP_PKGS) \
 		$(NSS_OPEN)
@@ -233,7 +232,7 @@ define Profile/QSDK_256Open
 		$(FTM) $(DIAG) -qca-thermald \
 		-kmod-usb-phy-ipq807x kmod-qca-hyfi-bridge \
 		$(NSS_256) kmod-bonding \
-		$(WIFI_OPEN_PKGS) $(WIFI_FW_PKGS) $(MACSEC_OPEN_PKGS) wpad-mesh-openssl
+		$(WIFI_OPEN_PKGS) $(WIFI_FW_PKGS) $(MACSEC_OPEN_PKGS)
 endef
 
 define Profile/QSDK_256Open/Description
@@ -334,7 +333,7 @@ define Profile/QSDK_MinEntOpen
 		$(WIFI_OPEN_PKGS) $(WIFI_FW_PKGS) $(STORAGE) $(HW_CRYPTO) \
 		$(UTILS) $(TEST_TOOLS) $(COREBSP_UTILS) \
 		$(CNSS_DIAG) $(FTM) -qca-cnss-daemon \
-		$(DIAG) $(KPI) $(FAILSAFE)  wpad-mesh-openssl \
+		$(DIAG) $(KPI) $(FAILSAFE)  \
 		$(NSS_MINENT_OPEN)
 endef
 
