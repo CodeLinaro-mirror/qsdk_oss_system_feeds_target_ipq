@@ -100,6 +100,8 @@ OPENSYNC:=kmod-gre6 strace libzmq-curve mosquitto-ssl libwolfssl protobuf pping 
 
 PRPLMESH_DEP_PKGS:=kmod-sched-flower kmod-sched-act-vlan
 
+OPTEE_CLIENT:=optee-client
+
 define Profile/QSDK_Premium
 	NAME:=Qualcomm Technologies, Inc SDK Premium Profile
 	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(KPI) $(TEST_TOOLS) $(UTILS) $(COREBSP_UTILS) $(MINIDUMP) \
@@ -109,7 +111,8 @@ define Profile/QSDK_Premium
 		$(HW_CRYPTO) \
 		$(WIFI_PKGS) $(WIFI_FW_PKGS) \
 		qsig kmod-noc-dp-drv kmod-llcc_perfmon libunwind iperf3 \
-		$(NSS_PREMIUM) $(ERP) kmod-qca-hyfi-bridge
+		$(NSS_PREMIUM) $(ERP) kmod-qca-hyfi-bridge \
+		$(OPTEE_CLIENT)
 endef
 #		$(QMSCT_CLIENT)
 
@@ -232,7 +235,8 @@ define Profile/QSDK_256Open
 		$(FTM) $(DIAG) -qca-thermald \
 		-kmod-usb-phy-ipq807x kmod-qca-hyfi-bridge \
 		$(NSS_256) kmod-bonding \
-		$(WIFI_OPEN_PKGS) $(WIFI_FW_PKGS) $(MACSEC_OPEN_PKGS)
+		$(WIFI_OPEN_PKGS) $(WIFI_FW_PKGS) $(MACSEC_OPEN_PKGS) \
+		$(OPTEE_CLIENT)
 endef
 
 define Profile/QSDK_256Open/Description
@@ -253,7 +257,8 @@ define Profile/QSDK_Sfu
 		-kmod-usb-dwc3-qcom-internal -kmod-ata-ahci -kmod-ata-core -kmod-scsi-core \
                 -kmod-usb-phy-ipq5018 \
                 -kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget -kmod-usb-phy-ipq807x \
-		$(NSS_SFU)
+		$(NSS_SFU) \
+		$(OPTEE_CLIENT)
 endef
 
 define Profile/QSDK_Sfu/Description
@@ -317,7 +322,8 @@ define Profile/QSDK_MinEnt
 		$(CNSS_DIAG) \
 		$(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) \
 		$(DIAG) $(KPI) $(FAILSAFE) \
-		$(NSS_MINENT)
+		$(NSS_MINENT) \
+		$(OPTEE_CLIENT)
 endef
 
 define Profile/QSDK_MinEnt/Description
@@ -380,7 +386,8 @@ define Profile/QSDK_512
 		$(COREBSP_UTILS) $(FAILSAFE) $(DIAG) $(ERP)\
 		$(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(KPI) \
 		$(MINIDUMP) iperf3 kmod-qca-hyfi-bridge \
-		$(NSS_512)
+		$(NSS_512) \
+		$(OPTEE_CLIENT)
 endef
 
 define Profile/QSDK_512/Description
@@ -392,7 +399,7 @@ $(eval $(call Profile,QSDK_512))
 
 define Profile/QSDK_Default
 	NAME:=Qualcomm Technologies, Inc SDK Default Profile
-	PACKAGES:=
+	PACKAGES:=$(OPTEE_CLIENT)
 endef
 
 define Profile/QSDK_Default/Description
@@ -412,7 +419,9 @@ define Profile/QSDK_16M
 		-kmod-bt_tty -kmod-clk-test -sysupgrade-helper -fwupgrade-tools \
 		-urandom-seed -urngd -kmod-usb-core -kmod-usb-dwc3-internal \
 		-kmod-usb-dwc3-qcom-internal -kmod-usb-gadget -kmod-usb-phy-ipq807x -kmod-usb-phy-ipq5018 \
-		$(NSS_16M)
+		$(NSS_16M) \
+		$(OPTEE_CLIENT)
+
 endef
 
 define Profile/QSDK_16M/Description
