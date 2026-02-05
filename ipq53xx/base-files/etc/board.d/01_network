@@ -82,7 +82,8 @@ ipq53xx_setup_interfaces()
 	qcom,ipq5332-tb-mi03.1 |\
 	qcom,ipq5332-tb-mi05.1 |\
 	qcom,ipq5332-ap-mi04.3 |\
-	qcom,ipq5332-ap-mi04.5)
+	qcom,ipq5332-ap-mi04.5 |\
+        qcom,ipq5332-ap-mi01.2-qce2204)
 		if [ "$has_qce2204" = "1" ]; then
 			ucidef_set_interfaces_lan_wan "$lan_ifaces" "eth0"
 		else
