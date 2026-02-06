@@ -28,11 +28,11 @@ endef
 define Build/ExportKernelArtifacts
 	mkdir -p $(BIN_DIR)/debug/modules
 	mkdir -p $(BIN_DIR)/dtbs
-	$(CP) $(STAGING_DIR_ROOT)/lib/modules/$(LINUX_VERSION)*/* $(BIN_DIR)/debug/modules/
-	$(CP) $(KDIR)/vmlinux.debug $(BIN_DIR)/$(IMG_PREFIX)-vmlinux.elf
-	$(CP) $(KDIR)/vmlinux-initramfs.debug $(BIN_DIR)/$(IMG_PREFIX)-vmlinux-initramfs.elf
-	$(CP) $(KDIR)/Image* $(BIN_DIR)/dtbs/
-	$(CP) $(DTS_DIR)/ipq5210-*.dtb $(BIN_DIR)/dtbs/
+	-$(CP) $(STAGING_DIR_ROOT)/lib/modules/$(LINUX_VERSION)*/* $(BIN_DIR)/debug/modules/
+	-$(CP) $(KDIR)/vmlinux.debug $(BIN_DIR)/$(IMG_PREFIX)-vmlinux.elf
+	-$(CP) $(KDIR)/vmlinux-initramfs.debug $(BIN_DIR)/$(IMG_PREFIX)-vmlinux-initramfs.elf
+	-$(CP) $(KDIR)/Image* $(BIN_DIR)/dtbs/
+	-$(CP) $(DTS_DIR)/ipq5210-*.dtb $(BIN_DIR)/dtbs/
 endef
 
 define Device/MultiDTBFitImage
@@ -54,10 +54,10 @@ endef
 define Build/CopyDebugInformation
 	mkdir -p $(BIN_DIR)/debug/modules
 	mkdir -p $(BIN_DIR)/dtbs
-	$(CP) $(STAGING_DIR_ROOT)/lib/modules/$(LINUX_VERSION)/* $(BIN_DIR)/debug/modules/
-	$(CP) $(KDIR)/vmlinux.debug $(BIN_DIR)/$(IMG_PREFIX)-vmlinux.elf
-	$(CP) $(KDIR)/Image* $(BIN_DIR)/dtbs/
-	$(CP) $(DTS_DIR)/devsoc-emulation.dtb $(BIN_DIR)/dtbs/
+	-$(CP) $(STAGING_DIR_ROOT)/lib/modules/$(LINUX_VERSION)/* $(BIN_DIR)/debug/modules/
+	-$(CP) $(KDIR)/vmlinux.debug $(BIN_DIR)/$(IMG_PREFIX)-vmlinux.elf
+	-$(CP) $(KDIR)/Image* $(BIN_DIR)/dtbs/
+	-$(CP) $(DTS_DIR)/devsoc-emulation.dtb $(BIN_DIR)/dtbs/
 endef
 
 define Build/MkFITMulti
