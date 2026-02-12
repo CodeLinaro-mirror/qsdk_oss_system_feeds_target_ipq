@@ -1,0 +1,8 @@
+# Copyright (c) 2013, 2020, The Linux Foundation. All rights reserved.
+# Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+# SPDX-License-Identifier: ISC
+#
+
+::sysinit:/etc/init.d/rcS S boot
+::shutdown:/etc/init.d/rcS K shutdown
+ttyMSM0::askfirst:/usr/libexec/login.sh
