@@ -100,7 +100,7 @@ OPENSYNC:=kmod-gre6 strace libzmq-curve mosquitto-ssl libwolfssl protobuf pping 
 
 PRPLMESH_DEP_PKGS:=kmod-sched-flower kmod-sched-act-vlan
 
-OPTEE_CLIENT:=optee-client
+OPTEE_CLIENT:=optee-client fuseipq-ca
 
 define Profile/QSDK_Premium
 	NAME:=Qualcomm Technologies, Inc SDK Premium Profile
