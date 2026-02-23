@@ -18,9 +18,9 @@ ipq96xx_setup_interfaces()
 	local board="$1"
 
 	case "$board" in
-	 qcom,ipq9650-ap-ju01-c1 |\
-	 qcom,ipq9650-ap-ju01-c2 |\
-	 qcom,ipq9650-ap-ju02-c1)
+	 qcom,ipq9650-rdp488 |\
+	 qcom,ipq9650-rdp489 |\
+	 qcom,ipq9650-rdp506)
 		ucidef_set_interfaces_lan_wan "eth1 eth2 eth3 eth4 eth5" "eth0"
 	 	;;
 	 qcom,ipq9650-db-ju01)
