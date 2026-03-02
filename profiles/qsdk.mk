@@ -8,6 +8,8 @@ ERP:=kmod-rsrcmgr-netstandby-drv
 
 HW_CRYPTO:= kmod-crypto-qcrypto
 
+PON_PKGS:=omci-pon nss-pon-drv
+
 WIFI_OPEN_PKGS:= kmod-ath12k kmod-ath11k wpad-mesh-openssl hostapd-utils \
 	control-app-open sigma-dut-open wpa-cli qca-wifi-scripts cnssdiag myftm kmod-telemetry-agent \
 	athtestcmd-lith-nl udtool qca-cfg80211tool wifitelemetry qca-acfg \
@@ -213,7 +215,7 @@ define Profile/QSDK_Open
 		-qapp-store libtirpc cfr_tools \
 		iperf3 libunwind perf qsig kmod-noc-dp-drv kmod-llcc_perfmon llcc-perfmon-scripts \
 		$(PRPLMESH_DEP_PKGS) \
-		$(NSS_OPEN)
+		$(NSS_OPEN) $(PON_PKGS)
 endef
 
 #	$(HW_CRYPTO) $(QMI_SAMPLE_APP)
