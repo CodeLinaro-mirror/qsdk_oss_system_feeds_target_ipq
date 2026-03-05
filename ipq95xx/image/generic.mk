@@ -86,4 +86,19 @@ define Device/qcom_rdp433
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
-TARGET_DEVICES += $(if $(CONFIG_LINUX_6_1)$(CONFIG_LINUX_6_6), qcom_rdp433)
+TARGET_DEVICES += qcom_rdp433
+
+define Device/prpl_freedom
+	$(call Device/FitImageLzma)
+	DEVICE_VENDOR := Prpl
+	DEVICE_MODEL := Freedom
+	DEVICE_VARIANT :=
+	BOARD_NAME := prpl-freedom
+	BUILD_DTS_ipq9574-freedom := 1
+	SOC := ipq9574
+	KERNEL_INSTALL := 1
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,7000k)
+	IMAGE_SIZE := 25344k
+	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
+endef
+TARGET_DEVICES += prpl_freedom
