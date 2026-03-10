@@ -109,11 +109,11 @@ define Device/emulation
 	BUILD_DTS_ipq5210-emulation := 1
 endef
 
-define Device/emulation_fbc
+define Device/qcom_emulation-fbc
 	$(call Device/ipq5210-fitimage-base)
 	DEVICE_MODEL :=
 	DEVICE_VARIANT :=
 	DEVICE_DTS := ipq5210-emulation-fbc
 	BUILD_DTS_ipq5210-emulation-fbc := 1
 endef
-TARGET_DEVICES += emulation_fbc
+TARGET_DEVICES += qcom_emulation-fbc

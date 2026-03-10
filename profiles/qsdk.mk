@@ -8,13 +8,16 @@ ERP:=kmod-rsrcmgr-netstandby-drv
 
 HW_CRYPTO:= kmod-crypto-qcrypto
 
-WIFI_OPEN_PKGS:= kmod-ath12k kmod-ath11k wpad-mesh hostapd-utils \
+PON_PKGS:=omci-pon nss-pon-drv
+
+WIFI_OPEN_PKGS:= kmod-ath12k kmod-ath11k wpad-mesh-openssl hostapd-utils \
 	control-app-open sigma-dut-open wpa-cli qca-wifi-scripts cnssdiag myftm kmod-telemetry-agent \
-	athtestcmd-lith-nl udtool qca-cfg80211tool wifitelemetry qca-acfg
+	athtestcmd-lith-nl udtool qca-cfg80211tool wifitelemetry qca-acfg \
+	qca-rptr-mgr
 #	sigma-dut-open wpa-cli qcmbr-netlink iwinfo \
 #	athtestcmd athtestcmd-lith-nl -libhyficommon qca-wifi-scripts -kmod-telemetry-agent
 
-WIFI_OPEN_PKGS_8M:= kmod-ath11k wpad-mesh hostapd-utils \
+WIFI_OPEN_PKGS_8M:= kmod-ath11k wpad-mesh-openssl hostapd-utils \
 	wpa-cli libhyficommon \
 	wififw_mount_script
 
@@ -61,7 +64,8 @@ TEST_TOOLS:=ethtool i2c-tools tcpdump
 UTILS:=file luci-app-samba4 rng-tools profilerd
 
 COREBSP_UTILS:=pm-utils wififw_mount_script qca-thermald qca-qmi-framework \
-	qca-wlanfw-upgrade qti-license-pfm dashboard qti-softsku-license-loader-libs llcc-perfmon-scripts
+	qca-wlanfw-upgrade qti-license-pfm dashboard qti-softsku-license-loader-libs llcc-perfmon-scripts \
+	qca-rfs-tftp
 
 FAILSAFE:= kmod-bootconfig
 
@@ -99,6 +103,8 @@ OPENSYNC:=kmod-gre6 strace libzmq-curve mosquitto-ssl libwolfssl protobuf pping 
 
 PRPLMESH_DEP_PKGS:=kmod-sched-flower kmod-sched-act-vlan
 
+OPTEE_CLIENT:=optee-client fuseipq-ca
+
 define Profile/QSDK_Premium
 	NAME:=Qualcomm Technologies, Inc SDK Premium Profile
 	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(KPI) $(TEST_TOOLS) $(UTILS) $(COREBSP_UTILS) $(MINIDUMP) \
@@ -108,7 +114,8 @@ define Profile/QSDK_Premium
 		$(HW_CRYPTO) \
 		$(WIFI_PKGS) $(WIFI_FW_PKGS) \
 		qsig kmod-noc-dp-drv kmod-llcc_perfmon libunwind iperf3 \
-		$(NSS_PREMIUM) $(ERP) kmod-qca-hyfi-bridge
+		$(NSS_PREMIUM) $(ERP) kmod-qca-hyfi-bridge \
+		$(OPTEE_CLIENT)
 endef
 #		$(QMSCT_CLIENT)
 
@@ -206,10 +213,9 @@ define Profile/QSDK_Open
 		$(MINIDUMP) $(MACSEC_OPEN_PKGS) \
 		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
 		-qapp-store libtirpc cfr_tools \
-		wpad-mesh-openssl \
 		iperf3 libunwind perf qsig kmod-noc-dp-drv kmod-llcc_perfmon llcc-perfmon-scripts \
 		$(PRPLMESH_DEP_PKGS) \
-		$(NSS_OPEN)
+		$(NSS_OPEN) $(PON_PKGS)
 endef
 
 #	$(HW_CRYPTO) $(QMI_SAMPLE_APP)
@@ -231,10 +237,10 @@ define Profile/QSDK_256Open
 		-kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget \
 		$(FTM) $(DIAG) -qca-thermald \
 		-kmod-usb-phy-ipq807x kmod-qca-hyfi-bridge \
-		$(NSS_256) kmod-bonding
+		$(NSS_256) kmod-bonding \
+		$(WIFI_OPEN_PKGS) $(WIFI_FW_PKGS) $(MACSEC_OPEN_PKGS) \
+		$(OPTEE_CLIENT)
 endef
-		#$(WIFI_OPEN_PKGS) $(WIFI_FW_PKGS) $(MACSEC_OPEN_PKGS) wpad-mesh-openssl
-
 
 define Profile/QSDK_256Open/Description
         QSDK Premium package set configuration.
@@ -254,7 +260,8 @@ define Profile/QSDK_Sfu
 		-kmod-usb-dwc3-qcom-internal -kmod-ata-ahci -kmod-ata-core -kmod-scsi-core \
                 -kmod-usb-phy-ipq5018 \
                 -kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget -kmod-usb-phy-ipq807x \
-		$(NSS_SFU)
+		$(NSS_SFU) \
+		$(OPTEE_CLIENT)
 endef
 
 define Profile/QSDK_Sfu/Description
@@ -318,7 +325,8 @@ define Profile/QSDK_MinEnt
 		$(CNSS_DIAG) \
 		$(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) \
 		$(DIAG) $(KPI) $(FAILSAFE) \
-		$(NSS_MINENT)
+		$(NSS_MINENT) \
+		$(OPTEE_CLIENT)
 endef
 
 define Profile/QSDK_MinEnt/Description
@@ -334,7 +342,7 @@ define Profile/QSDK_MinEntOpen
 		$(WIFI_OPEN_PKGS) $(WIFI_FW_PKGS) $(STORAGE) $(HW_CRYPTO) \
 		$(UTILS) $(TEST_TOOLS) $(COREBSP_UTILS) \
 		$(CNSS_DIAG) $(FTM) -qca-cnss-daemon \
-		$(DIAG) $(KPI) $(FAILSAFE)  wpad-mesh-openssl \
+		$(DIAG) $(KPI) $(FAILSAFE)  \
 		$(NSS_MINENT_OPEN)
 endef
 
@@ -381,7 +389,8 @@ define Profile/QSDK_512
 		$(COREBSP_UTILS) $(FAILSAFE) $(DIAG) $(ERP)\
 		$(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(KPI) \
 		$(MINIDUMP) iperf3 kmod-qca-hyfi-bridge \
-		$(NSS_512)
+		$(NSS_512) \
+		$(OPTEE_CLIENT)
 endef
 
 define Profile/QSDK_512/Description
@@ -393,7 +402,7 @@ $(eval $(call Profile,QSDK_512))
 
 define Profile/QSDK_Default
 	NAME:=Qualcomm Technologies, Inc SDK Default Profile
-	PACKAGES:=
+	PACKAGES:=$(OPTEE_CLIENT)
 endef
 
 define Profile/QSDK_Default/Description
@@ -413,7 +422,9 @@ define Profile/QSDK_16M
 		-kmod-bt_tty -kmod-clk-test -sysupgrade-helper -fwupgrade-tools \
 		-urandom-seed -urngd -kmod-usb-core -kmod-usb-dwc3-internal \
 		-kmod-usb-dwc3-qcom-internal -kmod-usb-gadget -kmod-usb-phy-ipq807x -kmod-usb-phy-ipq5018 \
-		$(NSS_16M)
+		$(NSS_16M) \
+		$(OPTEE_CLIENT)
+
 endef
 
 define Profile/QSDK_16M/Description

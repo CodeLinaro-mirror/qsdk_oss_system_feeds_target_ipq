@@ -38,8 +38,8 @@ ipq53xx_setup_interfaces()
 		# Count the number of ports
 		port_count=$(ls /proc/device-tree/soc@0/*/switch0@*/ports/port@*/name 2>/dev/null | wc -l)
 
-		# Build lan interface list based on port count
-		local i=0
+		# Build lan interface list based on port count without port@0
+		local i=1
 		while [ $i -lt $port_count ]; do
 			if [ -n "$lan_ifaces" ]; then
 				lan_ifaces="$lan_ifaces lan$i"
@@ -62,6 +62,7 @@ ipq53xx_setup_interfaces()
 	qcom,ipq5332-ap-mi01.2-qca81xx-i2c |\
 	qcom,ipq5332-ap-mi01.2-c2 |\
 	qcom,ipq5332-ap-mi01.2-qcn9160-c1 |\
+	qcom,ipq5332-rdp441-qce2204 |\
 	qcom,ipq5332-ap-mi01.3 |\
 	qcom,ipq5332-ap-mi01.3-c2 |\
 	qcom,ipq5332-ap-mi01.3-c3 |\
@@ -81,7 +82,8 @@ ipq53xx_setup_interfaces()
 	qcom,ipq5332-tb-mi03.1 |\
 	qcom,ipq5332-tb-mi05.1 |\
 	qcom,ipq5332-ap-mi04.3 |\
-	qcom,ipq5332-ap-mi04.5)
+	qcom,ipq5332-ap-mi04.5 |\
+        qcom,ipq5332-ap-mi01.2-qce2204)
 		if [ "$has_qce2204" = "1" ]; then
 			ucidef_set_interfaces_lan_wan "$lan_ifaces" "eth0"
 		else
