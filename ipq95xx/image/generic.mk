@@ -102,3 +102,19 @@ define Device/prpl_freedom
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
 TARGET_DEVICES += prpl_freedom
+
+define Device/qcom_db-al01-c2
+	$(call Device/FitImageLzma)
+	DEVICE_VENDOR := Qualcomm Technologies, Inc.
+	DEVICE_MODEL := DB-AL01-C2
+	DEVICE_VARIANT := DB-AL01-C2
+	BOARD_NAME := db-al01-c2
+	BUILD_DTS_ipq9574-db-al01-c2 := 1
+	SOC := ipq9574
+	KERNEL_INSTALL := 1
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,7000k)
+	IMAGE_SIZE := 25344k
+	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
+endef
+TARGET_DEVICES += qcom_db-al01-c2
+
