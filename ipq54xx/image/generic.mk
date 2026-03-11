@@ -43,16 +43,17 @@ define Device/qcom_rdp485-c4
 endef
 TARGET_DEVICES += qcom_rdp485-c4
 
-define Device/emulation
+define Device/qcom_db-mr01.1
 	$(call Device/FitImageLzma)
 	DEVICE_VENDOR := Qualcomm Technologies, Inc.
-	DEVICE_MODEL :=
-	DEVICE_VARIANT :=
-	BOARD_NAME :=
-	BUILD_DTS_ipq5424-emulation := 1
+	DEVICE_MODEL := DB-MR01.1
+	DEVICE_VARIANT := DB-MR01.1
+	BOARD_NAME := db-mr01.1
+	BUILD_DTS_ipq5424-db-mr01.1 := 1
 	SOC := ipq5424
 	KERNEL_INSTALL := 1
-	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,7000k)
 	IMAGE_SIZE := 25344k
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
+TARGET_DEVICES += qcom_db-mr01.1

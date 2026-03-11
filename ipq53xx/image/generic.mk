@@ -102,3 +102,18 @@ define Device/qcom_rdp442
 	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
 endef
 TARGET_DEVICES += $(if $(CONFIG_LINUX_6_1)$(CONFIG_LINUX_6_6), qcom_rdp442)
+
+define Device/qcom_db-mi01.1
+	$(call Device/FitImageLzma)
+	DEVICE_VENDOR := Qualcomm Technologies, Inc.
+	DEVICE_MODEL := DB-MI01.1
+	DEVICE_VARIANT := DB-MI01.1
+	BOARD_NAME := db-mi01.1
+	BUILD_DTS_ipq5332-db-mi01.1 := 1
+	SOC := ipq5332
+	KERNEL_INSTALL := 1
+	KERNEL_SIZE := $(if $(CONFIG_DEBUG),8680k,6500k)
+	IMAGE_SIZE := 25344k
+	IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-rootfs | pad-rootfs | append-metadata
+endef
+TARGET_DEVICES += qcom_db-mi01.1

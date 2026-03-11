@@ -34,7 +34,7 @@ endef
 
 include generic.mk
 
-FindDeviceTrees ?= $(notdir $(basename $(shell find $(DTS_DIR)/ -name $(1)*.dtb $(2) 2>/dev/null)))
+FindDeviceTrees ?= $(notdir $(basename $(shell find $(DTS_DIR)/ -name $(1)*.dtb ! -name *db-* $(2) 2>/dev/null)))
 
 define Image/Build/squashfs
         $(call prepare_generic_squashfs,$(KDIR)/root.squashfs)
