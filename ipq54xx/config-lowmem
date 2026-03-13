@@ -529,6 +529,7 @@ CONFIG_I2C_QUP=y
 # CONFIG_IIO_TRIGGER is not set
 # CONFIG_ADMV8818 is not set
 # CONFIG_ADMV1014 is not set
+# CONFIG_IPQ_PON is not set
 # CONFIG_IKCONFIG is not set
 # CONFIG_IKCONFIG_PROC is not set
 # CONFIG_IKHEADERS is not set
