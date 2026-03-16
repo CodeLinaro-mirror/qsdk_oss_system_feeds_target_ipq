@@ -21,6 +21,8 @@ WIFI_OPEN_PKGS_8M:= kmod-ath11k wpad-mesh-openssl hostapd-utils \
 	wpa-cli libhyficommon \
 	wififw_mount_script
 
+WIFI_OPEN_NSS_PLGN_PKGS:= kmod-qca-wifi-nss-plugins
+
 WIFI_PKGS:=kmod-qca-wifi-unified-profile \
 	qca-hostap qca-hostapd-cli qca-hapd-supp qca-wpa-supplicant \
 	qca-wpa-cli qca-cfg80211tool qca-wifi-scripts \
@@ -208,7 +210,7 @@ define Profile/QSDK_Open
 	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(STORAGE) $(TEST_TOOLS) $(AUDIO) $(CNSS_DIAG) \
 		$(FAILSAFE) $(DIAG) $(FTM) $(COREBSP_UTILS) \
 		$(KPI) \
-		$(WIFI_OPEN_PKGS) -qca-thermald $(UTILS) \
+		$(WIFI_OPEN_PKGS) $(WIFI_OPEN_NSS_PLGN_PKGS) -qca-thermald $(UTILS) \
 		$(USB_ETHERNET) \
 		$(MINIDUMP) $(MACSEC_OPEN_PKGS) \
 		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
@@ -389,7 +391,7 @@ define Profile/QSDK_512
 		$(COREBSP_UTILS) $(FAILSAFE) $(DIAG) $(ERP)\
 		$(CNSS_DIAG) $(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) $(KPI) \
 		$(MINIDUMP) iperf3 kmod-qca-hyfi-bridge \
-		$(NSS_512) \
+		$(NSS_512) $(WIFI_OPEN_NSS_PLGN_PKGS) \
 		$(OPTEE_CLIENT)
 endef
 
