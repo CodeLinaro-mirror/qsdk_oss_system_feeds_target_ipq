@@ -260,7 +260,7 @@ define Profile/QSDK_Sfu
                 -kmod-usb-phy-ipq5018 \
                 -kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget -kmod-usb-phy-ipq807x \
 		$(NSS_SFU) \
-		$(OPTEE_CLIENT) $(PON_PKGS)
+		$(OPTEE_CLIENT) $(PON_PKGS) $(TEST_TOOLS)
 endef
 
 define Profile/QSDK_Sfu/Description
