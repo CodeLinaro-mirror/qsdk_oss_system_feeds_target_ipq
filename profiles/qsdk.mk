@@ -239,7 +239,7 @@ define Profile/QSDK_256Open
 		-kmod-usb-phy-ipq807x kmod-qca-hyfi-bridge \
 		$(NSS_256) kmod-bonding \
 		$(WIFI_OPEN_PKGS) $(WIFI_FW_PKGS) $(MACSEC_OPEN_PKGS) \
-		$(OPTEE_CLIENT)
+		$(OPTEE_CLIENT) $(PON_PKGS)
 endef
 
 define Profile/QSDK_256Open/Description
@@ -261,7 +261,7 @@ define Profile/QSDK_Sfu
                 -kmod-usb-phy-ipq5018 \
                 -kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget -kmod-usb-phy-ipq807x \
 		$(NSS_SFU) \
-		$(OPTEE_CLIENT)
+		$(OPTEE_CLIENT) $(PON_PKGS)
 endef
 
 define Profile/QSDK_Sfu/Description
