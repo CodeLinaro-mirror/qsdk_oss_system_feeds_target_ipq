@@ -11,4 +11,6 @@ DEFAULT_PACKAGES += \
 	uboot-2025-ipq5210-mmc32 \
 	uboot-2025-ipq5210-norplusmmc32 \
 	uboot-2025-ipq5210-nand32 \
-	uboot-2025-ipq5210-norplusnand32
+	uboot-2025-ipq5210-norplusnand32 \
+	uboot-2025-ipq5210-tiny_nand32 \
+	uboot-2025-ipq5210-tiny_norplusnand32
