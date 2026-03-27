@@ -216,7 +216,7 @@ define Profile/QSDK_Open
 		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
 		-qapp-store libtirpc cfr_tools \
 		iperf3 libunwind perf qsig kmod-noc-dp-drv kmod-llcc_perfmon llcc-perfmon-scripts \
-		$(PRPLMESH_DEP_PKGS) syslog-ng curl \
+		$(PRPLMESH_DEP_PKGS) \
 		$(NSS_OPEN) $(PON_PKGS)
 endef
 
