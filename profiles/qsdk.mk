@@ -65,7 +65,7 @@ UTILS:=file luci-app-samba4 rng-tools profilerd
 
 COREBSP_UTILS:=pm-utils wififw_mount_script qca-thermald qca-qmi-framework \
 	qca-wlanfw-upgrade qti-license-pfm dashboard qti-softsku-license-loader-libs llcc-perfmon-scripts \
-	qca-rfs-tftp
+	qca-rfs-tftp rproc-fw-mount
 
 FAILSAFE:= kmod-bootconfig
 
