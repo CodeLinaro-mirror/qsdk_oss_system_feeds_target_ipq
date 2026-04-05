@@ -20,16 +20,10 @@ ipq96xx_setup_interfaces()
 	case "$board" in
 	 qcom,ipq9650-rdp488 |\
 	 qcom,ipq9650-rdp489 |\
-	 qcom,ipq9650-rdp506)
-		ucidef_set_interfaces_lan_wan "eth1 eth2 eth3 eth4 eth5" "eth0"
-	 	;;
-	 qcom,ipq9650-db-ju01)
-	 	ucidef_set_interfaces_lan_wan "eth1 eth2 eth3 eth4" "eth0"
-	 	;;
+	 qcom,ipq9650-rdp506 |\
+	 qcom,ipq9650-db-ju01|\
 	 qcom,ipq9650-db-ju02)
-	 	ucidef_set_interfaces_lan_wan "eth1 eth2" "eth0"
-	 	ucidef_add_switch "switch1"
-	 	ucidef_add_switch_attr "switch1" "enable" false
+		ucidef_set_interfaces_lan_wan "eth1 eth2 eth3 eth4 eth5" "eth0"
 	 	;;
 	 *)
 	 	echo "Unsupported hardware. Network interfaces not intialized"
