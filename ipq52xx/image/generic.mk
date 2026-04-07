@@ -109,6 +109,22 @@ define Device/qcom_rdp505
 endef
 TARGET_DEVICES += qcom_rdp505
 
+define Device/qcom_rdp511
+	$(call Device/ipq5210-fitimage-base)
+	DEVICE_MODEL := RDP511
+	BOARD_NAME := ap-rdp511
+	BUILD_DTS_ipq5210-rdp511 := 1
+endef
+TARGET_DEVICES += qcom_rdp511
+
+define Device/qcom_rdp512
+	$(call Device/ipq5210-fitimage-base)
+	DEVICE_MODEL := RDP512
+	BOARD_NAME := ap-rdp512
+	BUILD_DTS_ipq5210-rdp512 := 1
+endef
+TARGET_DEVICES += qcom_rdp512
+
 define Device/emulation
 	$(call Device/ipq5210-fitimage-base)
 	DEVICE_MODEL :=
