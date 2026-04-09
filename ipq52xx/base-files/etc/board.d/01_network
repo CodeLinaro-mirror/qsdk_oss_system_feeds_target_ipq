@@ -16,38 +16,42 @@ CFG=/etc/board.json
 ipq52xx_setup_interfaces()
 {
 	local board="$1"
- 
+
 	case "$board" in
-	qcom,ipq5210-db-hm01.1 |\
-	qcom,ipq5210-db-hm02.1 |\
+	qcom,ipq5210-rdp512) |\
 	qcom,ipq5210-rdp497)
-	 	ucidef_set_interfaces_lan_wan "eth1 eth2 eth3 eth4 eth5" "eth0"
+		ucidef_set_interfaces_lan_wan "eth1 eth2" "eth0"
+	 	;;
+	qcom,ipq5210-rdp501)
+		ucidef_set_interfaces_lan_wan "eth1 eth2 eth3" "eth0"
 	 	;;
 	qcom,ipq5210-rdp498 |\
-	qcom,ipq5210-rdp499 |\
 	qcom,ipq5210-rdp500 |\
-	qcom,ipq5210-rdp501 |\
 	qcom,ipq5210-rdp502 |\
-	qcom,ipq5210-rdp503 |\
 	qcom,ipq5210-rdp504 |\
-	qcom,ipq5210-rdp511 |\
-	qcom,ipq5210-rdp512)
+	qcom,ipq5210-rdp511)
 	 	ucidef_set_interfaces_lan_wan "eth1 eth2 eth3 eth4" "eth0"
-	 	;;
+		;;
+	qcom,ipq5210-db-hm01.1 |\
+	qcom,ipq5210-db-hm02.1 |\
+	qcom,ipq5210-rdp499 |\
+	qcom,ipq5210-rdp503)
+		ucidef_set_interfaces_lan_wan "eth1 eth2 eth3 eth4 eth5" "eth0"
+                ;;
 	qcom,ipq5210-rdp505)
-	 	ucidef_set_interfaces_lan_wan "eth1 eth2" "eth0"
-	 	ucidef_add_switch "switch1"
-	 	ucidef_add_switch_attr "switch1" "enable" false
+		ucidef_set_interfaces_lan_wan "eth1" "eth0"
+		ucidef_add_switch "switch1"
+		ucidef_add_switch_attr "switch1" "enable" false
 	 	;;
 	 *)
 	 	echo "Unsupported hardware. Network interfaces not intialized"
 	 	;;
 	 esac
 }
- 
+
 board_config_update
 board=$(board_name)
 ipq52xx_setup_interfaces $board
 board_config_flush
- 
+
 exit 0
