@@ -18,7 +18,7 @@ ipq52xx_setup_interfaces()
 	local board="$1"
 
 	case "$board" in
-	qcom,ipq5210-rdp512) |\
+	qcom,ipq5210-rdp512 |\
 	qcom,ipq5210-rdp497)
 		ucidef_set_interfaces_lan_wan "eth1 eth2" "eth0"
 	 	;;
