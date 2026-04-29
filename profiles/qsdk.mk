@@ -107,6 +107,8 @@ PRPLMESH_DEP_PKGS:=kmod-sched-flower kmod-sched-act-vlan
 
 OPTEE_CLIENT:=optee-client fuseipq-ca
 
+FASTRPC:=fastrpc
+
 define Profile/QSDK_Premium
 	NAME:=Qualcomm Technologies, Inc SDK Premium Profile
 	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(KPI) $(TEST_TOOLS) $(UTILS) $(COREBSP_UTILS) $(MINIDUMP) \
@@ -217,7 +219,7 @@ define Profile/QSDK_Open
 		-qapp-store libtirpc cfr_tools \
 		iperf3 libunwind perf qsig kmod-noc-dp-drv kmod-llcc_perfmon llcc-perfmon-scripts \
 		$(PRPLMESH_DEP_PKGS) \
-		$(NSS_OPEN) $(PON_PKGS)
+		$(NSS_OPEN) $(PON_PKGS) $(FASTRPC)
 endef
 
 #	$(HW_CRYPTO) $(QMI_SAMPLE_APP)
