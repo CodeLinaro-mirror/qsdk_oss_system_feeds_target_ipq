@@ -12,7 +12,8 @@
 RAMFS_COPY_DATA="/etc/fw_env.config /var/lock/fw_printenv.lock /etc/board.json /usr/share/libubox/jshn.sh /tmp/firm_list.txt"
 RAMFS_COPY_BIN="/usr/bin/dumpimage /usr/sbin/ubiattach /usr/sbin/ubidetach
 	/usr/sbin/ubiformat /usr/sbin/ubiupdatevol /bin/rm /usr/bin/find
-	/usr/sbin/mkfs.ext4 /usr/sbin/fw_printenv /sbin/lsmod /usr/bin/jshn"
+	/usr/sbin/mkfs.ext4 /usr/sbin/fw_printenv /usr/sbin/fw_setenv
+	/sbin/lsmod /usr/bin/jshn"
 
 get_board_details() {
 	local JSON_FILE="/etc/board.json"
@@ -171,89 +172,78 @@ do_flash_partition() {
 	fi
 }
 
-do_flash_bootconfig() {
-	local mtdname=$1
-	local bin=bootconfig
-
-	#flash bootconfig with updated boot-info
-	if [ -f /tmp/bootconfig.bin ]; then
-		do_flash_partition $bin $mtdname
-	else
-		echo " Bootconfig binary is missing.... "
-		return 1
-	fi
-}
-
-get_upgrade_bank() {
-	local mtdname=$1
-	local boot_set=$(grep "Boot-set" /tmp/bootconfig_members.txt | awk -F: '{print $2}')
-	local image_status=$(grep "Image-set-status" /tmp/bootconfig_members.txt | awk -F: '{print $2}')
-	local current_bank=0
-
-	if [ "$boot_set" -eq 0 ] && [ "$image_status" -ne 1 ]; then
-		mtdname="${mtdname}_1"
-		current_bank=1
-	elif [ "$boot_set" -eq 1 ] && [ "$image_status" -eq 2 ]; then
-		mtdname="${mtdname}_1"
-		current_bank=1
-	fi
-
-	if [[ -z "$mtdname" || "$mtdname" == "_1" ]]; then
-		echo $current_bank
-	else
-		echo $mtdname
-	fi
-}
-
+# do_flash_failsafe_partition() - flashes the target partitions for upgrade.
 do_flash_failsafe_partition() {
 	local bin=$1
 	local mtdname=$2
-	local emmcblock
+	local booted_bank=$(get_booted_bank)
+	local target
 
-	#Failsafe upgrade
-	mtdname=$(get_upgrade_bank $mtdname)
-	emmcblock="$(find_mmc_part "$mtdname")"
+	case "$booted_bank" in
+		active)    target="${mtdname}_1" ;;
+		inactive*) target="${mtdname}" ;;
+	esac
+
+	local emmcblock="$(find_mmc_part "$target")"
 
 	if [ -e "$emmcblock" ]; then
 		do_flash_emmc $bin $emmcblock
 	else
-		do_flash_mtd $bin $mtdname
+		do_flash_mtd $bin $target
 	fi
 }
 
+# do_flash_ubi() - flashes UBI image to the target partitions.
 do_flash_ubi() {
 	local bin=$1
 	local mtdname=$2
 	local alive=$(cat /tmp/.alive_upgrade)
 	local mtdpart
+	local booted_bank=$(get_booted_bank)
+	local target
 
-	mtdpart=$(grep "\"${mtdname}\"" /proc/mtd | awk -F: '{print $1}')
+	case "$booted_bank" in
+		active)    target="${mtdname}_1" ;;
+		inactive*) target="${mtdname}" ;;
+	esac
 
 	if [ $alive -eq 0 ]; then
-		ubidetach -f -p /dev/${mtdpart}
+		# Detach the currently RUNNING rootfs UBI device.
+		local running_part
+		case "$booted_bank" in
+			active)    running_part="${mtdname}" ;;
+			inactive*) running_part="${mtdname}_1" ;;
+		esac
+		local running_mtdpart=$(grep "\"${running_part}\"" /proc/mtd | awk -F: '{print $1}')
+		ubidetach -f -p /dev/${running_mtdpart}
 	fi
 
-	# Fail safe upgrade
-	mtdname=$(get_upgrade_bank $mtdname)
-
-	mtdpart=$(grep "\"${mtdname}\"" /proc/mtd | awk -F: '{print $1}')
+	mtdpart=$(grep "\"${target}\"" /proc/mtd | awk -F: '{print $1}')
+	if [ ! -n "$mtdpart" ]; then
+		echo "$target is not available" && return 1
+	fi
 	ubiformat /dev/${mtdpart} -y -f /tmp/${bin}.bin
 }
 
+# do_flash_failsafe_ubi_volume() - flashes UBI volume to the target partitions.
 do_flash_failsafe_ubi_volume() {
 	local bin=$1
 	local mtdname=$2
 	local vol_name=$3
 	local tmpfile="${bin}.bin"
 	local mtdpart
+	local booted_bank=$(get_booted_bank)
+	local target
 
-	# Fail safe upgrade
-	mtdname=$(get_upgrade_bank $mtdname)
+	case "$booted_bank" in
+		active)    target="${mtdname}_1" ;;
+		inactive*) target="${mtdname}" ;;
+	esac
 
-	mtdpart=$(grep "\"${mtdname}\"" /proc/mtd | awk -F: '{print $1}')
+	mtdpart=$(grep "\"${target}\"" /proc/mtd | awk -F: '{print $1}')
 
 	if [ ! -n "$mtdpart" ]; then
-		echo "$mtdname is not available" && return
+		echo "$target is not available" && return
 	fi
 
 	ubiattach -p /dev/${mtdpart}
@@ -279,6 +269,29 @@ to_upper ()
 	echo $1 | awk '{print toupper($0)}'
 }
 
+# get_cmdline_partlabel() - returns current booted partition data.
+get_cmdline_partlabel() {
+	cat /proc/cmdline 2>/dev/null | grep -o 'PARTLABEL=[^ ]*' | cut -d= -f2
+}
+
+# get_booted_bank() - return the current booted bank information
+get_booted_bank() {
+	local partlabel=$(get_cmdline_partlabel)
+	case "$partlabel" in
+		rootfs-inactive) echo "inactive" ;;
+		*)               echo "active" ;;
+	esac
+}
+
+# do_post_upgrade() - negates bootfrom ENV based on current boot.
+do_post_upgrade() {
+	local partlabel=$(get_cmdline_partlabel)
+	case "$partlabel" in
+		rootfs-active)   fw_setenv bootfrom 1 2>/dev/null ;;
+		rootfs-inactive) fw_setenv bootfrom 0 2>/dev/null ;;
+	esac
+}
+
 flash_section() {
 	local img=$1
 	local output_list=/tmp/firm_list.txt
@@ -287,13 +300,14 @@ flash_section() {
 		image_name=$(echo $line | cut -d ' ' -f1)
 		partition=$(echo $line | cut -d ' ' -f2)
 		case "${image_name}" in
-			mibib*) echo " Section $image_name is ignored "; continue ;;
+			mibib*)      echo " Section $image_name is ignored "; continue ;;
 			bootconfig*) echo " Section $image_name is ignored "; continue ;;
-			gpt*) echo " Section $image_name is ignored "; continue ;;
-			gptbackup*) echo " Section $image_name is ignored "; continue ;;
-			wifi_fw*) do_flash_failsafe_partition ${image_name} "0:WIFIFW"; do_flash_failsafe_ubi_volume ${image_name} "rootfs" "wifi_fw" ;;
-			ubi*) do_flash_ubi ${image_name} $partition;;
-			*) do_flash_failsafe_partition ${image_name} $partition;;
+			gpt*)        echo " Section $image_name is ignored "; continue ;;
+			gptbackup*)  echo " Section $image_name is ignored "; continue ;;
+			script*)     echo " Section $image_name is ignored "; continue ;;
+			wifi_fw*|wififw*)     do_flash_failsafe_partition ${image_name} "0:WIFIFW"; do_flash_failsafe_ubi_volume ${image_name} "rootfs" "wifi_fw" ;;
+			ubi*)        do_flash_ubi ${image_name} $partition ;;
+			*)           do_flash_failsafe_partition ${image_name} $partition ;;
 		esac
 		echo "Flashed ${image_name}"
 	done < $output_list
@@ -316,7 +330,7 @@ platform_check_image() {
 	local mandatory_section_found=0
 	local ddr_section="ddr"
 	local optional="sb11 sbl2 u-boot lkboot ddr-${board_model} tz rpm"
-	local ignored="mibib bootconfig"
+	local ignored="mibib bootconfig script gpt gptbackup"
 
 	image_is_FIT $1 || return 1
 
@@ -390,23 +404,21 @@ do_upgrade() {
 	v "Upgrade completed"
 }
 
-extract_bootconfig() {
-	local mtdname=$1
-	local mtdpart=$(grep "\"${mtdname}\"" /proc/mtd | awk -F: '{print $1}')
-	local emmcblock="$(find_mmc_part "$mtdname")"
-
-	if [ -e "$emmcblock" ]; then
-		dd if=${emmcblock} of=/tmp/bootconfig.bin
-	else
-		dd if=/dev/${mtdpart} of=/tmp/bootconfig.bin
-	fi
-}
-
 platform_do_upgrade() {
 	local upgrade_set=$(get_board_details "sysupgrade")
 	local alive=$(cat /tmp/.alive_upgrade)
 	local output_list=/tmp/firm_list.txt
-	local image_set_default=5
+	local booted_bank=$(get_booted_bank)
+
+	# Block upgrade if force-inactive boot (detected from DT)
+	local dt_bank
+	if [ -f /proc/device-tree/chosen/u-boot,booted-bank ]; then
+		dt_bank=$(awk 'BEGIN{RS="\0"}{print; exit}' /proc/device-tree/chosen/u-boot,booted-bank)
+		if [ "$dt_bank" = "inactive,forced" ]; then
+			echo " Force booted in inactive bank, Upgrade not supported" > /dev/console
+			return 1
+		fi
+	fi
 
 	# verify some things exist before erasing
 	if [ ! -e $1 ]; then
@@ -417,34 +429,18 @@ platform_do_upgrade() {
 	while IFS= read -r line; do
 		image_name=$(echo $line | cut -d ' ' -f1)
 		if [ ! -e /tmp/${image_name}.bin ]; then
-			echo "Error: Cant' find ${image_name} after switching to ramfs, aborting upgrade!"
+			echo "Error: Can't find ${image_name} after switching to ramfs, aborting upgrade!"
 			if [ $alive -eq 0 ]; then
 				reboot
 			fi
 		fi
 	done < $output_list
 
-	# extract bootconfig binary from MTD
-	extract_bootconfig "0:BOOTCONFIG"
-
-	#passing default value to parse the bootconfig
-	# as setting the bank invalid is being handled in driver
-	dumpimage -b $image_set_default
-	if [[ "$?" == 1 ]];then
-		echo "bootconfig functionality failed, rebooting.."
-		if [ $alive -eq 0 ]; then
-			reboot
-		fi
-		return 1
-	fi
-
-	#flash the bootconfig once upgrade bank is set unusable
-	do_flash_bootconfig "0:BOOTCONFIG"
-
 	case "$upgrade_set" in
 	true)
 		#setting boot mmc device to write enabled
 		set_boot_part 0
+
 		if ! flash_section "$1"; then
 			echo " Failed to flash firmwares "
 			return 1
@@ -452,11 +448,11 @@ platform_do_upgrade() {
 
 		#setting back boot mmc devices to read only
 		set_boot_part 1
-		#setting Try bit for upgrade without config preserve
+
 		if [ $alive -eq 0 ]; then
-			if ! set_trybit; then
-				echo " Try-bit set failed "
-				return 1
+			do_post_upgrade
+			if [ -f /sys/class/registers/bootcount ]; then
+				echo 0 > /sys/class/registers/bootcount
 			fi
 		fi
 
@@ -469,62 +465,44 @@ platform_do_upgrade() {
 	return 1;
 }
 
-set_trybit() {
-	local pbl_bank=$(get_upgrade_bank)
-	echo 1 > /sys/devices/platform/firmware:scm/trybit
-	echo $pbl_bank > /sys/devices/platform/firmware:scm/tcsr_boot_info
+# set_force_inactive() - sets force_inactive to trigger a one-shot boot from the inactive bank.
+set_force_inactive() {
+	if [ -f /sys/class/registers/force_inactive ]; then
+		echo 1 > /sys/class/registers/force_inactive
+		echo " force_inactive triggered..."
+	else
+		echo " force_inactive sysfs not available"
+		return 1
+	fi
 	return 0
 }
 
-trymode_boot_update() {
-	#setting boot mmc device to write enabled
-	set_boot_part 0
-	#passing value '0' to parse the bootconfig and
-	# setting the bank back as valid is being handled in drive
-	extract_bootconfig "0:BOOTCONFIG"
-	dumpimage -b 0
-	if [[ "$?" == 1 ]];then
-		echo "bootconfig functionality failed, rebooting.."
-		return 1
+# activate_bank() - activates the upgraded bank for alive/OMCI upgrade.
+activate_bank() {
+	local partlabel=$(get_cmdline_partlabel)
+	case "$partlabel" in
+		rootfs-active)   fw_setenv bootfrom 1 2>/dev/null ;;
+		rootfs-inactive) fw_setenv bootfrom 0 2>/dev/null ;;
+	esac
+	if [ -f /sys/class/registers/bootcount ]; then
+		echo 0 > /sys/class/registers/bootcount
 	fi
-	do_flash_bootconfig "0:BOOTCONFIG"
-	#setting back boot mmc devices to read only
-	set_boot_part 1
+	return 0
 }
 
-# activate_bootconfig() - activates Bank-A or Bank-B for OMCI upgrade
-# If the current booted and activating bank matches, skip trybit
-# else set try-bit to boot from upgraded bank.
-activate_bootconfig() {
-	extract_bootconfig "0:BOOTCONFIG"
-	dumpimage -b 4 &> /dev/null
-	if [ ! -e /tmp/bootconfig_members.txt ]; then
-		echo " Boot info is not available "
-		return 1
-	fi
-
-	upgrade_bank=$(get_upgrade_bank)
-	if [ $upgrade_bank -eq $1 ]; then
-		set_trybit
-	else
-		echo " Activating current booted bank "
-	fi
-}
-
-# commit_bootconfig() - commits Bank A or Bank B for OMCI upgrade
-# Setting the bootset and it's health status as valid and updates into
-# flash after boot-info update.
-commit_bootconfig() {
-	extract_bootconfig "0:BOOTCONFIG"
-	dumpimage -b 4 &> /dev/null
-	if [ ! -e /tmp/bootconfig_members.txt ]; then
-		echo " Boot info is not available "
-		return 1
-	fi
-
-	dumpimage -b boot_set $1 &> /dev/null
-	dumpimage -b image_set_status 0 &> /dev/null
-	do_flash_bootconfig "0:BOOTCONFIG"
+# commit_bank() - commits the active bank after a successful upgrade.
+commit_bank() {
+	local partlabel=$(get_cmdline_partlabel)
+	case "$partlabel" in
+		rootfs-active)
+			fw_setenv bootfrom 0 2>/dev/null
+			echo "Active Bank is Committed"
+			;;
+		rootfs-inactive)
+			fw_setenv bootfrom 1 2>/dev/null
+			echo "Inactive Bank is Committed"
+			;;
+	esac
 }
 
 get_magic_long_at() {
@@ -548,15 +526,20 @@ platform_get_offset() {
 	echo $(( $offsetcount * 65536 ))
 }
 
-
 platform_copy_config() {
 	local nand_part="$(find_mtd_part "ubi_rootfs")"
 	local emmcblock="$(find_mmc_part "rootfs")"
 	local alive=$(cat /tmp/.alive_upgrade)
-	local upgradepart="rootfs"
+	local booted_bank=$(get_booted_bank)
+	local upgradepart
 	mkdir -p /tmp/overlay
 
-	upgradepart=$(get_upgrade_bank $upgradepart)
+	# Determine upgrade partition based on booted bank
+	case "$booted_bank" in
+		active)    upgradepart="rootfs_1" ;;
+		inactive*) upgradepart="rootfs" ;;
+	esac
+
 	if [ -e "${nand_part%% *}" ]; then
 		local mtdpart
 		mtdpart=$(grep "\"${upgradepart}\"" /proc/mtd | awk -F: '{print $1}')
@@ -589,4 +572,3 @@ platform_copy_config() {
 	sync
 	umount /tmp/overlay
 }
-
