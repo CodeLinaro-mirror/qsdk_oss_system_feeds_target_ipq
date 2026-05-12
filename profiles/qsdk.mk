@@ -52,7 +52,7 @@ WIFI_FW_PKGS:=qca-wifi-wkk-fw-hw1-asic
 
 OPENWRT_STANDARD:= luci lua openssl-util
 
-OPENWRT_BASIC:= wifi-scripts
+OPENWRT_BASIC:= wifi-scripts memory-dashboard
 
 OPENWRT_256MB:= pm-utils wififw_mount_script qca-thermald qti-license-pfm
 
