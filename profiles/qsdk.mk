@@ -219,7 +219,7 @@ define Profile/QSDK_Open
 		-qapp-store libtirpc cfr_tools syslog-ng \
 		iperf3 libunwind perf qsig kmod-noc-dp-drv kmod-llcc_perfmon llcc-perfmon-scripts \
 		$(PRPLMESH_DEP_PKGS) \
-		$(NSS_OPEN) $(PON_PKGS) $(FASTRPC)
+		$(NSS_OPEN) $(PON_PKGS) $(FASTRPC) $(ERP)
 endef
 
 #	$(HW_CRYPTO) $(QMI_SAMPLE_APP)
@@ -243,7 +243,7 @@ define Profile/QSDK_256Open
 		-kmod-usb-phy-ipq807x kmod-qca-hyfi-bridge \
 		$(NSS_256) kmod-bonding \
 		$(WIFI_OPEN_PKGS) $(WIFI_FW_PKGS) $(MACSEC_OPEN_PKGS) \
-		$(OPTEE_CLIENT) $(PON_PKGS)
+		$(OPTEE_CLIENT) $(PON_PKGS) $(ERP)
 endef
 
 define Profile/QSDK_256Open/Description
