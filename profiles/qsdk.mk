@@ -242,7 +242,8 @@ define Profile/QSDK_256Open
 		$(FTM) $(DIAG) -qca-thermald \
 		-kmod-usb-phy-ipq807x kmod-qca-hyfi-bridge \
 		$(NSS_256) kmod-bonding kmod-qca-debug-uio\
-		$(WIFI_OPEN_PKGS) $(WIFI_FW_PKGS) $(MACSEC_OPEN_PKGS) \
+		$(EMESH_SP) $(ATH_CLIENT) \
+		$(WIFI_OPEN_PKGS) $(WIFI_OPEN_NSS_PLGN_PKGS) $(WIFI_FW_PKGS) $(MACSEC_OPEN_PKGS) \
 		$(OPTEE_CLIENT) $(PON_PKGS) $(ERP)
 endef
 
