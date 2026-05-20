@@ -241,7 +241,7 @@ define Profile/QSDK_256Open
 		-kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget \
 		$(FTM) $(DIAG) -qca-thermald \
 		-kmod-usb-phy-ipq807x kmod-qca-hyfi-bridge \
-		$(NSS_256) kmod-bonding \
+		$(NSS_256) kmod-bonding kmod-qca-debug-uio\
 		$(WIFI_OPEN_PKGS) $(WIFI_FW_PKGS) $(MACSEC_OPEN_PKGS) \
 		$(OPTEE_CLIENT) $(PON_PKGS) $(ERP)
 endef
@@ -263,7 +263,7 @@ define Profile/QSDK_Sfu
 		$(UTILS) \
 		-kmod-usb-dwc3-qcom-internal -kmod-ata-ahci -kmod-ata-core -kmod-scsi-core \
                 -kmod-usb-phy-ipq5018 \
-                -kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget -kmod-usb-phy-ipq807x \
+                -kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget -kmod-usb-phy-ipq807x kmod-qca-debug-uio\
 		$(NSS_SFU) \
 		$(OPTEE_CLIENT) $(PON_PKGS) $(TEST_TOOLS)
 endef
@@ -293,7 +293,7 @@ define Profile/QSDK_QBuilder
 		iptables-mod-filter iptables-mod-ipopt iptables-mod-conntrack-extra \
 		file luci-app-samba rng-tools profilerd ethtool i2c-tools tcpdump \
 		pm-utils wififw_mount_script qca-thermald qca-qmi-framework qca-time-services \
-		qca-wlanfw-upgrade dashboard sysstat kmod-bootconfig qca-cfg80211tool \
+		qca-wlanfw-upgrade dashboard sysstat kmod-bootconfig qca-cfg80211tool kmod-qca-debug-uio\
 		$(NSS_QBUILDER)
 endef
 
@@ -369,7 +369,7 @@ define Profile/QSDK_256
 		-kmod-usb-dwc3-qcom-internal -kmod-ata-ahci -kmod-ata-core -kmod-scsi-core \
 		-kmod-usb-phy-ipq5018 \
 		-kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget \
-		-kmod-usb-phy-ipq807x kmod-vxlan kmod-qca-hyfi-bridge \
+		-kmod-usb-phy-ipq807x kmod-vxlan kmod-qca-hyfi-bridge kmod-qca-debug-uio\
 		$(NSS_256)
 endef
 
@@ -419,7 +419,7 @@ $(eval $(call Profile,QSDK_Default))
 define Profile/QSDK_16M
 	NAME:=Qualcomm Technologies, Inc SDK 16MB Flash Profile
 	PACKAGES:=$(OPENWRT_BASIC) wififw_mount_script \
-		$(WIFI_PKGS_16M) qca-wifi-hk-fw-hw1-10.4-asic \
+		$(WIFI_PKGS_16M) qca-wifi-hk-fw-hw1-10.4-asic kmod-qca-debug-uio\
 		xz xz-utils -kmod-usb-f-qdss \
 		-kmod-testssr -kmod-ata-core -kmod-ata-ahci -kmod-ata-ahci-platform \
 		-kmod-usb2 -kmod-usb3 -kmod-usb-phy-ipq5018 -kmod-usb-dwc3-qcom \
