@@ -15,6 +15,116 @@ RAMFS_COPY_BIN="/usr/bin/dumpimage /usr/sbin/ubiattach /usr/sbin/ubidetach
 	/usr/sbin/mkfs.ext4 /usr/sbin/fw_printenv /usr/sbin/fw_setenv
 	/sbin/lsmod /usr/bin/jshn"
 
+# ── Constants ─────────────────────────────────────────────────────────────────
+readonly FOOTER_SIZE=104
+readonly MAGIC_ASCII="FMBL"
+readonly MAGIC_HEX="464d424c"   # "FMBL" in lowercase hex
+die() {
+    echo "ERROR: $*" >&2
+    exit 1
+}
+
+info() {
+    echo "$*"
+}
+# File size in bytes
+file_size() {
+    wc -c < "$1"
+}
+
+# Read 4 bytes at byte-offset $2 in file $1, return as decimal uint32 LE.
+read_uint32_le() {
+    local file=$1 offset=$2
+    local hex
+    hex=$(dd if="$file" bs=1 skip="$offset" count=4 2>/dev/null \
+          | hexdump -v -e '1/1 "%02x"')
+    echo $(( (0x${hex:0:2})
+           + (0x${hex:2:2}) * 256
+           + (0x${hex:4:2}) * 65536
+           + (0x${hex:6:2}) * 16777216 ))
+}
+
+# SHA256 (hex) of an entire file.
+sha256_file() {
+    sha256sum "$1" | awk '{print $1}'
+}
+
+
+parse_footer() {
+    local file=$1
+    local fsize footer_offset
+    fsize=$(file_size "$file")
+
+    [[ $fsize -ge $FOOTER_SIZE ]] \
+        || die "File too small for footer: $fsize bytes"
+
+    footer_offset=$(( fsize - FOOTER_SIZE ))
+
+    # ── Magic ────────────────────────────────────────────────────────────────
+    local magic_hex
+    magic_hex=$(dd if="$file" bs=1 skip="$footer_offset" count=4 2>/dev/null \
+                | hexdump -v -e '1/1 "%02x"')
+    [[ "$magic_hex" == "$MAGIC_HEX" ]] \
+        || die "Bad magic: expected $MAGIC_HEX, got $magic_hex"
+
+    # ── Blob size ────────────────────────────────────────────────────────────
+    local blob_size
+    blob_size=$(read_uint32_le "$file" $(( footer_offset + 4 )))
+
+    local total_needed=$(( FOOTER_SIZE + blob_size ))
+    [[ $fsize -ge $total_needed ]] \
+        || die "File too small: need $total_needed bytes (blob=$blob_size + footer=$FOOTER_SIZE), have $fsize"
+
+    # ── Stored SHA256 values (hex) ───────────────────────────────────────────
+    local stored_img_sha256 stored_blob_sha256 stored_footer_sha256
+    stored_img_sha256=$(dd if="$file" bs=1 skip=$(( footer_offset + 8  )) count=32 2>/dev/null \
+                        | hexdump -v -e '1/1 "%02x"')
+    stored_blob_sha256=$(dd if="$file" bs=1 skip=$(( footer_offset + 40 )) count=32 2>/dev/null \
+                         | hexdump -v -e '1/1 "%02x"')
+    stored_footer_sha256=$(dd if="$file" bs=1 skip=$(( footer_offset + 72 )) count=32 2>/dev/null \
+                           | hexdump -v -e '1/1 "%02x"')
+
+    # ── Verify footer SHA256 (integrity of the footer itself) ────────────────
+    local computed_footer_sha256
+    computed_footer_sha256=$(dd if="$file" bs=1 skip="$footer_offset" count=72 2>/dev/null \
+                             | sha256sum | awk '{print $1}')
+    [[ "$stored_footer_sha256" == "$computed_footer_sha256" ]] \
+        || die "Footer SHA256 mismatch: stored=$stored_footer_sha256, computed=$computed_footer_sha256"
+
+    # Print parsed fields for callers
+    echo "blob_size=$blob_size"
+    echo "stored_img_sha256=$stored_img_sha256"
+    echo "stored_blob_sha256=$stored_blob_sha256"
+    echo "stored_footer_sha256=$stored_footer_sha256"
+    echo "footer_offset=$footer_offset"
+    echo "blob_offset=$(( footer_offset - blob_size ))"
+    echo "fit_size=$(( footer_offset - blob_size ))"
+}
+
+cmd_extract_blob() {
+    local fit_image=$1 output_bin=$2
+    [[ -f "$fit_image" ]] || { echo "ERROR: File not found: $fit_image" >&2; return 1; }
+
+    local fields
+    fields=$(parse_footer "$fit_image") || return 1
+
+    local blob_size stored_blob_sha256 blob_offset fit_size
+    eval "$fields"
+
+    # Extract blob bytes
+    dd if="$fit_image" bs=1 skip="$blob_offset" count="$blob_size" \
+       of="$output_bin" 2>/dev/null
+
+    # Verify extracted blob
+    local actual_sha256
+    actual_sha256=$(sha256_file "$output_bin")
+    [[ "$actual_sha256" == "$stored_blob_sha256" ]] \
+        || { echo "ERROR: Extracted blob SHA256 mismatch (stored=$stored_blob_sha256, computed=$actual_sha256)" >&2; return 1; }
+
+    info "[OK] Blob extracted → $output_bin  ($blob_size bytes)"
+    info "     Blob SHA256 : $actual_sha256  ✓"
+}
+
 get_board_details() {
 	local JSON_FILE="/etc/board.json"
 	local info_value
@@ -373,6 +483,10 @@ platform_check_image() {
 	echo 1711 > /proc/sys/vm/min_free_kbytes
 	echo 3 > /proc/sys/vm/drop_caches
 
+	if [ -e /sys/sec_upgrade/sec_auth ]; then
+		cmd_extract_blob $1 /tmp/metadata_output.bin || return 1
+		echo -n 0xCD /tmp/metadata_output.bin > /sys/sec_upgrade/sec_auth || return 1
+	fi
 	image_demux $1 || {\
 		echo "Error: \"$1\" couldn't be extracted. Abort..."
 		return 1
