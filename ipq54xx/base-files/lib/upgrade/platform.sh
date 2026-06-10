@@ -237,8 +237,17 @@ do_flash_ubi() {
 	local mtdname=$2
 	local alive=$(cat /tmp/.alive_upgrade)
 	local mtdpart
+	local curr_mtd
 
-	mtdpart=$(grep "\"${mtdname}\"" /proc/mtd | awk -F: '{print $1}')
+	# Fail safe upgrade
+	curr_mtd=$(get_upgrade_bank $mtdname)
+	if [ "$curr_mtd" = "${mtdname}_1" ]; then
+		curr_mtd="$mtdname"
+	else
+		curr_mtd="${mtdname}_1"
+	fi
+
+	mtdpart=$(grep "\"${curr_mtd}\"" /proc/mtd | awk -F: '{print $1}')
 
 	if [ $alive -eq 0 ]; then
 		ubidetach -f -p /dev/${mtdpart}
@@ -301,7 +310,9 @@ flash_section() {
 			mibib*) echo " Section $image_name is ignored "; continue ;;
 			bootconfig*) echo " Section $image_name is ignored "; continue ;;
 			gpt*) echo " Section $image_name is ignored "; continue ;;
+			norgpt*) echo " Section $image_name is ignored "; continue ;;
 			gptbackup*) echo " Section $image_name is ignored "; continue ;;
+			norgptbackup*) echo " Section $image_name is ignored "; continue ;;
 			wifi_fw*) do_flash_failsafe_partition ${image_name} "0:WIFIFW"; do_flash_failsafe_ubi_volume ${image_name} "rootfs" "wifi_fw" ;;
 			ubi*) do_flash_ubi ${image_name} $partition;;
 			*) do_flash_failsafe_partition ${image_name} $partition;;
