@@ -303,7 +303,9 @@ flash_section() {
 			mibib*)      echo " Section $image_name is ignored "; continue ;;
 			bootconfig*) echo " Section $image_name is ignored "; continue ;;
 			gpt*)        echo " Section $image_name is ignored "; continue ;;
+			norgpt*)     echo " Section $image_name is ignored "; continue ;;
 			gptbackup*)  echo " Section $image_name is ignored "; continue ;;
+			norgptbackup*) echo " Section $image_name is ignored "; continue ;;
 			script*)     echo " Section $image_name is ignored "; continue ;;
 			wifi_fw*|wififw*)     do_flash_failsafe_partition ${image_name} "0:WIFIFW"; do_flash_failsafe_ubi_volume ${image_name} "rootfs" "wifi_fw" ;;
 			ubi*)        do_flash_ubi ${image_name} $partition ;;
