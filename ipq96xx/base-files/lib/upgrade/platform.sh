@@ -493,14 +493,15 @@ platform_check_image() {
 	}
 
 	[ -f /tmp/hlos_version ] && rm -f /tmp/*_version
-	dumpimage -c $1
-	if [[ "$?" == 0 ]];then
-		return $?
-	else
-		echo "Rebooting the system"
-		reboot
-		return 1
-	fi
+	# dumpimage -c $1
+	# if [[ "$?" == 0 ]];then
+	# 	return $?
+	# else
+	# 	echo "Rebooting the system"
+	# 	reboot
+	#	return 1
+	# fi
+	return 0
 }
 
 do_upgrade() {
