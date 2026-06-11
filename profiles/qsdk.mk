@@ -265,6 +265,9 @@ define Profile/QSDK_Sfu
 		-kmod-usb-dwc3-qcom-internal -kmod-ata-ahci -kmod-ata-core -kmod-scsi-core \
                 -kmod-usb-phy-ipq5018 \
                 -kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget -kmod-usb-phy-ipq807x kmod-qca-debug-uio\
+		-kmod-usb3 -qti-softsku-license-loader-libs -luci-app-samba4 \
+		-samba4-libs -kmod-usb-xhci-hcd -kmod-usb-net-rtl8152 -kmod-usb-net \
+		-kmod-usb-net-cdc-ncm -kmod-usb-net-cdc-ether \
 		$(NSS_SFU) \
 		$(OPTEE_CLIENT) $(PON_PKGS) $(TEST_TOOLS)
 endef
