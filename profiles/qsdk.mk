@@ -54,7 +54,7 @@ OPENWRT_STANDARD:= luci lua openssl-util zram-swap
 
 OPENWRT_BASIC:= wifi-scripts memory-dashboard
 
-OPENWRT_256MB:= pm-utils wififw_mount_script qca-thermald qti-license-pfm
+OPENWRT_256MB:= pm-utils wififw_mount_script qca-thermald qti-license-pfm lua
 
 STORAGE:=kmod-scsi-core kmod-usb-storage kmod-usb-uas kmod-nls-cp437 kmod-nls-iso8859-1 \
 	kmod-fs-msdos kmod-fs-vfat kmod-fs-ntfs ntfs-3g e2fsprogs losetup
