@@ -13,7 +13,7 @@ PON_PKGS:=omci-pon nss-pon-drv
 WIFI_OPEN_PKGS:= kmod-ath12k kmod-ath11k wpad-mesh-openssl hostapd-utils \
 	control-app-open sigma-dut-open wpa-cli qca-wifi-scripts cnssdiag myftm kmod-telemetry-agent \
 	athtestcmd-lith-nl udtool qca-cfg80211tool wifitelemetry qca-acfg \
-	qca-rptr-mgr athstruct-parser extmon
+	qca-rptr-mgr qca-cfg80211 qca-spectral athstruct-parser extmon \
 #	sigma-dut-open wpa-cli qcmbr-netlink iwinfo \
 #	athtestcmd athtestcmd-lith-nl -libhyficommon qca-wifi-scripts -kmod-telemetry-agent
 
@@ -243,7 +243,8 @@ define Profile/QSDK_256Open
 		-kmod-usb-phy-ipq807x kmod-qca-hyfi-bridge \
 		$(NSS_256) kmod-bonding kmod-qca-debug-uio\
 		$(EMESH_SP) $(ATH_CLIENT) \
-		$(WIFI_OPEN_PKGS) $(WIFI_OPEN_NSS_PLGN_PKGS) $(WIFI_FW_PKGS) $(MACSEC_OPEN_PKGS) \
+		$(WIFI_OPEN_PKGS) $(WIFI_OPEN_NSS_PLGN_PKGS) $(WIFI_FW_PKGS) \
+		$(MACSEC_OPEN_PKGS) -qca-cfg80211 -qca-spectral  \
 		$(OPTEE_CLIENT) $(PON_PKGS) $(ERP)
 endef
 
