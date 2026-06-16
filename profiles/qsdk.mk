@@ -219,7 +219,8 @@ define Profile/QSDK_Open
 		-qapp-store libtirpc cfr_tools syslog-ng \
 		iperf3 libunwind perf qsig kmod-noc-dp-drv kmod-llcc_perfmon llcc-perfmon-scripts \
 		$(PRPLMESH_DEP_PKGS) \
-		$(NSS_OPEN) $(PON_PKGS) $(FASTRPC) $(ERP)
+		$(NSS_OPEN) $(PON_PKGS) $(FASTRPC) $(ERP) hmp_performance_governor
+
 endef
 
 #	$(HW_CRYPTO) $(QMI_SAMPLE_APP)
