@@ -93,6 +93,38 @@ define Device/qcom_rdp491
 endef
 TARGET_DEVICES += qcom_rdp491
 
+define Device/qcom_rdp507
+	$(call Device/ipq9650-fitimage-base)
+	DEVICE_MODEL := RDP507
+	BOARD_NAME := ap-rdp507
+	BUILD_DTS_ipq9650-rdp507 := 1
+endef
+TARGET_DEVICES += qcom_rdp507
+
+define Device/qcom_rdp529
+	$(call Device/ipq9650-fitimage-base)
+	DEVICE_MODEL := RDP529
+	BOARD_NAME := ap-rdp529
+	BUILD_DTS_ipq9650-rdp529 := 1
+endef
+TARGET_DEVICES += qcom_rdp529
+
+define Device/qcom_rdp530
+	$(call Device/ipq9650-fitimage-base)
+	DEVICE_MODEL := RDP530
+	BOARD_NAME := ap-rdp530
+	BUILD_DTS_ipq9650-rdp530 := 1
+endef
+TARGET_DEVICES += qcom_rdp530
+
+define Device/qcom_rdp532
+	$(call Device/ipq9650-fitimage-base)
+	DEVICE_MODEL := RDP532
+	BOARD_NAME := ap-rdp532
+	BUILD_DTS_ipq9650-rdp532 := 1
+endef
+TARGET_DEVICES += qcom_rdp532
+
 define Device/qcom_emulation-fbc
 	$(call Device/ipq9650-fitimage-base)
 	DEVICE_MODEL :=
