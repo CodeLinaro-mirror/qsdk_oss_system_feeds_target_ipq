@@ -246,7 +246,7 @@ define Profile/QSDK_256Open
 		$(EMESH_SP) $(ATH_CLIENT) \
 		$(WIFI_OPEN_PKGS) $(WIFI_OPEN_NSS_PLGN_PKGS) $(WIFI_FW_PKGS) \
 		$(MACSEC_OPEN_PKGS) -qca-cfg80211 -qca-spectral  \
-		$(OPTEE_CLIENT) $(PON_PKGS) $(ERP)
+		$(OPTEE_CLIENT) $(PON_PKGS) $(ERP) iperf3
 endef
 
 define Profile/QSDK_256Open/Description
