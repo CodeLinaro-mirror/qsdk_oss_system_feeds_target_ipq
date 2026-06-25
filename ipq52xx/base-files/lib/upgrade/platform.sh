@@ -594,32 +594,82 @@ set_force_inactive() {
 	return 0
 }
 
-# activate_bank() - activates the upgraded bank for alive/OMCI upgrade.
+# activate_bank() - activates the specified bank for alive/OMCI upgrade.
+# activate_bank <bank>   bank = 0 (active) or 1 (inactive)
+# activate_bank          boots opposite bank as per current bank.
 activate_bank() {
-	local partlabel=$(get_cmdline_partlabel)
-	case "$partlabel" in
-		rootfs-active)   fw_setenv bootfrom 1 2>/dev/null ;;
-		rootfs-inactive) fw_setenv bootfrom 0 2>/dev/null ;;
-	esac
+	if [ -n "$1" ]; then
+		case "$1" in
+			0|1) ;;
+			*) echo "ERROR: Invalid bank to activate: '$1'" >&2; return 1 ;;
+		esac
+		if ! fw_setenv bootfrom "$1" 2>/dev/null; then
+			echo "ERROR: Activate bank $1 failed" >&2
+			return 1
+		fi
+		case "$1" in
+			0) echo "Active Bank is Activated" ;;
+			1) echo "Inactive Bank is Activated" ;;
+		esac
+	else
+		local partlabel=$(get_cmdline_partlabel)
+		case "$partlabel" in
+			rootfs-active)
+				fw_setenv bootfrom 1 2>/dev/null
+				echo "Inactive Bank is Activated"
+				;;
+			rootfs-inactive)
+				fw_setenv bootfrom 0 2>/dev/null
+				echo "Active Bank is Activated"
+				;;
+			*)
+				echo "ERROR: Invalid bank to activate" >&2
+				return 1
+				;;
+		esac
+	fi
 	if [ -f /sys/class/registers/bootcount ]; then
 		echo 0 > /sys/class/registers/bootcount
 	fi
 	return 0
 }
 
-# commit_bank() - commits the active bank after a successful upgrade.
+# commit_bank() - commits the specified bank for alive/OMCI upgrade.
+# commit_bank <bank>   bank = 0 (active) or 1 (inactive)
+# commit_bank          sets bootfrom to commit the running bank.
 commit_bank() {
-	local partlabel=$(get_cmdline_partlabel)
-	case "$partlabel" in
-		rootfs-active)
-			fw_setenv bootfrom 0 2>/dev/null
-			echo "Active Bank is Committed"
-			;;
-		rootfs-inactive)
-			fw_setenv bootfrom 1 2>/dev/null
-			echo "Inactive Bank is Committed"
-			;;
-	esac
+	if [ -n "$1" ]; then
+		case "$1" in
+			0|1) ;;
+			*) echo "ERROR: Invalid bank to commit: '$1'" >&2; return 1 ;;
+		esac
+		if ! fw_setenv bootfrom "$1" 2>/dev/null; then
+			echo "ERROR: Commit bank $1 failed" >&2
+			return 1
+		fi
+		case "$1" in
+			0) echo "Active Bank is Committed" ;;
+			1) echo "Inactive Bank is Committed" ;;
+		esac
+		return 0
+	else
+		local partlabel=$(get_cmdline_partlabel)
+		case "$partlabel" in
+			rootfs-active)
+				fw_setenv bootfrom 0 2>/dev/null
+				echo "Active Bank is Committed"
+				;;
+			rootfs-inactive)
+				fw_setenv bootfrom 1 2>/dev/null
+				echo "Inactive Bank is Committed"
+				;;
+			*)
+				echo "ERROR: Invalid bank to commit" >&2
+				return 1
+				;;
+		esac
+		return 0
+	fi
 }
 
 get_magic_long_at() {

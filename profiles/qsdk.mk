@@ -54,7 +54,7 @@ OPENWRT_STANDARD:= luci lua openssl-util zram-swap
 
 OPENWRT_BASIC:= wifi-scripts memory-dashboard mem-profile
 
-OPENWRT_256MB:= pm-utils wififw_mount_script qca-thermald qti-license-pfm lua
+OPENWRT_256MB:= pm-utils wififw_mount_script qca-thermald qti-license-pfm lua sysstat
 
 STORAGE:=kmod-scsi-core kmod-usb-storage kmod-usb-uas kmod-nls-cp437 kmod-nls-iso8859-1 \
 	kmod-fs-msdos kmod-fs-vfat kmod-fs-ntfs ntfs-3g e2fsprogs losetup
@@ -269,7 +269,7 @@ define Profile/QSDK_Sfu
                 -kmod-usb-core -kmod-usb-dwc3-internal -kmod-usb-gadget -kmod-usb-phy-ipq807x kmod-qca-debug-uio\
 		-kmod-usb3 -qti-softsku-license-loader-libs -luci-app-samba4 \
 		-samba4-libs -kmod-usb-xhci-hcd -kmod-usb-net-rtl8152 -kmod-usb-net \
-		-kmod-usb-net-cdc-ncm -kmod-usb-net-cdc-ether \
+		-kmod-usb-net-cdc-ncm -kmod-usb-net-cdc-ether ip-bridge rpcd rpcd-mod-luci \
 		$(NSS_SFU) \
 		$(OPTEE_CLIENT) $(PON_PKGS) $(TEST_TOOLS)
 endef
