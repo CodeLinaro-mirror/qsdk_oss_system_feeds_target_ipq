@@ -21,8 +21,18 @@ endef
 
 define Device/FitImageLzma
 	KERNEL_SUFFIX := -fit-uImage.itb
-	KERNEL = kernel-bin | lzma | fit lzma $$(DTS_DIR)/$$(DEVICE_DTS).dtb 
+	KERNEL = kernel-bin | lzma | fit lzma $$(DTS_DIR)/$$(DEVICE_DTS).dtb | ExportKernelArtifacts
 	KERNEL_NAME := Image
+endef
+
+define Build/ExportKernelArtifacts
+	mkdir -p $(BIN_DIR)/debug/modules
+	mkdir -p $(BIN_DIR)/dtbs
+	-$(CP) $(STAGING_DIR_ROOT)/lib/modules/$(LINUX_VERSION)*/* $(BIN_DIR)/debug/modules/
+	-$(CP) $(KDIR)/vmlinux.debug $(BIN_DIR)/$(IMG_PREFIX)-vmlinux.elf
+	-$(CP) $(KDIR)/vmlinux-initramfs.debug $(BIN_DIR)/$(IMG_PREFIX)-vmlinux-initramfs.elf
+	-$(CP) $(KDIR)/Image* $(BIN_DIR)/dtbs/
+	-$(CP) $(DTS_DIR)/ipq5610-*.dtb $(BIN_DIR)/dtbs/
 endef
 
 define Device/MultiDTBFitImage
