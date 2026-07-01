@@ -245,7 +245,7 @@ define Profile/QSDK_256Open
 		$(NSS_256) kmod-bonding kmod-qca-debug-uio athdiag ath11k-fwtest\
 		$(EMESH_SP) $(ATH_CLIENT) \
 		$(WIFI_OPEN_PKGS) $(WIFI_OPEN_NSS_PLGN_PKGS) $(WIFI_FW_PKGS) \
-		$(MACSEC_OPEN_PKGS) -qca-cfg80211 -qca-spectral  \
+		$(MACSEC_OPEN_PKGS) -qca-spectral  \
 		$(OPTEE_CLIENT) $(PON_PKGS) $(ERP) iperf3
 endef
 
