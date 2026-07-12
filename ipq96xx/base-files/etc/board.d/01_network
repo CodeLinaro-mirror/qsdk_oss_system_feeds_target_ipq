@@ -29,6 +29,8 @@ ipq96xx_setup_interfaces()
 	 qcom,ipq9650-rdp532 |\
 	 qcom,ipq9650-db-ju01|\
 	 qcom,ipq9650-db-ju01-c1|\
+	 qcom,ipq9650-db-ju01-c2|\
+	 qcom,ipq9650-tb-ju01.1|\
 	 qcom,ipq9650-db-ju02)
 		ucidef_set_interfaces_lan_wan "eth1 eth2 eth3 eth4 eth5" "eth0"
 	 	;;

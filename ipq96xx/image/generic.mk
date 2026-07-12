@@ -45,6 +45,14 @@ define Device/qcom_db-ju01-c1
 endef
 TARGET_DEVICES += qcom_db-ju01-c1
 
+define Device/qcom_db-ju01-c2
+	$(call Device/ipq9650-fitimage-base)
+	DEVICE_MODEL := DB-JU01-C2
+	BOARD_NAME := db-ju01-c2
+	BUILD_DTS_ipq9650-db-ju01-c2 := 1
+endef
+TARGET_DEVICES += qcom_db-ju01-c2
+
 define Device/qcom_db-ju02
 	$(call Device/ipq9650-fitimage-base)
 	DEVICE_MODEL := DB-JU02
@@ -52,6 +60,14 @@ define Device/qcom_db-ju02
 	BUILD_DTS_ipq9650-db-ju02 := 1
 endef
 TARGET_DEVICES += qcom_db-ju02
+
+define Device/qcom_tb-ju01.1
+	$(call Device/ipq9650-fitimage-base)
+	DEVICE_MODEL := TB-JU01.1
+	BOARD_NAME := tb-ju01.1
+	BUILD_DTS_ipq9650-tb-ju01.1 := 1
+endef
+TARGET_DEVICES += qcom_tb-ju01.1
 
 define Device/qcom_rdp488
 	$(call Device/ipq9650-fitimage-base)
