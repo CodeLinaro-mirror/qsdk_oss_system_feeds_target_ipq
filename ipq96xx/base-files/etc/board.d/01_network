@@ -16,6 +16,27 @@ CFG=/etc/board.json
 ipq96xx_setup_interfaces()
 {
 	local board="$1"
+	local has_qce2204=0
+	local port_count=0
+	local lan_ifaces=""
+
+	# Check if qce2204 is present
+	if grep -q "qce2204" /proc/device-tree/soc@0/*/switch0@*/compatible 2>/dev/null; then
+		has_qce2204=1
+		# Count the number of ports
+		port_count=$(ls /proc/device-tree/soc@0/*/switch0@*/ports/port@*/name 2>/dev/null | wc -l)
+
+		# Build lan interface list based on port count without port@0
+		local i=1
+		while [ $i -lt $port_count ]; do
+			if [ -n "$lan_ifaces" ]; then
+				lan_ifaces="$lan_ifaces lan$i"
+			else
+				lan_ifaces="lan$i"
+			fi
+			i=$((i + 1))
+		done
+	fi
 
 	case "$board" in
 	 qcom,ipq9650-rdp488 |\
@@ -29,11 +50,17 @@ ipq96xx_setup_interfaces()
 	 qcom,ipq9650-rdp532 |\
 	 qcom,ipq9650-db-ju01|\
 	 qcom,ipq9650-db-ju01-c1|\
-	 qcom,ipq9650-db-ju01-c2|\
 	 qcom,ipq9650-tb-ju01.1|\
 	 qcom,ipq9650-db-ju02)
 		ucidef_set_interfaces_lan_wan "eth1 eth2 eth3 eth4 eth5" "eth0"
 	 	;;
+	 qcom,ipq9650-db-ju01-c2)
+		if [ "$has_qce2204" = "1" ]; then
+			ucidef_set_interfaces_lan_wan "eth1 $lan_ifaces" "eth2"
+		else
+			ucidef_set_interfaces_lan_wan "eth1 eth2" "eth0"
+		fi
+		;;
 	 *)
 	 	echo "Unsupported hardware. Network interfaces not intialized"
 	 	;;
