@@ -271,7 +271,28 @@ define Profile/QSDK_Sfu
 		-samba4-libs -kmod-usb-xhci-hcd -kmod-usb-net-rtl8152 -kmod-usb-net \
 		-kmod-usb-net-cdc-ncm -kmod-usb-net-cdc-ether ip-bridge rpcd rpcd-mod-luci \
 		$(NSS_SFU) \
-		$(OPTEE_CLIENT) $(PON_PKGS) $(TEST_TOOLS)
+		$(OPTEE_CLIENT) $(PON_PKGS) $(TEST_TOOLS) \
+		-kmod-qca-nss-ppe-pppoe-mgr -kmod-qca-nss-ppe-tun \
+		-wifi-scripts -wififw_mount_script -ucode-mod-nl80211 -ATH12K_SAWF \
+		-ppp -ppp-mod-pppoe -kmod-ppp -kmod-pppoe -kmod-pppox -kmod-pptp \
+		-rp-pppoe-common -rp-pppoe-relay -rp-pppoe-server \
+		-kmod-qca-nss-ppe-pppoe-mgr -kmod-nat46 \
+		-tc-full -kmod-ifb -kmod-sched-cake -kmod-sched-pie \
+		-kmod-sched-act-ipt -kmod-sched-act-police -kmod-sched-connmark \
+		-kmod-vxlan -kmod-gre -kmod-iptunnel \
+		-kmod-udptunnel4 -kmod-udptunnel6 -kmod-qca-nss-ppe-tun \
+		-linuxptp -knot-resolver_dnstap -kmod-macvlan -kmod-qca-nss-sfe \
+		-firewall4 \
+		-kmod-nf-nat -kmod-nft-nat -kmod-nf-conntrack -kmod-nf-conntrack6 \
+		-kmod-nf-conncount -kmod-nf-flow -kmod-nf-log -kmod-nf-log6 \
+		-kmod-nf-reject -kmod-nf-reject6 -kmod-nfnetlink \
+		-kmod-nft-core -kmod-nft-fib -kmod-nft-offload \
+		-kmod-ipt-conntrack -kmod-ipt-conntrack-extra -kmod-ipt-core \
+		-kmod-ipt-filter -kmod-ipt-ipopt \
+		-kmod-ebtables -ebtables-legacy \
+		-iptables-mod-conntrack-extra -iptables-mod-filter -iptables-mod-ipopt \
+		-nftables-json \
+		-kmod-qca-nss-macsec -kmod-macsec -kmod-qcom-lnx-phy-macsec
 endef
 
 define Profile/QSDK_Sfu/Description
