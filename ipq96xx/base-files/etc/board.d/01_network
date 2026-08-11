@@ -45,6 +45,7 @@ ipq96xx_setup_interfaces()
 	 qcom,ipq9650-rdp491 |\
 	 qcom,ipq9650-rdp506 |\
 	 qcom,ipq9650-rdp507 |\
+	 qcom,ipq9650-rdp525 |\
 	 qcom,ipq9650-rdp529 |\
 	 qcom,ipq9650-rdp530 |\
 	 qcom,ipq9650-rdp532 |\
