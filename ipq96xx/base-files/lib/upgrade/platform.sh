@@ -410,17 +410,18 @@ flash_section() {
 		image_name=$(echo $line | cut -d ' ' -f1)
 		partition=$(echo $line | cut -d ' ' -f2)
 		case "${image_name}" in
-			mibib*)      echo " Section $image_name is ignored "; continue ;;
-			bootconfig*) echo " Section $image_name is ignored "; continue ;;
-			gpt*)        echo " Section $image_name is ignored "; continue ;;
-			norgpt*)     echo " Section $image_name is ignored "; continue ;;
-			gptbackup*)  echo " Section $image_name is ignored "; continue ;;
-			norgptbackup*) echo " Section $image_name is ignored "; continue ;;
-			script*)     echo " Section $image_name is ignored "; continue ;;
+			mibib*)      echo " Section $image_name is ignored "; rm -f /tmp/${image_name}.bin; continue ;;
+			bootconfig*) echo " Section $image_name is ignored "; rm -f /tmp/${image_name}.bin; continue ;;
+			gpt*)        echo " Section $image_name is ignored "; rm -f /tmp/${image_name}.bin; continue ;;
+			norgpt*)     echo " Section $image_name is ignored "; rm -f /tmp/${image_name}.bin; continue ;;
+			gptbackup*)  echo " Section $image_name is ignored "; rm -f /tmp/${image_name}.bin; continue ;;
+			norgptbackup*) echo " Section $image_name is ignored "; rm -f /tmp/${image_name}.bin; continue ;;
+			script*)     echo " Section $image_name is ignored "; rm -f /tmp/${image_name}.bin; continue ;;
 			wifi_fw*|wififw*)     do_flash_failsafe_partition ${image_name} "0:WIFIFW"; do_flash_failsafe_ubi_volume ${image_name} "rootfs" "wifi_fw" ;;
 			ubi*)        do_flash_ubi ${image_name} $partition ;;
 			*)           do_flash_failsafe_partition ${image_name} $partition ;;
 		esac
+		[ -f /tmp/${image_name}.bin ] && rm -f /tmp/${image_name}.bin
 		echo "Flashed ${image_name}"
 	done < $output_list
 	return 0
@@ -572,6 +573,8 @@ platform_do_upgrade() {
 				echo 0 > /sys/class/registers/bootcount
 			fi
 		fi
+
+		rm -f /tmp/*.img
 
 		erase_emmc_config
 		return 0;
