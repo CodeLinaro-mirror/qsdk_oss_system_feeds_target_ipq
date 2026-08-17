@@ -214,7 +214,19 @@ extract_images() {
 image_demux() {
 	local img=$1
 	local machid=$(fw_printenv | grep machid | cut -d'=' -f2)
+	local hw_rev=$(cat /sys/devices/soc0/revision 2>/dev/null)
 	local script_file="script_${machid}"
+
+	# Check HW SoC version and extract respective SCR (script_<machid>_<hw_rev>)
+	# If SoC version not found, fallback to old method(script_<machid>).
+	if [ -n "$hw_rev" ]; then
+		echo " Found HW SoC version : $hw_rev "
+		local versioned="script_${machid}_${hw_rev}"
+		dumpimage -l ${img} | grep -qw "${versioned}" && script_file="${versioned}"
+	else
+		echo " HW SoC version Not found "
+	fi
+
 	local input_scr=/tmp/${script_file}.scr
 	local output_list=/tmp/firm_list.txt
 	local position=$(dumpimage -l ${img} |grep $script_file |cut -d ' ' -f3)
