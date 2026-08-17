@@ -77,6 +77,15 @@ define Device/qcom_rdp488
 endef
 TARGET_DEVICES += qcom_rdp488
 
+define Device/qcom_rdp488-c2
+	$(call Device/ipq9650-fitimage-base)
+	DEVICE_MODEL := RDP488
+	DEVICE_VARIANT := C2
+	BOARD_NAME := ap-rdp488-c2
+	BUILD_DTS_ipq9650-rdp488-c2 := 1
+endef
+TARGET_DEVICES += qcom_rdp488-c2
+
 define Device/qcom_rdp489
 	$(call Device/ipq9650-fitimage-base)
 	DEVICE_MODEL := RDP489
