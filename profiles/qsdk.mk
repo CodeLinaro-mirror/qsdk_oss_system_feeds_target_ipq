@@ -207,6 +207,31 @@ endef
 
 $(eval $(call Profile,QSDK_Cov))
 
+define Profile/QSDK_Extender
+	NAME:=Qualcomm Technologies, Inc SDK Extender Profile
+	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(STORAGE) $(TEST_TOOLS) $(CNSS_DIAG) \
+		$(FAILSAFE) $(DIAG) $(FTM) $(COREBSP_UTILS) \
+		$(KPI) \
+		$(WIFI_OPEN_PKGS) $(WIFI_OPEN_NSS_PLGN_PKGS) -qca-thermald $(UTILS) \
+		$(MINIDUMP) \
+		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
+		-qapp-store libtirpc cfr_tools syslog-ng kmod-ipsec \
+		iperf3 libunwind perf qsig kmod-noc-dp-drv kmod-llcc_perfmon llcc-perfmon-scripts \
+		$(PRPLMESH_DEP_PKGS) \
+		$(NSS_EXTENDER) $(FASTRPC) $(ERP) hmp_performance_governor
+
+endef
+
+#	$(HW_CRYPTO) $(QMI_SAMPLE_APP)
+
+define Profile/QSDK_Extender/Description
+	QSDK Extender package set configuration.
+	Enables wifi open source packages for pure repeater/extender mode
+	(no gateway/WAN routing, NAT, or VPN functionality)
+endef
+
+$(eval $(call Profile,QSDK_Extender))
+
 define Profile/QSDK_Open
 	NAME:=Qualcomm Technologies, Inc SDK Open Profile
 	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) $(STORAGE) $(TEST_TOOLS) $(AUDIO) $(CNSS_DIAG) \
