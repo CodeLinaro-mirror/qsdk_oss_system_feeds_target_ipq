@@ -246,7 +246,7 @@ define Profile/QSDK_256Open
 		$(EMESH_SP) $(ATH_CLIENT) \
 		$(WIFI_OPEN_PKGS) $(WIFI_OPEN_NSS_PLGN_PKGS) $(WIFI_FW_PKGS) \
 		$(MACSEC_OPEN_PKGS) -qca-spectral  \
-		$(OPTEE_CLIENT) $(PON_PKGS) $(ERP) iperf3
+		$(OPTEE_CLIENT) $(PON_PKGS) $(ERP) iperf3 ethtool i2c-tools ip-bridge rpcd rpcd-mod-luci
 endef
 
 define Profile/QSDK_256Open/Description
