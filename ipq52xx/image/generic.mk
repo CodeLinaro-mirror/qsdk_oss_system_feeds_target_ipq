@@ -45,6 +45,14 @@ define Device/qcom_db-hm01.1
 endef
 TARGET_DEVICES += qcom_db-hm01.1
 
+define Device/qcom_db-hm01-c1
+	$(call Device/ipq5210-fitimage-base)
+	DEVICE_MODEL := DB-HM01-C1
+	BOARD_NAME := db-hm01-c1
+	BUILD_DTS_ipq5210-db-hm01-c1 := 1
+endef
+TARGET_DEVICES += qcom_db-hm01-c1
+
 define Device/qcom_db-hm02.1
 	$(call Device/ipq5210-fitimage-base)
 	DEVICE_MODEL := DB-HM02.1
@@ -52,6 +60,14 @@ define Device/qcom_db-hm02.1
 	BUILD_DTS_ipq5210-db-hm02.1 := 1
 endef
 TARGET_DEVICES += qcom_db-hm02.1
+
+define Device/qcom_db-hm02-c1
+	$(call Device/ipq5210-fitimage-base)
+	DEVICE_MODEL := DB-HM02-C1
+	BOARD_NAME := db-hm02-c1
+	BUILD_DTS_ipq5210-db-hm02-c1 := 1
+endef
+TARGET_DEVICES += qcom_db-hm02-c1
 
 define Device/qcom_rdp499
 	$(call Device/ipq5210-fitimage-base)

@@ -58,7 +58,9 @@ ipq52xx_setup_interfaces()
 	 	ucidef_set_interfaces_lan_wan "eth1 eth2 eth3 eth4" "eth0"
 		;;
 	qcom,ipq5210-db-hm01.1 |\
+	qcom,ipq5210-db-hm01-c1 |\
 	qcom,ipq5210-db-hm02.1 |\
+	qcom,ipq5210-db-hm02-c1 |\
 	qcom,ipq5210-rdp499 |\
 	qcom,ipq5210-rdp503)
 		ucidef_set_interfaces_lan_wan "eth1 eth2 eth3 eth4 eth5" "eth0"
