@@ -40,6 +40,7 @@ ipq96xx_setup_interfaces()
 
 	case "$board" in
 	 qcom,ipq9650-rdp488 |\
+	 qcom,ipq9650-rdp488-c2 |\
 	 qcom,ipq9650-rdp489 |\
 	 qcom,ipq9650-rdp490 |\
 	 qcom,ipq9650-rdp491 |\
