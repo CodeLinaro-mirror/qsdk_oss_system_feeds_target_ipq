@@ -374,7 +374,7 @@ define Profile/QSDK_MinEntOpen
 		$(UTILS) $(TEST_TOOLS) $(COREBSP_UTILS) \
 		$(CNSS_DIAG) $(FTM) -qca-cnss-daemon \
 		$(DIAG) $(KPI) $(FAILSAFE)  \
-		$(NSS_MINENT_OPEN)
+		$(NSS_MINENT_OPEN) $(FASTRPC)
 endef
 
 define Profile/QSDK_MinEntOpen/Description
