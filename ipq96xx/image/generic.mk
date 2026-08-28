@@ -126,6 +126,14 @@ define Device/qcom_rdp507
 endef
 TARGET_DEVICES += qcom_rdp507
 
+define Device/qcom_rdp525
+	$(call Device/ipq9650-fitimage-base)
+	DEVICE_MODEL := RDP525
+	BOARD_NAME := ap-rdp525
+	BUILD_DTS_ipq9650-rdp525 := 1
+endef
+TARGET_DEVICES += qcom_rdp525
+
 define Device/qcom_rdp529
 	$(call Device/ipq9650-fitimage-base)
 	DEVICE_MODEL := RDP529
