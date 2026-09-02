@@ -352,7 +352,7 @@ define Profile/QSDK_MinEnt
 	NAME:=Qualcomm Technologies, Inc SDK MinEnt Profile
 	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) \
 		$(WIFI_PKGS_MINENT) $(WIFI_FW_PKGS) $(STORAGE) $(HW_CRYPTO) \
-		$(UTILS) $(TEST_TOOLS) $(COREBSP_UTILS) \
+		$(UTILS) $(TEST_TOOLS) $(COREBSP_UTILS) -kmod-qca-debug-uio \
 		$(CNSS_DIAG) \
 		$(CTRL_APP_DUT) $(FTM) $(QMSCT_CLIENT) \
 		$(DIAG) $(KPI) $(FAILSAFE) \
@@ -371,7 +371,7 @@ define Profile/QSDK_MinEntOpen
 	NAME:=Qualcomm Technologies, Inc SDK MinEnt Open Profile
 	PACKAGES:=$(OPENWRT_BASIC) $(OPENWRT_STANDARD) \
 		$(WIFI_OPEN_PKGS) $(WIFI_FW_PKGS) $(STORAGE) $(HW_CRYPTO) \
-		$(UTILS) $(TEST_TOOLS) $(COREBSP_UTILS) \
+		$(UTILS) $(TEST_TOOLS) $(COREBSP_UTILS) -kmod-qca-debug-uio \
 		$(CNSS_DIAG) $(FTM) -qca-cnss-daemon \
 		$(DIAG) $(KPI) $(FAILSAFE)  \
 		$(NSS_MINENT_OPEN) $(FASTRPC)
