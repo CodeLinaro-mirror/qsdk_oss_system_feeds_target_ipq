@@ -433,7 +433,10 @@ flash_section() {
 			ubi*)        do_flash_ubi ${image_name} $partition ;;
 			*)           do_flash_failsafe_partition ${image_name} $partition ;;
 		esac
-		[ -f /tmp/${image_name}.bin ] && rm -f /tmp/${image_name}.bin
+		case "${image_name}" in
+			rootfs*) ;; # kept for platform_copy_config's offset detection; removed there
+			*)       [ -f /tmp/${image_name}.bin ] && rm -f /tmp/${image_name}.bin ;;
+		esac
 		echo "Flashed ${image_name}"
 	done < $output_list
 	return 0
@@ -748,6 +751,7 @@ platform_copy_config() {
 		}
 		echo y | mkfs.ext4 -F -L rootfs_data $loopdev
 		mount -t ext4 "$loopdev" /tmp/overlay
+		rm -f /tmp/rootfs-*.bin
 	fi
 
 	cp /tmp/sysupgrade.tgz /tmp/overlay/
