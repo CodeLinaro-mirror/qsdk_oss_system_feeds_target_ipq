@@ -241,7 +241,7 @@ define Profile/QSDK_Open
 		$(USB_ETHERNET) \
 		$(MINIDUMP) $(MACSEC_OPEN_PKGS) \
 		-qca-cnss-daemon qca-wifi-hk-fw-hw1-10.4-asic athdiag qrtr ath11k-fwtest ath11k-qdss \
-		-qapp-store libtirpc cfr_tools syslog-ng \
+		-qapp-store libtirpc cfr_tools syslog-ng config_cfr \
 		iperf3 libunwind perf qsig kmod-noc-dp-drv kmod-llcc_perfmon llcc-perfmon-scripts \
 		$(PRPLMESH_DEP_PKGS) \
 		$(NSS_OPEN) $(PON_PKGS) $(FASTRPC) $(ERP) hmp_performance_governor
