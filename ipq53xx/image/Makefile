@@ -56,7 +56,7 @@ define Build/MultiDTBFIT
 	$(call Build/MkFITMulti,qcom_mixx,$@,$(call FindDeviceTrees, ipq5332-), lzma, $(KERNEL_LOADADDR),$(KERNEL_LOADADDR))
 	mkdir -p $(BIN_DIR)/debug/modules
 	mkdir -p $(BIN_DIR)/dtbs
-	$(CP) $(STAGING_DIR_ROOT)/lib/modules/$(LINUX_VERSION)*/* $(BIN_DIR)/debug/modules/
+	$(CP) -n $(STAGING_DIR_ROOT)/lib/modules/$(LINUX_VERSION)*/* $(BIN_DIR)/debug/modules/
 	$(CP) $(KDIR)/vmlinux.debug $(BIN_DIR)/$(IMG_PREFIX)-vmlinux.elf
 	$(CP) $(KDIR)/vmlinux-initramfs.debug $(BIN_DIR)/$(IMG_PREFIX)-vmlinux-initramfs.elf
 	$(CP) $(KDIR)/Image* $(BIN_DIR)/dtbs/
