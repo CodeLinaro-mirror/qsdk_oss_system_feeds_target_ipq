@@ -8,6 +8,7 @@ define Device/Default
 	KERNEL_LOADADDR := $(if $(CONFIG_TARGET_ipq52xx_generic),0x80000000,0x80008000)
 	DEVICE_DTS = $$(SOC)-$(lastword $(subst _, ,$(1)))
 	DEVICE_DTS_CONFIG := config-1
+	DEVICE_FIT_HASH_ALGO := sha256
 	IMAGES := sysupgrade.bin
 	IMAGE/sysupgrade.bin = sysupgrade-tar | append-metadata
 	IMAGE/sysupgrade.bin/squashfs :=
@@ -66,13 +67,13 @@ endef
 
 define Build/MkFITMulti
         $(TOPDIR)/scripts/mkits.sh \
-                -D $(1) -o $(KDIR)/fit-$(1).its -k $(2) $(foreach dtb,$(subst \",,$(3)), -d $(DTS_DIR)/$(dtb).dtb$(if $(7),.gz)) -C $(4) -a $(5) -e $(6) $(if $(7),-x $(7) -l $(8))\
+                -D $(1) -o $(KDIR)/fit-$(1).its -k $(2) $(foreach dtb,$(subst \",,$(3)), -d $(DTS_DIR)/$(dtb).dtb$(if $(7),.gz)) -C $(4) -a $(5) -e $(6) $(if $(7),-x $(7) -l $(8)) $(if $(9),-H $(9))\
                 -A $(LINUX_KARCH) -v $(LINUX_VERSION)
         PATH=$(LINUX_DIR)/scripts/dtc:$(PATH) mkimage -f $(KDIR)/fit-$(1).its $(KDIR)/$(1)$(KERNEL_SUFFIX)
 endef
 
 define Build/MultiDTBFIT
-        $(call Build/MkFITMulti,qcom_hmxx,$@,$(call FindDeviceTrees, ipq5210-), lzma, $(KERNEL_LOADADDR),$(KERNEL_LOADADDR))
+        $(call Build/MkFITMulti,qcom_hmxx,$@,$(call FindDeviceTrees, ipq5210-), lzma, $(KERNEL_LOADADDR),$(KERNEL_LOADADDR),,,$(DEVICE_FIT_HASH_ALGO))
 	$(call Build/ExportKernelArtifacts)
 endef
 
